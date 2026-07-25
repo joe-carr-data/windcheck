@@ -1,0 +1,19 @@
+$ windcheck selfgap data/PHerc0814_tifxyz
+
+                             trace      u  <2.0vx  flag%     blob  blob%   top5  du p10   valid
+-----------------------------------------------------------------------------------------------
+20250925161630-auto_grown_20250925    950   0.32   0.6       11  0.11   60%     298      OK
+20250925182632-auto_grown_20250925   1084   3.13   5.4       48  0.47   34%     344      OK
+20250925204843-auto_grown_20250925   1593   3.38   5.2      151  1.04   55%     481      OK
+20250925222237-auto_grown_20250925    595   8.22   9.4      207  3.86   86%     108  REJECT
+20250926051122-auto_grown_20250926   2589   6.81   8.3      240  0.92   38%     268      OK
+20250926165636-auto_trace_20250926   1361   0.93   1.8       21  0.16   37%     501      OK
+20250926203608-auto_grown_20250926   1223   2.07   3.5       57  0.54   53%     412      OK
+20250928235953-auto_grown_20250928   2638   1.32   2.6       33  0.12   18%     276      OK
+20250930083742-auto_grown_20250930   1027   0.76   1.4       22  0.21   43%     239      OK
+20251001060526-auto_grown_20251001   1234  11.27  12.7      218  2.11   65%      70  REJECT
+
+  10 analysed, 9 skipped (single-wrap: no previous wrap to compare against)
+  REJECT 20250925222237-auto_grown_20250925222237459: |du| p10 = 108 is within 2.0x the exclusion cutoff (60); flags may be same-wrap artifacts
+  REJECT 20251001060526-auto_grown_20251001060526760: |du| p10 = 70 is within 2.0x the exclusion cutoff (60); flags may be same-wrap artifacts
+  wrote /Users/jcarr/windcheck-public/sample_outputs/PHerc0814_report.json
