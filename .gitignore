@@ -27,3 +27,8 @@ notes/STRATEGY.md
 
 # compiled engine
 engines/atlas_query
+
+# LaTeX build artifacts
+docs/*.aux
+docs/*.log
+docs/*.out
