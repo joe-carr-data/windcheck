@@ -32,6 +32,10 @@ only scatter. Distinguishing these is what the tool is for.
   the geometric kernel agrees with exhaustive search to 3.6e-6 voxels.
 - **It's cheap.** A few minutes per scroll on a laptop. No GPU, no volume
   download, no per-scroll training — calibrate, then run.
+- **Detection is measured, not asserted.** On defects planted in a clean trace,
+  it localises them at **0.96 precision** and up to **0.89 recall**, against a
+  0.86% false-positive baseline — under a gate written before the run.
+  Reproduce with `uv run python bench/inject_benchmark.py`.
 
 It reports **geometry and a ranking**, not a verdict: which trace a human should
 open first. See [docs/submission.pdf](docs/submission.pdf) §6 for exactly what

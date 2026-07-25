@@ -1,0 +1,13 @@
+$ uv run python bench/inject_benchmark.py
+
+host: 08_0_flatboi   grid 555x2460   period ~271 columns
+      baseline flagged: 0.864% of grid cells
+
+  defect (v x u)    cells   recall  precision      f1
+        40 x 120    4,800     0.66       0.97    0.79
+        80 x 200   16,000     0.82       0.96    0.88
+       150 x 240   36,000     0.89       0.96    0.92
+
+false positives outside any defect, clean host: 0.864%
+
+PRE-REGISTERED GATE: PASS

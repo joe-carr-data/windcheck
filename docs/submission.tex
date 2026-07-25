@@ -173,6 +173,53 @@ output: it says which trace a human should open first.
 validity filter are greyed rather than removed.}
 \end{figure}
 
+\section{Detection performance on planted defects}
+
+The absence of any published set of known-bad segments is what left the CT
+comparisons inconclusive. That obstacle can be removed rather than argued
+around: take a trace the check reports as clean, copy a patch of \emph{its own
+previous wrap} onto it, and the correct answer is known exactly.
+
+The planted defect is the doubled-back case --- $\text{points}[v,u] \leftarrow
+\text{points}[v, u-T]$ over a patch, with $T$ the revolution period in grid
+columns, a feathered boundary and 0.4\,voxel jitter. Note that this makes
+\emph{two} regions coincide, the patch and the wrap it was copied from; both are
+scored as ground truth, because flagging either is correct.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrr}
+\toprule
+planted defect (v $\times$ u) & cells & recall & precision \\
+\midrule
+$40 \times 120$  &  4{,}800 & 0.66 & 0.97 \\
+$80 \times 200$  & 16{,}000 & 0.82 & 0.96 \\
+$150 \times 240$ & 36{,}000 & 0.89 & 0.96 \\
+\bottomrule
+\end{tabular}
+\caption{Cell-level detection of defects planted in \texttt{auto\_grown\_0}, the
+cleanest trace in the sample. False-positive rate on the same trace before
+injection: 0.86\%. The gate --- recall $\ge 0.70$ and precision $\ge 0.50$ at
+the two larger sizes --- was written before the benchmark was run.}
+\end{table}
+
+\textbf{Precision is the number that matters here}, because a corrector acts on
+what the detector localises: at 0.96, a repair driven by these flags would be
+operating on the right surface almost every time. Recall scales with defect size
+and falls to 0.66 on the smallest patch, so small defects are missed.
+
+Two limits of the benchmark, stated because they bound what it proves. The
+injection copies a neighbouring wrap verbatim, whereas a real doubled-back trace
+drifts onto the wrong wrap and follows it with its own local geometry --- so
+this is an easier target than reality. And it is one host trace; varying the
+host and weakening the copy are the obvious next steps.
+
+\begin{sloppypar}
+Reproduce with \texttt{uv run python bench/inject\_benchmark.py};
+the output is committed at \texttt{sample\_outputs/benchmark.txt}.
+\end{sloppypar}
+
 \section{What is established, and what is not}
 
 \subsection*{Established}
@@ -195,6 +242,10 @@ segments. That rules out supervised detection and supervised evaluation for
 everyone, not just for this work. A check derived from a property the correct
 answer must satisfy is the only kind available, and this is one: no labels, no
 model, no GPU, no volume download, a few minutes per scroll on a laptop.
+
+\textbf{Detection is quantified, not asserted.} On defects planted in a clean
+trace, the check localises them at 0.96 precision and up to 0.89 recall against
+a 0.86\% false-positive baseline, under a gate fixed before the run.
 
 \textbf{The output is directly actionable.} It produces a ranking --- which
 trace to open first --- with a $100\times$ spread between the top and bottom of
