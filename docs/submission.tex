@@ -209,11 +209,34 @@ what the detector localises: at 0.96, a repair driven by these flags would be
 operating on the right surface almost every time. Recall scales with defect size
 and falls to 0.66 on the smallest patch, so small defects are missed.
 
-Two limits of the benchmark, stated because they bound what it proves. The
-injection copies a neighbouring wrap verbatim, whereas a real doubled-back trace
-drifts onto the wrong wrap and follows it with its own local geometry --- so
-this is an easier target than reality. And it is one host trace; varying the
-host and weakening the copy are the obvious next steps.
+A verbatim copy on one host is the easiest possible case, so both were varied:
+the copy fidelity was degraded by adding jitter, and the whole sweep repeated on
+three host traces.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+jitter (voxels) & 0.4 & 2 & 5 & 9 & 14 \\
+\midrule
+host 0 & 0.80 & 0.80 & 0.68 & 0.54 & 0.48 \\
+host 1 & 0.75 & 0.75 & 0.63 & 0.50 & 0.45 \\
+host 3 & 0.80 & 0.79 & 0.69 & 0.55 & 0.50 \\
+\midrule
+precision & 0.94--1.00 & 0.94--1.00 & 0.93--1.00 & 0.90--0.98 & 0.83--0.92 \\
+\bottomrule
+\end{tabular}
+\caption{Recall against how faithfully the planted defect copies the
+neighbouring wrap. Sheet spacing is $\sim$17 voxels, so by jitter 14 the patch
+is barely on the wrong wrap at all.}
+\end{table}
+
+Three things follow. Recall degrades \emph{smoothly} --- there is no cliff, so
+the check is not merely detecting an artificial signature. Precision holds at
+0.83 or better throughout, meaning the check grows quieter as defects grow
+subtler rather than noisier, which is the property a corrector depends on. And
+the three hosts agree to within $\pm 0.05$ at every difficulty.
 
 \begin{sloppypar}
 Reproduce with \texttt{uv run python bench/inject\_benchmark.py};
