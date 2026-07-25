@@ -16,7 +16,7 @@ Same scroll, same settings. The upper trace has a single flagged region covering
 **7.02%** of its surface and spanning roughly half its length; the lower one has
 only scatter. Distinguishing these is what the tool is for.
 
-### Why it might be useful
+### Why it is useful
 
 - **It works where supervised methods can't.** There is no published set of
   known-bad segments, so nothing can be trained or scored against ground truth.
