@@ -303,6 +303,27 @@ int main(int argc, char** argv) {
         if (!read_exact(fa, &winding, 1) || !read_exact(fa, &rows, 1) || !read_exact(fa, &cols, 1)) {
             std::fprintf(stderr, "bad surface header %u\n", s); return 1;
         }
+
+        // rows == 0 marks a triangle soup rather than a grid, so an unstructured
+        // mesh (OBJ) can be checked with the same kernel. `cols` then holds the
+        // triangle count, and each triangle carries its own tag -- for a grid
+        // the tag is derived from the column index, here it comes from the
+        // mesh's own vt parametrisation.
+        if (rows == 0) {
+            const uint32_t n_tri = cols;
+            std::vector<float> buf(9);
+            int32_t tag = 0;
+            for (uint32_t t = 0; t < n_tri; ++t) {
+                if (!read_exact(fa, buf.data(), 9) || !read_exact(fa, &tag, 1)) {
+                    std::fprintf(stderr, "truncated triangle soup %u\n", s); return 1;
+                }
+                tris.push_back({{buf[0], buf[1], buf[2]},
+                                {buf[3], buf[4], buf[5]},
+                                {buf[6], buf[7], buf[8]},
+                                self_gap ? tag : winding});
+            }
+            continue;
+        }
         std::vector<float> xyz(static_cast<size_t>(rows) * cols * 3);
         std::vector<uint8_t> valid(static_cast<size_t>(rows) * cols);
         if (!read_exact(fa, xyz.data(), xyz.size()) ||

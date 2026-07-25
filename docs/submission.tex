@@ -237,6 +237,20 @@ rhetorical either --- it \emph{rejected the two highest-scoring traces in this
 study}. A detector that discards its own best-looking results is one whose
 surviving results mean something.
 
+\textbf{No existing tool does this.} A search of the
+\texttt{volume-cartographer} tree finds no self-contact, injectivity or
+fold check anywhere on the mesh representation; the one relevant parameter,
+\texttt{resume\_local\_row\_self\_intersection\_cell\_factor}, has no consumer
+in the codebase. The naive alternative --- nearest-\emph{sample} distance ---
+is not merely worse but unusable here, since grids are sampled every $\sim$20
+voxels while sheets sit $\sim$17 apart.
+
+\textbf{It is format-independent.} The same trace measured from its published
+\texttt{tifxyz} grid and from its 415\,MB \texttt{.obj} mesh agrees to
+0.06 percentage points (6.60\% versus 6.54\% inside 2.0 voxels), with the
+exclusion width chosen automatically in each --- 129 grid columns against 28
+parameter units. Two independent parsers, one kernel, one answer.
+
 \textbf{It works where nothing else can.} There is no published set of known-bad
 segments. That rules out supervised detection and supervised evaluation for
 everyone, not just for this work. A check derived from a property the correct

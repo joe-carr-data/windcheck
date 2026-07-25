@@ -32,6 +32,13 @@ only scatter. Distinguishing these is what the tool is for.
   the geometric kernel agrees with exhaustive search to 3.6e-6 voxels.
 - **It's cheap.** A few minutes per scroll on a laptop. No GPU, no volume
   download, no per-scroll training — calibrate, then run.
+- **Nothing else does this.** A search of the `volume-cartographer` tree finds
+  no self-contact, injectivity or fold check anywhere on the mesh
+  representation; the one relevant parameter,
+  `resume_local_row_self_intersection_cell_factor`, has **no consumer in the
+  codebase**. The naive alternative — nearest-*sample* distance — cannot work
+  here: grids are sampled every ~20 voxels while sheets sit ~17 apart, so it
+  cannot even separate a one-sheet gap from a two-sheet gap.
 - **Detection is measured, not asserted.** On defects planted in a clean trace,
   it localises them at **0.96 precision** and up to **0.89 recall**, against a
   0.86% false-positive baseline — under a gate written before the run.
@@ -166,6 +173,45 @@ and is not by itself informative. Concentration is what separates traces:
 
 JSON output carries the same fields plus coverage, median gap, 4-connectivity
 component size, and the rejection reason.
+
+## Use as a library
+
+Everything the CLI does is available directly. `analyse` returns a dataclass; the
+JSON output is the same fields.
+
+```python
+from windcheck import selfgap
+
+r = selfgap.analyse("path/to/segment.tifxyz", exclude_u="auto")
+if r and r.valid and r.blob_fraction > 0.02:
+    print(f"{r.name}: {r.blob_fraction:.2%} of the surface in one region")
+```
+
+| field | type | meaning |
+|---|---|---|
+| `name`, `u_extent`, `n_points`, `coverage` | str, int, int, float | identity and how much was analysed |
+| `median_gap` | float | median distance to the next wrap, voxels |
+| `frac_below_grower_th`, `frac_flagged` | float | inside 2.0 vx and 6.0 vx |
+| `largest_blob`, `blob_fraction`, `largest_blob_4c`, `top5_share` | int, float, int, float | concentration (zero for OBJ input — see below) |
+| `du_p10`, `du_median` | float | where flagged partners sit, in u |
+| `valid`, `reason` | bool, str | the validity verdict |
+
+Lower layers are usable on their own: `windcheck.tifxyz.read` and
+`windcheck.objmesh.read` return surfaces and meshes, `windcheck.atlas` writes the
+engine's binary formats, and `windcheck.inject` plants defects for benchmarking.
+
+## Input formats
+
+| format | self-gap | concentration stats |
+|---|---|---|
+| `tifxyz` (VC3D grid) | yes | yes |
+| `.obj` **with** `vt` parametrisation | yes | no — a triangle soup has no grid to label components on |
+| `.obj` **without** `vt` | no — refused rather than guessed | no |
+
+The same trace measured in both published formats agrees closely: `<2.0vx` of
+**6.60%** from the tifxyz and **6.54%** from the 415 MB OBJ, with `exclude_u`
+chosen automatically in each (129 grid columns vs 28 parameter units). Two
+parsers, one kernel, one answer.
 
 ## Performance
 

@@ -88,6 +88,28 @@ def write_queries(points: np.ndarray, path: Path) -> int:
     return len(pts)
 
 
+def write_atlas_mesh(mesh, path: Path, winding: int = -1) -> int:
+    """Serialise an unstructured triangle mesh for the engine.
+
+    Uses the `rows == 0` record type, which lets the same kernel consume an OBJ
+    mesh and a tifxyz grid. Returns the triangle count.
+    """
+    tri = np.ascontiguousarray(mesh.triangle_xyz(), dtype="<f4")   # (T, 3, 3)
+    tags = (np.ascontiguousarray(mesh.tri_u, dtype="<i4")
+            if mesh.has_param else np.zeros(len(tri), dtype="<i4"))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("wb") as fh:
+        fh.write(MAGIC_ATLAS)
+        fh.write(struct.pack("<II", VERSION, 1))
+        fh.write(struct.pack("<iII", winding, 0, len(tri)))   # rows=0 -> soup
+        # interleave: 9 floats then the int32 tag, per triangle
+        payload = np.empty(len(tri), dtype=[("xyz", "<f4", (9,)), ("tag", "<i4")])
+        payload["xyz"] = tri.reshape(len(tri), 9)
+        payload["tag"] = tags
+        fh.write(payload.tobytes())
+    return len(tri)
+
+
 def write_queries_grouped(points: np.ndarray, groups: np.ndarray, path: Path) -> int:
     """Serialise query points tagged with a group id (self-gap mode).
 

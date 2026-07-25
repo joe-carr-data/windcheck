@@ -56,6 +56,10 @@ def _discover(root: Path) -> dict[str, Path]:
         if not (d / "x.tif").exists():
             continue
         found.setdefault(d.relative_to(root).parts[0], d)
+    # OBJ meshes are accepted too, but only where no tifxyz was found for that
+    # segment: the grid form carries concentration statistics the mesh cannot.
+    for o in sorted(root.rglob("*.obj")):
+        found.setdefault(o.relative_to(root).parts[0] + ":" + o.stem, o)
     return found
 
 
@@ -68,7 +72,12 @@ def cmd_selfgap(args: argparse.Namespace) -> int:
         print(f"no such path: {root}", file=sys.stderr)
         return 2
 
-    targets = {root.name: root} if (root / "z.tif").exists() else _discover(root)
+    if root.suffix.lower() == ".obj":
+        targets = {root.stem: root}
+    elif (root / "z.tif").exists():
+        targets = {root.name: root}
+    else:
+        targets = _discover(root)
     if not targets:
         print(f"no tifxyz surfaces found under {root}", file=sys.stderr)
         return 2

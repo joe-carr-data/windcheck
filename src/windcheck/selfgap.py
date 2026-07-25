@@ -40,6 +40,52 @@ from . import atlas, tifxyz
 GROWER_TH = 2.0        # GrowSurface.cpp:121  same_surface_th
 FLAG_TH = 6.0          # our wider flag, for spatial clustering
 DU_SAFETY = 2.0        # flagged |du| must exceed DU_SAFETY * exclude_u
+AUTO_FRACTION = 0.25   # adaptive cutoff: this fraction of the measured period
+
+
+def estimate_exclude_u(path: Path, stride: int, work: Path, threads: int,
+                       probe: int = 12) -> int | None:
+    """Choose an exclusion width from the trace's own revolution period.
+
+    A fixed cutoff in grid columns is not portable. The same surface published
+    as tifxyz spans ~3065 columns and as OBJ ~667 parameter units, so a cutoff
+    of 60 is 2% of a revolution in one and 55% in the other -- and the second
+    gets rejected by the validity filter for being too close to its own cutoff.
+
+    So: probe with a deliberately small exclusion, read the revolution period
+    off where the flagged partners actually sit, and set the real cutoff to a
+    quarter of it. That is small enough to keep the neighbouring wrap in view
+    and large enough to exclude the local surface, in whatever units the file
+    happens to use.
+    """
+    from . import objmesh
+
+    if Path(path).suffix.lower() == ".obj":
+        mesh = objmesh.read(path)
+        if not mesh.has_param:
+            return None
+        pts, tags = objmesh.sample_points(mesh, stride=stride)
+        span = int(mesh.tri_u.max() - mesh.tri_u.min())
+        atlas.write_atlas_mesh(mesh, work / "pr_atlas.bin")
+    else:
+        surf = tifxyz.read(path)
+        v, u = np.nonzero(surf.valid[::stride, ::stride])
+        pts, tags = surf.points[v * stride, u * stride], u * stride
+        span = int(surf.shape[1])
+        atlas.write_atlas([_Entry(path)], work / "pr_atlas.bin")
+
+    ex = max(span // 100, 3)
+    atlas.write_queries_grouped(pts, tags, work / "pr_query.bin")
+    r = atlas.run_engine(work / "pr_atlas.bin", work / "pr_query.bin",
+                         work / "pr_result.bin", threads=threads, exclude_u=ex)
+    d, w1 = r["d1"], r["w1"]
+    m = np.isfinite(d) & (d < FLAG_TH * 4)
+    if m.sum() < 50:
+        return None
+    period = float(np.median(np.abs(w1[m] - np.asarray(tags)[m])))
+    if not np.isfinite(period) or period < 4 * ex:
+        return None
+    return int(max(period * AUTO_FRACTION, 3))
 
 
 @dataclass
@@ -78,7 +124,7 @@ class _Entry:
 
 
 def analyse(path: Path | str, name: str = "", stride: int = 3,
-            exclude_u: int = 60, workdir: Path | None = None,
+            exclude_u: int | str = 60, workdir: Path | None = None,
             threads: int = 12) -> Result | None:
     """Run the self-gap analysis on one tifxyz surface.
 
@@ -89,6 +135,16 @@ def analyse(path: Path | str, name: str = "", stride: int = 3,
     path = Path(path)
     work = Path(workdir) if workdir else Path("out")
     work.mkdir(parents=True, exist_ok=True)
+
+    if exclude_u == "auto":
+        est = estimate_exclude_u(path, stride, work, threads)
+        if est is None:
+            return None          # period not measurable: nothing to compare against
+        exclude_u = est
+
+    if path.suffix.lower() == ".obj":
+        return _analyse_obj(path, name=name, stride=stride, exclude_u=exclude_u,
+                            work=work, threads=threads)
 
     surf = tifxyz.read(path)
     v, u = np.nonzero(surf.valid[::stride, ::stride])
@@ -176,4 +232,74 @@ def analyse(path: Path | str, name: str = "", stride: int = 3,
         du_median=du_med,
         valid=valid,
         reason=reason,
+    )
+
+
+def _analyse_obj(path: Path, *, name: str, stride: int, exclude_u: int,
+                 work: Path, threads: int) -> Result | None:
+    """Self-gap on an unstructured OBJ mesh.
+
+    Same invariant, same kernel. The differences are that exclusion runs against
+    the mesh's own `vt` u-coordinate rather than a grid column, and that the
+    spatial-concentration statistics are unavailable: connected components need
+    a grid, and a triangle soup has no rows to label. Those fields are reported
+    as zero rather than guessed at, so an OBJ row is never silently compared
+    against a tifxyz row on a statistic only one of them has.
+    """
+    from . import objmesh
+
+    mesh = objmesh.read(path)
+    if not mesh.has_param:
+        return None                      # no vt: self-gap is undefined here
+    pts, tags = objmesh.sample_points(mesh, stride=stride)
+    if len(pts) < 2000:
+        return None
+
+    atlas.write_atlas_mesh(mesh, work / "sg_atlas.bin")
+    atlas.write_queries_grouped(pts, tags, work / "sg_query.bin")
+    res = atlas.run_engine(work / "sg_atlas.bin", work / "sg_query.bin",
+                           work / "sg_result.bin", threads=threads,
+                           exclude_u=exclude_u)
+    d, w1 = res["d1"], res["w1"]
+    ok = np.isfinite(d)
+    if ok.sum() == 0:
+        return Result(
+            name=name or path.stem, u_extent=int(mesh.tri_u.max() - mesh.tri_u.min()),
+            n_points=0, coverage=0.0, median_gap=float("nan"),
+            frac_below_grower_th=0.0, frac_flagged=0.0, largest_blob=0,
+            blob_fraction=0.0, largest_blob_4c=0, top5_share=0.0,
+            du_p10=float("nan"), du_median=float("nan"), valid=True,
+            reason="no neighbouring wrap within search radius (null control)",
+        )
+
+    flagged = ok & (d < FLAG_TH)
+    frac_flagged = flagged.sum() / ok.sum()
+    if flagged.sum() > 20:
+        du = np.abs(w1[flagged] - tags[flagged]).astype(float)
+        du_p10, du_med = float(np.percentile(du, 10)), float(np.median(du))
+    else:
+        du_p10 = du_med = float("nan")
+
+    if frac_flagged < 1e-3:
+        valid, reason = True, "clean: no flagged regions"
+    elif not np.isfinite(du_p10):
+        valid, reason = True, "too few flagged points to characterise, treated as clean"
+    elif du_p10 < DU_SAFETY * exclude_u:
+        valid, reason = False, (
+            f"|du| p10 = {du_p10:.0f} is within {DU_SAFETY}x the exclusion cutoff "
+            f"({exclude_u}); flags may be same-wrap artifacts"
+        )
+    else:
+        valid, reason = True, "ok (obj: concentration statistics unavailable)"
+
+    return Result(
+        name=name or path.stem,
+        u_extent=int(mesh.tri_u.max() - mesh.tri_u.min()),
+        n_points=int(ok.sum()),
+        coverage=float(ok.mean()),
+        median_gap=float(np.median(d[ok])),
+        frac_below_grower_th=float((ok & (d < GROWER_TH)).sum() / ok.sum()),
+        frac_flagged=float(frac_flagged),
+        largest_blob=0, blob_fraction=0.0, largest_blob_4c=0, top5_share=0.0,
+        du_p10=du_p10, du_median=du_med, valid=valid, reason=reason,
     )
