@@ -16,6 +16,27 @@ Same scroll, same settings. The upper trace has a single flagged region covering
 **7.02%** of its surface and spanning roughly half its length; the lower one has
 only scatter. Distinguishing these is what the tool is for.
 
+### Why it might be useful
+
+- **It works where supervised methods can't.** There is no published set of
+  known-bad segments, so nothing can be trained or scored against ground truth.
+  This is derived instead from a property a correct trace must satisfy, so it
+  needs no labels at all.
+- **It carries controls that fire.** 44 labelled single-wrap segments return
+  0.00% — a segment with no previous wrap must produce nothing, and does. The
+  validity filter rejected the two *highest-scoring* traces in the sample as
+  artifacts. A check that discards its own best-looking results is one whose
+  surviving results mean something.
+- **The measurement is verifiable.** Sheet separation comes out linear in sheet
+  count to three decimals (1.000 : 2.003 : 3.004 over 126 surface pairs), and
+  the geometric kernel agrees with exhaustive search to 3.6e-6 voxels.
+- **It's cheap.** A few minutes per scroll on a laptop. No GPU, no volume
+  download, no per-scroll training — calibrate, then run.
+
+It reports **geometry and a ranking**, not a verdict: which trace a human should
+open first. See [docs/submission.pdf](docs/submission.pdf) §6 for exactly what
+is and is not established.
+
 ---
 
 ## What you get
