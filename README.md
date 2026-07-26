@@ -13,7 +13,7 @@ model and no volume download, and it is CPU-only.
 ![two traces compared](docs/img/gap_maps.png)
 
 Same scroll, same settings. The upper trace has a single flagged region covering
-**7.02%** of its surface and spanning roughly half its length; the lower one has
+**7.011%** of its submitted queries and spanning roughly half its length; the lower one has
 only scatter. Distinguishing these is what the tool is for.
 
 ### Why it is useful
@@ -22,23 +22,32 @@ only scatter. Distinguishing these is what the tool is for.
   known-bad segments, so nothing can be trained or scored against ground truth.
   This is derived instead from a property a correct trace must satisfy, so it
   needs no labels at all.
-- **It carries controls that fire.** 44 labelled single-wrap segments return
-  0.00% — a segment with no previous wrap must produce nothing, and does. The
-  validity filter rejected the two *highest-scoring* traces in the sample as
-  artifacts. A check that discards its own best-looking results is one whose
-  surviving results mean something.
+- **It carries controls that fire, including on itself.** At the default search
+  radius, 38 of 44 labelled single-wrap segments produce zero sub-6-voxel
+  contacts. Six produce small nonzero yields, 0.008%–0.330% of submitted
+  queries: four fail the `|Δu|` safety test, and the remaining two contain only
+  20 and 2 flags, too few to validate their offsets. The validity filter also
+  rejected the two *highest-scoring* traces in the sample as artifacts. A check
+  that discards its own best-looking results, and reports the controls it does
+  not pass cleanly, is one whose surviving results mean something.
 - **The measurement is verifiable.** Sheet separation comes out linear in sheet
   count to three decimals (1.000 : 2.003 : 3.004 over 126 surface pairs), and
   the geometric kernel agrees with exhaustive search to 3.6e-6 voxels.
 - **It's cheap.** A few minutes per scroll on a laptop. No GPU, no volume
   download, no per-scroll training — calibrate, then run.
-- **Nothing else does this.** A search of the `volume-cartographer` tree finds
-  no self-contact, injectivity or fold check anywhere on the mesh
-  representation; the one relevant parameter,
-  `resume_local_row_self_intersection_cell_factor`, has **no consumer in the
-  codebase**. The naive alternative — nearest-*sample* distance — cannot work
-  here: grids are sampled every ~20 voxels while sheets sit ~17 apart, so it
-  cannot even separate a one-sheet gap from a two-sheet gap.
+- **It fills a specific gap.** The `volume-cartographer` tree carries no
+  self-contact, injectivity or fold check on the mesh representation, and its
+  one relevant parameter, `resume_local_row_self_intersection_cell_factor`, has
+  no consumer in that tree. Related work does exist elsewhere in the same
+  monorepo and is not superseded by this: a vertex-proximity penalty inside the
+  fibre-registration optimiser, a UV-injectivity check in the unwrap pipeline
+  (which detects the dual case — close in UV, far in 3D), an animation-clearance
+  certificate that explicitly assumes its source mesh is already
+  intersection-free, and nearest-vertex overlap masks in the neural-tracing
+  datasets. None of them tests the wrap-scale self-contact of a traced surface.
+  The naive alternative — nearest-*sample* distance — cannot work here either:
+  grids are sampled every ~20 voxels while sheets sit ~17 apart, so it cannot
+  even separate a one-sheet gap from a two-sheet gap.
 - **Detection is measured, not asserted.** On defects planted in a clean trace,
   it localises them at **0.96 precision** and up to **0.89 recall**, against a
   0.86% false-positive baseline — under a gate written before the run. Recall
@@ -70,7 +79,7 @@ Needs Python 3.11–3.13, a C++17 compiler, and [uv](https://docs.astral.sh/uv/)
 ```sh
 uv sync
 clang++ -O3 -std=c++17 -pthread -o engines/atlas_query engines/atlas_query.cpp
-uv run pytest -q            # 5 tests, no data required
+uv run pytest -q            # 7 tests, no data required
 ```
 
 GCC works in place of `clang++`. `-pthread` is required: the engine uses a
@@ -159,7 +168,7 @@ uv run windcheck selfgap path/to/one.tifxyz
 | `<2.0vx` | % of points within 2.0 voxels of the trace's own next wrap. 2.0 is volume-cartographer's `same_surface_th` (`core/src/GrowSurface.cpp`), the distance at which its segment grower rejects a candidate for landing on already-traced surface. |
 | `flag%` | % within the wider 6.0-voxel flag, used for clustering |
 | `blob` | largest contiguous flagged region, in grid cells |
-| `blob%` | that region as a fraction of analysed points — **use this** for any comparison between traces. Raw cell counts scale with trace size and with `--stride`. |
+| `blob%` | that region as a fraction of **valid queries submitted** — **use this** for any comparison between traces. Raw cell counts scale with trace size and with `--stride`. Note it divides by every query submitted, not by the subset that returned a finite distance; a point whose nearest surface lies beyond the search radius is a known negative, not missing data. |
 | `top5` | share of flagged points in the five largest regions. High = concentrated, low = scattered. |
 | `du p10` | 10th percentile of \|u_partner − u_query\| over flagged points. Should sit near one revolution. |
 | `valid` | `OK`, or `REJECT` with a reason |
@@ -170,7 +179,12 @@ neighbours rather than the next wrap. Rows are rejected in code, not by
 inspection.
 
 **Scattered flagging at a few percent appears on every scroll checked so far**
-and is not by itself informative. Concentration is what separates traces:
+and is not by itself informative. Concentration ranks traces, and that is all it
+does: the labelled and auto-grown populations overlap at the low end (largest
+labelled component 0.147% of submitted queries, smallest auto-grown 0.056%), so
+a high `blob%` is a reason to look, not evidence that a trace is wrong. Within
+the nine auto-grown partitions the leader stands well clear at 7.011%, 4.6× the
+next at 1.514%:
 
 ![triage ranking](docs/img/triage_ranking.png)
 
@@ -212,7 +226,7 @@ engine's binary formats, and `windcheck.inject` plants defects for benchmarking.
 | `.obj` **without** `vt` | no — refused rather than guessed | no |
 
 The same trace measured in both published formats agrees closely: `<2.0vx` of
-**6.60%** from the tifxyz and **6.54%** from the 415 MB OBJ, with `exclude_u`
+**6.595%** from the tifxyz and **6.529%** from the 415 MB OBJ, with `exclude_u`
 chosen automatically in each (129 grid columns vs 28 parameter units). Two
 parsers, one kernel, one answer.
 

@@ -83,8 +83,11 @@ def cmd_selfgap(args: argparse.Namespace) -> int:
         return 2
 
     rows, skipped = [], 0
-    hdr = (f"{'trace':>34} {'u':>6} {'<2.0vx':>7} {'flag%':>6} "
-           f"{'blob':>8} {'blob%':>6} {'top5':>6} {'du p10':>7} {'valid':>7}")
+    # All percentages are of valid queries SUBMITTED, not of the ones that came
+    # back finite. `cover` is how many came back finite, shown so the reader can
+    # see how much of the trace the search radius actually reached.
+    hdr = (f"{'trace':>34} {'u':>6} {'cover':>6} {'<2.0vx':>7} {'flag%':>7} "
+           f"{'blob':>8} {'blob%':>7} {'top5':>6} {'du p10':>7} {'valid':>7}")
     print(hdr)
     print("-" * len(hdr))
     for name, path in targets.items():
@@ -93,9 +96,10 @@ def cmd_selfgap(args: argparse.Namespace) -> int:
             skipped += 1
             continue
         rows.append(r.as_dict())
-        print(f"{r.name[:34]:>34} {r.u_extent:>6} {r.frac_below_grower_th * 100:>6.2f} "
-              f"{r.frac_flagged * 100:>5.1f} {r.largest_blob:>8,} "
-              f"{r.blob_fraction * 100:>5.2f} {r.top5_share:>5.0%} "
+        print(f"{r.name[:34]:>34} {r.u_extent:>6} {r.coverage:>6.1%} "
+              f"{r.frac_below_grower_th * 100:>7.3f} "
+              f"{r.frac_flagged * 100:>7.3f} {r.largest_blob:>8,} "
+              f"{r.blob_fraction * 100:>7.3f} {r.top5_share:>5.0%} "
               f"{r.du_p10:>7.0f} {'OK' if r.valid else 'REJECT':>7}")
 
     print(f"\n  {len(rows)} analysed, {skipped} skipped (single-wrap: no previous "

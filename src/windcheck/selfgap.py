@@ -42,6 +42,26 @@ FLAG_TH = 6.0          # our wider flag, for spatial clustering
 DU_SAFETY = 2.0        # flagged |du| must exceed DU_SAFETY * exclude_u
 AUTO_FRACTION = 0.25   # adaptive cutoff: this fraction of the measured period
 
+# DENOMINATOR. Every reported fraction divides by the number of valid grid
+# cells *submitted*, never by the number that came back with a finite distance.
+#
+# The published version divided by the finite ones. On a trace where almost
+# nothing was measurable that denominator is tiny and the percentage stops being
+# a rate: w081 published a blob_fraction of 6.67% that was 10 cells out of 150,
+# ranking it second in the whole corpus behind a trace with 13,807 out of
+# 196,802. Its honest unconditional figure is 0.036%.
+#
+# Censoring is not missing data here. A query whose nearest admissible surface
+# lies beyond max_dist is a *known negative* for "nearest surface under 6 vx" --
+# it cannot secretly be under 6. So the unconditional rate is well defined for
+# every submitted point, and no coverage threshold is needed to compare traces.
+#
+# A COVERAGE_FLOOR was tried first and removed. It only hid the bad denominator,
+# and it was not the untuned cut it claimed to be: the bimodal coverage gap is a
+# property of the 256 vx search radius, not of the scroll. At 1024 vx the low
+# group climbs from 2-4% to 24-34% and the gap fills in. Report `coverage` as an
+# applicability statistic and let the reader see it; do not gate on it.
+
 
 def estimate_exclude_u(path: Path, stride: int, work: Path, threads: int,
                        probe: int = 12) -> int | None:
@@ -92,18 +112,18 @@ def estimate_exclude_u(path: Path, stride: int, work: Path, threads: int,
 class Result:
     name: str
     u_extent: int
-    n_points: int
-    coverage: float               # fraction with a finite self-gap
-    median_gap: float
+    n_queries: int                # valid grid cells submitted -- THE denominator
+    n_measurable: int             # of those, the ones with a finite self-gap
+    coverage: float               # n_measurable / n_queries; applicability only
+    median_gap: float             # over measurable points, so read with coverage
     frac_below_grower_th: float   # inside their 2.0 vx rejection threshold
     frac_flagged: float           # inside our wider 6 vx flag
     largest_blob: int             # biggest contiguous flagged region, grid cells
-    blob_fraction: float          # largest blob / analysed points -- USE THIS, not
-                                  # largest_blob, for any cross-trace comparison:
-                                  # raw counts scale with trace size and stride, and
-                                  # comparing a raw blob at one threshold against a
-                                  # rate at another is how a "58x anomaly" turned
-                                  # into a ~1.8x one under review
+    blob_fraction: float          # largest blob / n_queries -- USE THIS, not
+                                  # largest_blob, for any cross-trace comparison
+    flagged_given_neighbour: float  # flagged / n_measurable: the OLD conditional
+                                    # number, kept only so published figures can
+                                    # be traced. Never compare it across traces.
     largest_blob_4c: int          # same, 4-connectivity (8-connectivity above)
     top5_share: float             # concentration: top-5 blobs / all flagged
     du_p10: float
@@ -168,9 +188,11 @@ def analyse(path: Path | str, name: str = "", stride: int = 3,
     if ok.sum() == 0:
         return Result(
             name=name or path.parent.parent.name, u_extent=int(surf.shape[1]),
-            n_points=0, coverage=0.0, median_gap=float("nan"),
+            n_queries=int(d.size), n_measurable=0, coverage=0.0,
+            median_gap=float("nan"),
             frac_below_grower_th=0.0, frac_flagged=0.0, largest_blob=0,
-            blob_fraction=0.0, largest_blob_4c=0, top5_share=0.0,
+            blob_fraction=0.0, flagged_given_neighbour=0.0,
+            largest_blob_4c=0, top5_share=0.0,
             du_p10=float("nan"), du_median=float("nan"), valid=True,
             reason="no neighbouring wrap within search radius (null control)",
         )
@@ -203,8 +225,10 @@ def analyse(path: Path | str, name: str = "", stride: int = 3,
     # cutoff. Note the asymmetry -- this filter can only invalidate a POSITIVE.
     # A trace with no flags has nothing to be wrong about, so it passes clean;
     # calling that "rejected" would report the null control as a failure.
-    frac_flagged = flagged.sum() / ok.sum()
-    if frac_flagged < 1e-3:
+    n_queries = int(d.size)
+    frac_flagged = flagged.sum() / n_queries
+    coverage = float(ok.mean())
+    if flagged.sum() == 0:
         valid, reason = True, "clean: no flagged regions"
     elif not np.isfinite(du_p10):
         valid, reason = True, "too few flagged points to characterise, treated as clean"
@@ -219,13 +243,15 @@ def analyse(path: Path | str, name: str = "", stride: int = 3,
     return Result(
         name=name or path.parent.parent.name,
         u_extent=int(surf.shape[1]),
-        n_points=int(ok.sum()),
-        coverage=float(ok.mean()),
+        n_queries=n_queries,
+        n_measurable=int(ok.sum()),
+        coverage=coverage,
         median_gap=float(np.median(d[ok])),
-        frac_below_grower_th=float((ok & (d < GROWER_TH)).sum() / ok.sum()),
+        frac_below_grower_th=float((ok & (d < GROWER_TH)).sum() / n_queries),
         frac_flagged=float(frac_flagged),
         largest_blob=largest,
-        blob_fraction=float(largest / ok.sum()),
+        blob_fraction=float(largest / n_queries),
+        flagged_given_neighbour=float(flagged.sum() / ok.sum()),
         largest_blob_4c=largest_4c,
         top5_share=top5,
         du_p10=du_p10,
@@ -265,22 +291,25 @@ def _analyse_obj(path: Path, *, name: str, stride: int, exclude_u: int,
     if ok.sum() == 0:
         return Result(
             name=name or path.stem, u_extent=int(mesh.tri_u.max() - mesh.tri_u.min()),
-            n_points=0, coverage=0.0, median_gap=float("nan"),
+            n_queries=int(d.size), n_measurable=0, coverage=0.0,
+            median_gap=float("nan"),
             frac_below_grower_th=0.0, frac_flagged=0.0, largest_blob=0,
-            blob_fraction=0.0, largest_blob_4c=0, top5_share=0.0,
+            blob_fraction=0.0, flagged_given_neighbour=0.0,
+            largest_blob_4c=0, top5_share=0.0,
             du_p10=float("nan"), du_median=float("nan"), valid=True,
             reason="no neighbouring wrap within search radius (null control)",
         )
 
     flagged = ok & (d < FLAG_TH)
-    frac_flagged = flagged.sum() / ok.sum()
+    n_queries = int(d.size)
+    frac_flagged = flagged.sum() / n_queries
     if flagged.sum() > 20:
         du = np.abs(w1[flagged] - tags[flagged]).astype(float)
         du_p10, du_med = float(np.percentile(du, 10)), float(np.median(du))
     else:
         du_p10 = du_med = float("nan")
 
-    if frac_flagged < 1e-3:
+    if flagged.sum() == 0:
         valid, reason = True, "clean: no flagged regions"
     elif not np.isfinite(du_p10):
         valid, reason = True, "too few flagged points to characterise, treated as clean"
@@ -295,11 +324,14 @@ def _analyse_obj(path: Path, *, name: str, stride: int, exclude_u: int,
     return Result(
         name=name or path.stem,
         u_extent=int(mesh.tri_u.max() - mesh.tri_u.min()),
-        n_points=int(ok.sum()),
+        n_queries=n_queries,
+        n_measurable=int(ok.sum()),
         coverage=float(ok.mean()),
         median_gap=float(np.median(d[ok])),
-        frac_below_grower_th=float((ok & (d < GROWER_TH)).sum() / ok.sum()),
+        frac_below_grower_th=float((ok & (d < GROWER_TH)).sum() / n_queries),
         frac_flagged=float(frac_flagged),
-        largest_blob=0, blob_fraction=0.0, largest_blob_4c=0, top5_share=0.0,
+        largest_blob=0, blob_fraction=0.0,
+        flagged_given_neighbour=float(flagged.sum() / ok.sum()),
+        largest_blob_4c=0, top5_share=0.0,
         du_p10=du_p10, du_median=du_med, valid=valid, reason=reason,
     )

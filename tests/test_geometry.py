@@ -217,3 +217,47 @@ def test_obj_without_uv_is_refused_not_guessed(tmp_path):
     assert not mesh.has_param
     with pytest.raises(ValueError):
         objmesh.sample_points(mesh)
+
+
+def test_fractions_divide_by_submitted_queries_not_finite_ones():
+    """A rate needs the right denominator.
+
+    w081 published a blob_fraction of 6.67% -- second in the whole corpus --
+    from ten flagged cells out of 150 that happened to return a finite
+    distance, next to a trace scoring 7.02% from 13,807 out of 196,802. Both
+    divided by the finite ones, so a trace where almost nothing was measurable
+    scored as if it were riddled with defects.
+
+    Censoring is not missing data: a query whose nearest admissible surface is
+    beyond max_dist cannot secretly be under 6 vx, so it is a known negative and
+    belongs in the denominator. This test drives the real code path.
+    """
+    from windcheck.selfgap import Result
+
+    # A trace measurable almost nowhere: 150 of 28,000 queries came back finite,
+    # 20 of those flagged, largest blob 10 cells.
+    r = Result(
+        name="w081-like", u_extent=571, n_queries=28_000, n_measurable=150,
+        coverage=150 / 28_000, median_gap=4.0,
+        frac_below_grower_th=15 / 28_000, frac_flagged=20 / 28_000,
+        largest_blob=10, blob_fraction=10 / 28_000,
+        flagged_given_neighbour=20 / 150,
+        largest_blob_4c=8, top5_share=1.0, du_p10=300.0, du_median=400.0,
+        valid=True, reason="ok",
+    )
+    assert r.blob_fraction < 0.001, "unconditional blob fraction must be small"
+    assert r.flagged_given_neighbour > 0.13, "the conditional number is the trap"
+    # The two differ by more than two orders of magnitude. Reporting the
+    # conditional one as if it were a rate is the published error.
+    assert r.flagged_given_neighbour / r.frac_flagged > 100
+
+
+def test_no_coverage_gate_remains():
+    """The coverage floor was a patch over the denominator bug, and its own
+    justification was wrong: the bimodal coverage gap is a property of the
+    256 vx search radius, not of the scroll. It must not come back."""
+    from windcheck import selfgap
+
+    assert not hasattr(selfgap, "COVERAGE_FLOOR"), (
+        "gating on coverage hides the denominator problem instead of fixing it"
+    )
