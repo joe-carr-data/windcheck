@@ -280,8 +280,17 @@ int main(int argc, char** argv) {
                      argv[0]);
         return 2;
     }
-    const int threads = argc > 4 ? std::atoi(argv[4])
-                                 : static_cast<int>(std::thread::hardware_concurrency());
+    // A thread count of 0 means "decide for me", both when the argument is
+    // omitted and when it is passed explicitly. Taking an explicit 0 literally
+    // spawned no workers at all, so every result kept its default +inf and the
+    // run looked like a confident "nothing found anywhere" -- the worst
+    // possible failure for a detector, because a silent all-negative is
+    // indistinguishable from a clean sheet. Matches selfcross.cpp, which
+    // already resolved 0 this way.
+    int threads = argc > 4 ? std::atoi(argv[4])
+                           : static_cast<int>(std::thread::hardware_concurrency());
+    if (threads <= 0) threads = static_cast<int>(std::thread::hardware_concurrency());
+    if (threads <= 0) threads = 4;
     const float cell = argc > 5 ? static_cast<float>(std::atof(argv[5])) : 32.0f;
     const int32_t exclude_u = argc > 7 ? std::atoi(argv[7]) : 0;
     const bool self_gap = exclude_u > 0;

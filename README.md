@@ -1,266 +1,98 @@
 # windcheck
 
-Cross-wrap consistency checking for Herculaneum scroll segmentations.
+**Finds where a traced Herculaneum scroll surface passes through itself.**
 
-`windcheck` reads published `tifxyz` surfaces and reports where a traced sheet,
-after one full revolution around the scroll, lands back on the wrap it just
-traced instead of advancing to the next one. Input is a `tifxyz` directory (or a
-tree of segments); output is a per-trace table plus JSON. The method is
-point-to-surface distance from each grid point to the nearest part of the same
-surface at least *N* columns away in `u`. It needs no labels, no ground truth, no
-model and no volume download, and it is CPU-only.
+A traced sheet cannot pass through itself. Wherever a published `tifxyz` surface
+does, that is a defect in the representation — and unlike proximity, saying so
+needs no threshold, because it does not depend on how tightly the scroll is
+packed.
 
-![two traces compared](docs/img/gap_maps.png)
+Across **179 published segments from five scrolls** — Scroll 1, Scroll 5,
+PHerc0139, PHerc0814, PHerc1667, 228 million triangles — **160 contain at least
+one transverse self-intersection.**
 
-Same scroll, same settings. The upper trace has a single flagged region covering
-**7.011%** of its submitted queries and spanning roughly half its length; the lower one has
-only scatter. Distinguishing these is what the tool is for.
+Read [`docs/submission.md`](docs/submission.md) for the full result and
+[`docs/REPRODUCE.md`](docs/REPRODUCE.md) to rerun it. The whole audit takes
+**91 seconds** once the data is local.
 
-### Why it is useful
-
-- **It works where supervised methods can't.** There is no published set of
-  known-bad segments, so nothing can be trained or scored against ground truth.
-  This is derived instead from a property a correct trace must satisfy, so it
-  needs no labels at all.
-- **It carries controls that fire, including on itself.** At the default search
-  radius, 38 of 44 labelled single-wrap segments produce zero sub-6-voxel
-  contacts. Six produce small nonzero yields, 0.008%–0.330% of submitted
-  queries: four fail the `|Δu|` safety test, and the remaining two contain only
-  20 and 2 flags, too few to validate their offsets. The validity filter also
-  rejected the two *highest-scoring* traces in the sample as artifacts. A check
-  that discards its own best-looking results, and reports the controls it does
-  not pass cleanly, is one whose surviving results mean something.
-- **The measurement is verifiable.** Sheet separation comes out linear in sheet
-  count to three decimals (1.000 : 2.003 : 3.004 over 126 surface pairs), and
-  the geometric kernel agrees with exhaustive search to 3.6e-6 voxels.
-- **It's cheap.** A few minutes per scroll on a laptop. No GPU, no volume
-  download, no per-scroll training — calibrate, then run.
-- **It fills a specific gap.** The `volume-cartographer` tree carries no
-  self-contact, injectivity or fold check on the mesh representation, and its
-  one relevant parameter, `resume_local_row_self_intersection_cell_factor`, has
-  no consumer in that tree. Related work does exist elsewhere in the same
-  monorepo and is not superseded by this: a vertex-proximity penalty inside the
-  fibre-registration optimiser, a UV-injectivity check in the unwrap pipeline
-  (which detects the dual case — close in UV, far in 3D), an animation-clearance
-  certificate that explicitly assumes its source mesh is already
-  intersection-free, and nearest-vertex overlap masks in the neural-tracing
-  datasets. None of them tests the wrap-scale self-contact of a traced surface.
-  The naive alternative — nearest-*sample* distance — cannot work here either:
-  grids are sampled every ~20 voxels while sheets sit ~17 apart, so it cannot
-  even separate a one-sheet gap from a two-sheet gap.
-- **Detection is measured, not asserted.** On defects planted in a clean trace,
-  it localises them at **0.96 precision** and up to **0.89 recall**, against a
-  0.86% false-positive baseline — under a gate written before the run. Recall
-  degrades smoothly (0.80 → 0.48) as the planted defect stops being a clean
-  copy, with precision holding above 0.83 throughout, consistently across three
-  host traces. Reproduce with `uv run python bench/inject_benchmark.py` and
-  `bench/difficulty_sweep.py`.
-
-It reports **geometry and a ranking**, not a verdict: which trace a human should
-open first. See [docs/submission.pdf](docs/submission.pdf) §6 for exactly what
-is and is not established.
+> **Note on earlier versions of this tool.** windcheck previously measured
+> *proximity* — how close a trace comes to another part of itself. Two
+> volume-cartographer maintainers pointed out that this is undecidable, since
+> wraps in a crushed scroll genuinely lie microns apart and a 20 vx quad mesh can
+> interpolate to closer positions than its samples support. They were right. The
+> tool now measures transverse self-intersection instead, which the packing
+> objection cannot touch. See `docs/submission.md` §2.
 
 ---
 
+## Quick start
+
+```sh
+uv sync --extra viz
+clang++ -O3 -std=c++17 -pthread -o engines/selfcross   engines/selfcross.cpp
+clang++ -O3 -std=c++17 -pthread -o engines/atlas_query engines/atlas_query.cpp
+
+uv run pytest -q                                  # 21 tests, no data needed
+uv run python -m windcheck.fetch --sample PHerc0172
+uv run python bench/crossing_census.py --root data/scroll5_tifxyz \
+      --volume 20241024131839 --json out/crossing/census.json --work out/crossing
+uv run python bench/crossing_analyse.py
+```
+
+No GPU. No labels, no ground truth, no model. The core measurement reads only
+the published surface meshes — no volume download at all.
+
 ## What you get
 
-One command, three subcommands.
+A **certificate** per trace, in physical and revolution units, carrying its own
+caveats and enough provenance to reproduce it.
 
-| | |
+An **overlay** in volume-cartographer's own `PointCollections` JSON schema, so it
+opens in the existing point-collection widget with no transform — one point per
+crossing *event*, not per triangle pair.
+
+```json
+"measurements": {
+  "total_area_mm2": 43952.5,
+  "separation_revolutions": 4.908,
+  "covering_span_revolutions": 5.91,
+  "crossing_events": 563,
+  "events_beyond_cut": 379
+},
+"verdict": "wrap-scale self-overlap present"
+```
+
+## What the number means
+
+Self-overlaps fall into three bands, separated by how far apart the two
+overlapping parts lie in **turns of the scroll**:
+
+| separation | reading |
 |---|---|
-| `windcheck selfgap` | **The normal entry point.** Runs the check over every surface under a path and prints a table: fraction of points inside the 2.0-voxel same-surface threshold, fraction inside the wider 6.0-voxel flag, largest contiguous flagged region (raw and normalised), concentration, and a validity verdict per trace. |
-| `windcheck calibrate` | Re-derives the sheet-separation table from labelled `wNNN` segments — what one, two and three sheets of separation actually measure, in voxels, on the scroll being checked. Run this before trusting any threshold on new data. |
-| `windcheck status` | Summarises a sample's published corpus: labelled windings, `auto_grown` traces, whether the winding run is contiguous. |
+| under 0.12 revolutions | local pinch; common, associated with elevated quad twist |
+| 0.90 – 1.24 revolutions | the segment's own two ends meeting — **correct geometry, not a defect** |
+| over 1.8 revolutions | the trace has jumped its wrap |
 
-## Building
+The boundary between the first two is the largest gap in the whole distribution,
+9.56×, against 1.47× for the next largest — so it is found in the data rather
+than chosen.
 
-Needs Python 3.11–3.13, a C++17 compiler, and [uv](https://docs.astral.sh/uv/).
+## How far to trust it
 
-```sh
-uv sync
-clang++ -O3 -std=c++17 -pthread -o engines/atlas_query engines/atlas_query.cpp
-uv run pytest -q            # 7 tests, no data required
-```
+- Agrees with **FCL** in both directions: 250/250 on positives, 249/250 on
+  negatives, the single disagreement explained.
+- Counts are **deterministic** across thread counts and broad-phase cell sizes,
+  pinned by regression tests.
+- The revolution period is checked against **published winding counts**: on 31 of
+  33 Scroll 1 segments named by winding range, r = 0.9999, mean absolute error
+  0.033 windings.
+- Its span is invariant to **0.3%** across a 70× change in sampling density, and
+  ~90% of intersections survive **every** choice of quad diagonal.
 
-GCC works in place of `clang++`. `-pthread` is required: the engine uses a
-`std::thread` pool, not OpenMP. The engine is the only compiled component.
-
-## Input format
-
-A `tifxyz` surface is a directory containing:
-
-```
-x.tif  y.tif  z.tif     float32, identical shape (v, u)
-meta.json               carries "scale" and "bbox"
-```
-
-The three images are a 2D grid of 3D vertex coordinates: grid index `(v,u)` maps
-to a volume coordinate `(x,y,z)`. Walking along `u` goes around the scroll.
-Missing cells are marked by setting all three coordinates to `-1`, or via an
-optional `mask.tif` sidecar; both are honoured.
-
-Both published layouts in the open-data bucket are found automatically:
-
-```
-<segment>/mesh/<id>-on-<volume>-<res>.tifxyz/
-<segment>/mesh/intermediate/tifxyz_original/
-```
-
-Fetch a scroll's surfaces (~670 MB for `PHerc0172`):
-
-```sh
-uv run python -m windcheck.fetch --sample PHerc0172
-uv run python -m windcheck.fetch --verify      # re-check against the manifest
-```
-
-This writes `data/scroll5_tifxyz/` and `data/MANIFEST.json`, which pins every
-file by S3 key, byte count and SHA-256.
-
-## Usage
-
-### 1. Check every trace in a scroll — the usual case
-
-```sh
-uv run windcheck selfgap data/scroll5_tifxyz --json report.json
-```
-
-Surfaces too small to contain a previous wrap are skipped and counted, not
-reported as zero.
-
-| option | meaning |
-|---|---|
-| `--stride N` | grid subsampling (default 3). Lower is slower and finer; results are stable from 2 to 6. |
-| `--exclude-u N` | columns excluded either side of each query's own `u` (default 60). Must be well below one revolution in `u` and well above the local surface width. |
-| `--json PATH` | also write the table as JSON |
-
-### 2. Calibrate before trusting the thresholds
-
-```sh
-uv run windcheck calibrate data/scroll5_tifxyz
-```
-
-![calibration](docs/img/calibration.png)
-
-On `PHerc0172` this gives **17.05 / 34.14 / 51.22** voxels over 126 surface
-pairs — ratios **1.000 / 2.003 / 3.004**. That linearity is what licenses
-reading a doubled gap as a skipped wrap. If it is not linear on your scroll, the
-labels are not a radial index and the check does not apply.
-
-Note the overlap between distributions: per-*point* discrimination between a
-one- and two-sheet gap is only about 78%, which is why verdicts are per region
-and never per point.
-
-Options: `--max-k` (default 3), `--stride` (default 8), `--max-dist` (default
-200, ignores pairs where the two sheets do not overlap), `--threads`.
-
-### 3. A single surface
-
-```sh
-uv run windcheck selfgap path/to/one.tifxyz
-```
-
-## Output
-
-| column | meaning |
-|---|---|
-| `trace` | segment name |
-| `u` | u-extent of the grid — how far around the scroll it goes |
-| `<2.0vx` | % of points within 2.0 voxels of the trace's own next wrap. 2.0 is volume-cartographer's `same_surface_th` (`core/src/GrowSurface.cpp`), the distance at which its segment grower rejects a candidate for landing on already-traced surface. |
-| `flag%` | % within the wider 6.0-voxel flag, used for clustering |
-| `blob` | largest contiguous flagged region, in grid cells |
-| `blob%` | that region as a fraction of **valid queries submitted** — **use this** for any comparison between traces. Raw cell counts scale with trace size and with `--stride`. Note it divides by every query submitted, not by the subset that returned a finite distance; a point whose nearest surface lies beyond the search radius is a known negative, not missing data. |
-| `top5` | share of flagged points in the five largest regions. High = concentrated, low = scattered. |
-| `du p10` | 10th percentile of \|u_partner − u_query\| over flagged points. Should sit near one revolution. |
-| `valid` | `OK`, or `REJECT` with a reason |
-
-**`REJECT` is not a defect finding.** It means the row cannot be trusted: the
-flagged partners sit too close to the exclusion cutoff, so they may be same-wrap
-neighbours rather than the next wrap. Rows are rejected in code, not by
-inspection.
-
-**Scattered flagging at a few percent appears on every scroll checked so far**
-and is not by itself informative. Concentration ranks traces, and that is all it
-does: the labelled and auto-grown populations overlap at the low end (largest
-labelled component 0.147% of submitted queries, smallest auto-grown 0.056%), so
-a high `blob%` is a reason to look, not evidence that a trace is wrong. Within
-the nine auto-grown partitions the leader stands well clear at 7.011%, 4.6× the
-next at 1.514%:
-
-![triage ranking](docs/img/triage_ranking.png)
-
-JSON output carries the same fields plus coverage, median gap, 4-connectivity
-component size, and the rejection reason.
-
-## Use as a library
-
-Everything the CLI does is available directly. `analyse` returns a dataclass; the
-JSON output is the same fields.
-
-```python
-from windcheck import selfgap
-
-r = selfgap.analyse("path/to/segment.tifxyz", exclude_u="auto")
-if r and r.valid and r.blob_fraction > 0.02:
-    print(f"{r.name}: {r.blob_fraction:.2%} of the surface in one region")
-```
-
-| field | type | meaning |
-|---|---|---|
-| `name`, `u_extent`, `n_points`, `coverage` | str, int, int, float | identity and how much was analysed |
-| `median_gap` | float | median distance to the next wrap, voxels |
-| `frac_below_grower_th`, `frac_flagged` | float | inside 2.0 vx and 6.0 vx |
-| `largest_blob`, `blob_fraction`, `largest_blob_4c`, `top5_share` | int, float, int, float | concentration (zero for OBJ input — see below) |
-| `du_p10`, `du_median` | float | where flagged partners sit, in u |
-| `valid`, `reason` | bool, str | the validity verdict |
-
-Lower layers are usable on their own: `windcheck.tifxyz.read` and
-`windcheck.objmesh.read` return surfaces and meshes, `windcheck.atlas` writes the
-engine's binary formats, and `windcheck.inject` plants defects for benchmarking.
-
-## Input formats
-
-| format | self-gap | concentration stats |
-|---|---|---|
-| `tifxyz` (VC3D grid) | yes | yes |
-| `.obj` **with** `vt` parametrisation | yes | no — a triangle soup has no grid to label components on |
-| `.obj` **without** `vt` | no — refused rather than guessed | no |
-
-The same trace measured in both published formats agrees closely: `<2.0vx` of
-**6.595%** from the tifxyz and **6.529%** from the 415 MB OBJ, with `exclude_u`
-chosen automatically in each (129 grid columns vs 28 parameter units). Two
-parsers, one kernel, one answer.
-
-## Performance
-
-The engine sustains roughly **27,000 point-to-surface queries per second on 12
-threads** against a 30-million-triangle atlas. A full scroll of 53 surfaces
-checks in a few minutes on a laptop.
-
-Distance is measured to the interpolated surface, not to the nearest grid
-sample. This matters: the grids are sampled roughly every 20 voxels while
-adjacent sheets sit about 17 voxels apart, so a nearest-sample method cannot
-separate one sheet of gap from two.
-
-## Layout
-
-```
-engines/atlas_query.cpp   point-to-surface distance kernel (C++17)
-src/windcheck/
-  tifxyz.py               reader, written from the format spec
-  atlas.py                surface assembly, binary bridge to the engine
-  selfgap.py              the check and the validity filter
-  catalog.py, fetch.py    open-data catalog, download, SHA-256 manifest
-  ct_check.py             CT cross-referencing helpers
-  cli.py                  command line
-tests/                    engine vs brute force, search-radius certification,
-                          true separation vs grid pitch, the null control,
-                          missing-cell handling
-sample_outputs/           real runs against PHerc0172 and PHerc0814
-```
-
-`tifxyz.py` deliberately does not use the upstream `vesuvius` package. This tool
-checks that pipeline's output, so it must be able to disagree with it.
+**It does not show that a crossing is a tracing error.** It shows the surface
+overlaps itself. Three attempts to connect the two failed and are documented in
+`docs/submission.md` §9, along with everything else this does not establish.
 
 ## Licence
 
-MIT. See [LICENSE](LICENSE).
+MIT. See `LICENSE`.

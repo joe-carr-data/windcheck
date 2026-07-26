@@ -23,7 +23,6 @@ build/
 
 # macOS
 .DS_Store
-notes/STRATEGY.md
 
 # compiled engine
 engines/atlas_query

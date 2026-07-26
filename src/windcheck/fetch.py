@@ -22,6 +22,30 @@ from . import S3_BUCKET
 # so they are not part of the invariant check.
 INCLUDE = "*/mesh/*.tifxyz/*"
 
+# Local directory for each published sample. All four share the S3 layout
+# `<sample>/segments/`, verified against the bucket.
+#
+# The headline is measured across all four, so all four have to be pinned: a
+# result that rests on corpora nobody else can check is not reproducible, it is
+# just asserted. PHerc0172 keeps the unsuffixed manifest name because the
+# already-published tool refers to it.
+CORPORA = {
+    "PHerc0172": "scroll5_tifxyz",
+    "PHerc0814": "PHerc0814_tifxyz",
+    "PHerc0139": "PHerc0139_tifxyz",
+    "PHerc1667": "PHerc1667_tifxyz",
+}
+
+
+def paths_for(sample: str, root_dir: Path) -> tuple[Path, Path]:
+    """(data directory, manifest path) for a sample."""
+    if sample not in CORPORA:
+        raise SystemExit(f"unknown sample {sample!r}; known: "
+                         f"{', '.join(sorted(CORPORA))}")
+    data = root_dir / "data" / CORPORA[sample]
+    name = "MANIFEST.json" if sample == "PHerc0172" else f"MANIFEST-{sample}.json"
+    return data, root_dir / "data" / name
+
 
 def download(sample: str, dest: Path) -> None:
     dest.mkdir(parents=True, exist_ok=True)
@@ -88,24 +112,37 @@ def verify(root: Path, manifest_path: Path) -> list[str]:
 def main(argv: list[str] | None = None) -> int:
     root_dir = Path(__file__).resolve().parents[2]
     p = argparse.ArgumentParser(prog="windcheck.fetch")
-    p.add_argument("--sample", default="PHerc0172")
+    p.add_argument("--sample", default="PHerc0172",
+                   help=f"one of {', '.join(sorted(CORPORA))}, or 'all'")
     p.add_argument("--skip-download", action="store_true")
     p.add_argument("--verify", action="store_true", help="check against an existing manifest")
     a = p.parse_args(argv)
 
-    data = root_dir / "data" / "scroll5_tifxyz"
-    man = root_dir / "data" / "MANIFEST.json"
+    samples = sorted(CORPORA) if a.sample == "all" else [a.sample]
+    failed = 0
+    for sample in samples:
+        data, man = paths_for(sample, root_dir)
 
-    if a.verify:
-        problems = verify(data, man)
-        print("\n".join(problems) if problems else "MANIFEST VERIFIED: all files match")
-        return 1 if problems else 0
+        if a.verify:
+            if not man.exists():
+                print(f"{sample}: NO MANIFEST at {man}")
+                failed += 1
+                continue
+            problems = verify(data, man)
+            if problems:
+                failed += 1
+                print(f"{sample}: {len(problems)} problem(s)")
+                print("\n".join(problems[:20]))
+            else:
+                print(f"{sample}: VERIFIED, all files match")
+            continue
 
-    if not a.skip_download:
-        download(a.sample, data)
-    m = write_manifest(a.sample, data, man)
-    print(f"manifest: {m['n_files']} files, {m['total_bytes'] / 1e6:.1f} MB -> {man}")
-    return 0
+        if not a.skip_download:
+            download(sample, data)
+        m = write_manifest(sample, data, man)
+        print(f"{sample}: {m['n_files']} files, "
+              f"{m['total_bytes'] / 1e9:.2f} GB -> {man}")
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":

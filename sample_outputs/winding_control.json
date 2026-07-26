@@ -1,0 +1,200 @@
+[
+  {
+    "segment": "20260623141135-w046-052_jordi",
+    "declared": 7,
+    "measured": 6.958,
+    "ratio": 0.994
+  },
+  {
+    "segment": "20260623141649-w053-058_jordi",
+    "declared": 6,
+    "measured": 5.987,
+    "ratio": 0.998
+  },
+  {
+    "segment": "20260623141924-w010-027",
+    "declared": 18,
+    "measured": 18.033,
+    "ratio": 1.002
+  },
+  {
+    "segment": "20260623142658-w028-037",
+    "declared": 10,
+    "measured": 9.749,
+    "ratio": 0.975
+  },
+  {
+    "segment": "20260623143441-w038-045",
+    "declared": 8,
+    "measured": 7.818,
+    "ratio": 0.977
+  },
+  {
+    "segment": "20260623144224-w046-052",
+    "declared": 7,
+    "measured": 6.922,
+    "ratio": 0.989
+  },
+  {
+    "segment": "20260623144957-w053-058",
+    "declared": 6,
+    "measured": 5.999,
+    "ratio": 1.0
+  },
+  {
+    "segment": "20260623145652-w059-063",
+    "declared": 5,
+    "measured": 4.957,
+    "ratio": 0.991
+  },
+  {
+    "segment": "20260623150417-w064-068",
+    "declared": 5,
+    "measured": 4.989,
+    "ratio": 0.998
+  },
+  {
+    "segment": "20260623151041-w069-072",
+    "declared": 4,
+    "measured": 4.004,
+    "ratio": 1.001
+  },
+  {
+    "segment": "20260623151729-w073-076",
+    "declared": 4,
+    "measured": 4.012,
+    "ratio": 1.003
+  },
+  {
+    "segment": "20260623152443-w077-080",
+    "declared": 4,
+    "measured": 4.015,
+    "ratio": 1.004
+  },
+  {
+    "segment": "20260623153216-w081-084",
+    "declared": 4,
+    "measured": 3.97,
+    "ratio": 0.992
+  },
+  {
+    "segment": "20260623154006-w085-088",
+    "declared": 4,
+    "measured": 3.977,
+    "ratio": 0.994
+  },
+  {
+    "segment": "20260623154617-w089-091",
+    "declared": 3,
+    "measured": 2.984,
+    "ratio": 0.995
+  },
+  {
+    "segment": "20260623155240-w092-094",
+    "declared": 3,
+    "measured": 2.988,
+    "ratio": 0.996
+  },
+  {
+    "segment": "20260623155914-w095-097",
+    "declared": 3,
+    "measured": 2.992,
+    "ratio": 0.997
+  },
+  {
+    "segment": "20260623160554-w098-100",
+    "declared": 3,
+    "measured": 2.999,
+    "ratio": 1.0
+  },
+  {
+    "segment": "20260623161233-w101-103",
+    "declared": 3,
+    "measured": 3.003,
+    "ratio": 1.001
+  },
+  {
+    "segment": "20260623161921-w104-106",
+    "declared": 3,
+    "measured": 3.001,
+    "ratio": 1.0
+  },
+  {
+    "segment": "20260623162614-w107-109",
+    "declared": 3,
+    "measured": 3.006,
+    "ratio": 1.002
+  },
+  {
+    "segment": "20260623163339-w110-112",
+    "declared": 3,
+    "measured": 3.019,
+    "ratio": 1.006
+  },
+  {
+    "segment": "20260623164141-w113-115",
+    "declared": 3,
+    "measured": 3.021,
+    "ratio": 1.007
+  },
+  {
+    "segment": "20260623164704-w116-117",
+    "declared": 2,
+    "measured": 2.022,
+    "ratio": 1.011
+  },
+  {
+    "segment": "20260623165230-w118-119",
+    "declared": 2,
+    "measured": 2.03,
+    "ratio": 1.015
+  },
+  {
+    "segment": "20260623165742-w120-121",
+    "declared": 2,
+    "measured": 2.029,
+    "ratio": 1.014
+  },
+  {
+    "segment": "20260623170305-w122-123",
+    "declared": 2,
+    "measured": 2.026,
+    "ratio": 1.013
+  },
+  {
+    "segment": "20260623170833-w124-125",
+    "declared": 2,
+    "measured": 1.997,
+    "ratio": 0.999
+  },
+  {
+    "segment": "20260623171400-w126-127",
+    "declared": 2,
+    "measured": 1.995,
+    "ratio": 0.998
+  },
+  {
+    "segment": "20260623171929-w128-129",
+    "declared": 2,
+    "measured": 1.999,
+    "ratio": 1.0
+  },
+  {
+    "segment": "20260701183124-w010-027",
+    "declared": 18,
+    "measured": 1.01,
+    "ratio": 0.056
+  },
+  {
+    "segment": "20260701183125-w028-037",
+    "declared": 10,
+    "measured": 0.257,
+    "ratio": 0.026
+  },
+  {
+    "segment": "20260701183126-w038-045",
+    "declared": 8,
+    "measured": 7.923,
+    "ratio": 0.99
+  }
+]

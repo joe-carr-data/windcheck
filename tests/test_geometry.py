@@ -261,3 +261,33 @@ def test_no_coverage_gate_remains():
     assert not hasattr(selfgap, "COVERAGE_FLOOR"), (
         "gating on coverage hides the denominator problem instead of fixing it"
     )
+
+
+def test_thread_count_zero_means_auto_not_none(tmp_path):
+    """An explicit thread count of 0 must not silently return all-negative.
+
+    The engine created `threads` workers in a plain loop, so passing 0 -- which
+    is `atlas.run_engine`'s own default, and reaches the binary as the literal
+    string "0" -- spawned nothing and left every result at its initialised
+    +inf. The run then looked like a confident "no surface found anywhere",
+    which is the single worst way for a detector to fail: a silent all-negative
+    is indistinguishable from a clean sheet.
+
+    Two sheets 12 vx apart. With threads=2 the far sheet is found; with
+    threads=0 it must be found too.
+    """
+    a, b = tmp_path / "a", tmp_path / "b"
+    _write_sheet(a, z=0.0)
+    _write_sheet(b, z=12.0)
+    atlas.write_atlas([_Ent(a, 0), _Ent(b, 1)], tmp_path / "at.bin")
+    pts = np.array([[110.0, 110.0, 0.0]], dtype=np.float32)
+    atlas.write_queries(pts, tmp_path / "q.bin")
+
+    ref = atlas.run_engine(tmp_path / "at.bin", tmp_path / "q.bin",
+                           tmp_path / "r2.bin", threads=2)
+    auto = atlas.run_engine(tmp_path / "at.bin", tmp_path / "q.bin",
+                            tmp_path / "r0.bin", threads=0)
+
+    assert np.isfinite(auto["d1"][0]), "threads=0 produced a silent all-negative"
+    assert auto["d1"][0] == pytest.approx(float(ref["d1"][0]), abs=1e-4)
+    assert auto["d2"][0] == pytest.approx(float(ref["d2"][0]), abs=1e-4)
