@@ -37,13 +37,26 @@ Read [`docs/submission.md`](docs/submission.md) for the full result and
 uv sync --extra viz
 clang++ -O3 -std=c++17 -pthread -o engines/selfcross   engines/selfcross.cpp
 clang++ -O3 -std=c++17 -pthread -o engines/atlas_query engines/atlas_query.cpp
-
 uv run pytest -q                                  # 21 tests, no data needed
-uv run python -m windcheck.fetch --sample PHerc0172
-uv run python bench/crossing_census.py --root data/scroll5_tifxyz \
-      --volume 20241024131839 --json out/crossing/census.json --work out/crossing
-uv run python bench/crossing_analyse.py
+
+# check one surface -- this is the whole tool
+uv run windcheck check path/to/segment
 ```
+
+```
+20251115002745-auto_grown_20251115002740308_5_flatboi
+  grid                637 x 3065      triangles  3,535,554
+  covering span       5.91 revolutions
+  widest separation   4.91 revolutions    ->  wrap-scale
+  crossing events     563   (379 beyond the wrap-scale cut)
+  VERDICT             wrap-scale self-overlap present
+
+  certificate  out/check/..._certificate.json
+  overlay      out/check/..._points.json   <- open in VC3D (379 points)
+```
+
+`bench/` reproduces every figure in the write-up; you do not need it to use the
+tool.
 
 No GPU. No labels, no ground truth, no model. The core measurement reads only
 the published surface meshes — no volume download at all.

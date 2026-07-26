@@ -167,13 +167,43 @@ def cmd_calibrate(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_check(args: argparse.Namespace) -> int:
+    """The command someone else runs: one segment in, a verdict and files out."""
+    from . import check as _check
+
+    r = _check.analyse(Path(args.path), Path(args.out), volume=args.volume,
+                       threads=args.threads, cell=args.cell,
+                       maxedge=args.maxedge)
+    if r is None:
+        return 1
+    _check.report(r)
+    if args.json:
+        Path(args.json).write_text(json.dumps(
+            {k: (str(v) if isinstance(v, Path) else v) for k, v in r.items()},
+            indent=2))
+        print(f"\n  summary      {args.json}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
         prog="windcheck",
-        description="Cross-wrap consistency checking for scroll segmentations.",
+        description="Find where a traced scroll surface passes through itself.",
     )
     p.add_argument("--version", action="version", version=f"windcheck {__version__}")
     sub = p.add_subparsers(dest="cmd", required=True)
+
+    k = sub.add_parser("check", help="check one surface for self-intersection")
+    k.add_argument("path", help="a .tifxyz directory, or a segment directory")
+    k.add_argument("--out", default="out/check", help="where to write outputs")
+    k.add_argument("--volume", default="",
+                   help="substring selecting which published volume to read")
+    k.add_argument("--threads", type=int, default=0, help="0 = all cores")
+    k.add_argument("--cell", type=float, default=40.0)
+    k.add_argument("--maxedge", type=float, default=60.0,
+                   help="drop quads with any edge longer than this (voxels)")
+    k.add_argument("--json", help="also write the summary as JSON")
+    k.set_defaults(func=cmd_check)
 
     s = sub.add_parser("status", help="summarise a sample's segmentation corpus")
     s.add_argument("--sample", default="PHerc0172")
