@@ -1,0 +1,45 @@
+{
+  "tool": "windcheck selfcross",
+  "schema": 2,
+  "generated_utc": "2026-07-26T23:12:32Z",
+  "segment": "20260623151729-w073-076",
+  "mesh": {
+    "path": "data/scroll1_tifxyz/20260623151729-w073-076/mesh/20260623151729-on-20230205180739-7.91um.tifxyz",
+    "sha256_head": "c67bbcf2671293d8",
+    "voxel_um": 7.91
+  },
+  "parameters": {
+    "exclude": 1,
+    "cell": 40.0,
+    "maxedge": 60.0,
+    "touch_tol": 0.001,
+    "diagonal": 0
+  },
+  "measurements": {
+    "total_area_mm2": 44874.6,
+    "participating_quad_area_mm2": 7.8,
+    "participating_quad_fraction": 0.000174,
+    "parameter_span_mm_estimate": 0.0,
+    "separation_revolutions": 0.999,
+    "covering_span_revolutions": 4.017,
+    "revolution_period_columns": {
+      "turning_estimate": 669.9,
+      "method": "centreline turning; externally validated against published winding counts at r=0.9999"
+    },
+    "median_penetration_vx": 3.245,
+    "intersecting_pairs": 537,
+    "crossing_events": 27,
+    "events_beyond_cut": 27
+  },
+  "wrap_scale_cut_revolutions": 0.25,
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 4.02 revolutions; consistent with the segment's own ends meeting, not adjudicated",
+  "caveats": [
+    "Deterministic floating-point validator, not exact predicates.",
+    "Detects that the surface overlaps itself; does not identify which branch is wrong, nor establish a cause.",
+    "Event counts depend on the clustering rule and on sampling density; the span in revolutions does not.",
+    "Local overlaps are common across the published corpus and are associated with elevated quad twist.",
+    "The revolution period is measured from the surface's own geometry and carries its own error; two independent estimators agree to within about 15% where both are measurable.",
+    "A segment covering more than one revolution is expected to meet itself at about one revolution of separation. That case is reported, not adjudicated.",
+    "The mesh fingerprint is a partial one: file names, sizes and a bounded head of each file, not full content."
+  ]
+}

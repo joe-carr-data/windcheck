@@ -1,0 +1,27 @@
+{
+ "1": {
+  "id": 1,
+  "name": "windcheck-overlaps-20250108000000-w025_20",
+  "color": [
+   1.0,
+   0.2,
+   0.2
+  ],
+  "points": {
+   "1": {
+    "id": 1,
+    "p": [
+     2284.99951171875,
+     3899.84521484375,
+     7828.91748046875
+    ],
+    "wind_a": null,
+    "collection_id": 1
+   }
+  },
+  "metadata": {
+   "tool": "windcheck",
+   "cut_revolutions": 0.25
+  }
+ }
+}

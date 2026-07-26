@@ -17,6 +17,22 @@ Across **179 published segments from five scrolls** — Scroll 1, Scroll 5,
 PHerc0139, PHerc0814, PHerc1667, 228 million triangles — **160 contain at least
 one transverse self-intersection.**
 
+![a single sheet traced repeatedly](docs/img/sheet_switch_ct.png)
+
+*One CT slice through Scroll 5. Each dot is the trace, coloured by how far along
+itself it is. A correct trace crosses a given sheet once, so one sheet should
+carry one colour — here the whole range lies on a single sheet, and at the marked
+point the trace returns to it 2,545 columns (4.9 revolutions) later.*
+
+## Results for every segment, precomputed
+
+You do not need to download 18 GB to look up your own trace.
+[`results/index.json`](results/index.json) has all 179 segments with their
+band and verdict, and [`results/certificates/`](results/certificates) has the
+certificate and VC3D overlay for each — 38 wrap-scale,
+63 one-revolution, 59 local, 19 with no
+crossing found.
+
 Read [`docs/submission.md`](docs/submission.md) for the full result and
 [`docs/REPRODUCE.md`](docs/REPRODUCE.md) to rerun it. The whole audit takes
 **91 seconds** once the data is local.

@@ -1,0 +1,2866 @@
+[
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20230702185753",
+  "grid": [
+   776,
+   559
+  ],
+  "triangles": 759088,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.477,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20230929220926",
+  "grid": [
+   492,
+   1164
+  ],
+  "triangles": 989510,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 2.697,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231005123336",
+  "grid": [
+   535,
+   1494
+  ],
+  "triangles": 1398020,
+  "pairs": 20,
+  "events": 1,
+  "events_beyond_cut": 1,
+  "covering_span_rev": 3.507,
+  "separation_rev": 0.823,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 3.51 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231007101619",
+  "grid": [
+   798,
+   1661
+  ],
+  "triangles": 2337434,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.551,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231012184424",
+  "grid": [
+   779,
+   1163
+  ],
+  "triangles": 1620608,
+  "pairs": 8,
+  "events": 1,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.424,
+  "separation_rev": 0.1,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231016151002",
+  "grid": [
+   490,
+   798
+  ],
+  "triangles": 660216,
+  "pairs": 140,
+  "events": 6,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.508,
+  "separation_rev": 0.191,
+  "band": "one-revolution",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231022170901",
+  "grid": [
+   328,
+   1779
+  ],
+  "triangles": 1047154,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 7.656,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231031143852",
+  "grid": [
+   524,
+   676
+  ],
+  "triangles": 595846,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.466,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231106155351",
+  "grid": [
+   526,
+   787
+  ],
+  "triangles": 741208,
+  "pairs": 10,
+  "events": 1,
+  "events_beyond_cut": 1,
+  "covering_span_rev": 0.942,
+  "separation_rev": 0.271,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231210121321",
+  "grid": [
+   782,
+   614
+  ],
+  "triangles": 840088,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.462,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20231221180251",
+  "grid": [
+   490,
+   646
+  ],
+  "triangles": 574024,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 2.826,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260602204401-5753_-7",
+  "grid": [
+   1215,
+   177
+  ],
+  "triangles": 191722,
+  "pairs": 203,
+  "events": 7,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.472,
+  "separation_rev": 0.027,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260602225659-5753_0",
+  "grid": [
+   1231,
+   248
+  ],
+  "triangles": 417396,
+  "pairs": 1441,
+  "events": 37,
+  "events_beyond_cut": 16,
+  "covering_span_rev": 0.466,
+  "separation_rev": 0.341,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260603005223-5753_-1",
+  "grid": [
+   1240,
+   240
+  ],
+  "triangles": 398070,
+  "pairs": 2128,
+  "events": 36,
+  "events_beyond_cut": 32,
+  "covering_span_rev": 0.466,
+  "separation_rev": 0.345,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260603024952-5753_-2",
+  "grid": [
+   1245,
+   235
+  ],
+  "triangles": 379038,
+  "pairs": 842,
+  "events": 12,
+  "events_beyond_cut": 9,
+  "covering_span_rev": 0.458,
+  "separation_rev": 0.345,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260603042357-5753_-3",
+  "grid": [
+   1248,
+   229
+  ],
+  "triangles": 364570,
+  "pairs": 704,
+  "events": 15,
+  "events_beyond_cut": 6,
+  "covering_span_rev": 0.539,
+  "separation_rev": 0.356,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260603145540-5753_-4",
+  "grid": [
+   1243,
+   220
+  ],
+  "triangles": 342652,
+  "pairs": 2398,
+  "events": 38,
+  "events_beyond_cut": 13,
+  "covering_span_rev": 0.544,
+  "separation_rev": 0.417,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260603185441-5753_-6",
+  "grid": [
+   1225,
+   211
+  ],
+  "triangles": 276386,
+  "pairs": 1848,
+  "events": 34,
+  "events_beyond_cut": 19,
+  "covering_span_rev": 0.543,
+  "separation_rev": 0.358,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260603190005-5753_-5",
+  "grid": [
+   1238,
+   200
+  ],
+  "triangles": 305506,
+  "pairs": 1066,
+  "events": 24,
+  "events_beyond_cut": 9,
+  "covering_span_rev": 0.461,
+  "separation_rev": 0.358,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260603193311-5753_-1_copy",
+  "grid": [
+   1237,
+   259
+  ],
+  "triangles": 333834,
+  "pairs": 710,
+  "events": 13,
+  "events_beyond_cut": 12,
+  "covering_span_rev": 0.463,
+  "separation_rev": 0.317,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260603222816-20231005123336_v2_flatboi",
+  "grid": [
+   727,
+   811
+  ],
+  "triangles": 1062510,
+  "pairs": 5399,
+  "events": 29,
+  "events_beyond_cut": 24,
+  "covering_span_rev": 2.011,
+  "separation_rev": 1.758,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260604223808-20231210121321_v8",
+  "grid": [
+   1046,
+   718
+  ],
+  "triangles": 1364200,
+  "pairs": 5038,
+  "events": 84,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 0.495,
+  "separation_rev": 0.395,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623141135-w046-052_jordi",
+  "grid": [
+   740,
+   2948
+  ],
+  "triangles": 3999428,
+  "pairs": 1926,
+  "events": 58,
+  "events_beyond_cut": 58,
+  "covering_span_rev": 6.958,
+  "separation_rev": 1.938,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623141649-w053-058_jordi",
+  "grid": [
+   750,
+   2857
+  ],
+  "triangles": 3888872,
+  "pairs": 3788,
+  "events": 86,
+  "events_beyond_cut": 74,
+  "covering_span_rev": 5.987,
+  "separation_rev": 2.035,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623141924-w010-027",
+  "grid": [
+   689,
+   2613
+  ],
+  "triangles": 3419404,
+  "pairs": 1467,
+  "events": 25,
+  "events_beyond_cut": 25,
+  "covering_span_rev": 18.033,
+  "separation_rev": 1.512,
+  "band": "one-revolution",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623142658-w028-037",
+  "grid": [
+   712,
+   2715
+  ],
+  "triangles": 3609674,
+  "pairs": 851,
+  "events": 25,
+  "events_beyond_cut": 25,
+  "covering_span_rev": 9.756,
+  "separation_rev": 2.2,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623143441-w038-045",
+  "grid": [
+   729,
+   2847
+  ],
+  "triangles": 3615528,
+  "pairs": 1584,
+  "events": 52,
+  "events_beyond_cut": 52,
+  "covering_span_rev": 7.818,
+  "separation_rev": 1.948,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623144224-w046-052",
+  "grid": [
+   739,
+   2961
+  ],
+  "triangles": 3999308,
+  "pairs": 2863,
+  "events": 103,
+  "events_beyond_cut": 99,
+  "covering_span_rev": 6.922,
+  "separation_rev": 2.961,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623144957-w053-058",
+  "grid": [
+   746,
+   2866
+  ],
+  "triangles": 3895254,
+  "pairs": 3585,
+  "events": 74,
+  "events_beyond_cut": 60,
+  "covering_span_rev": 5.999,
+  "separation_rev": 3.907,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623145652-w059-063",
+  "grid": [
+   752,
+   2658
+  ],
+  "triangles": 3594692,
+  "pairs": 6378,
+  "events": 83,
+  "events_beyond_cut": 65,
+  "covering_span_rev": 4.96,
+  "separation_rev": 3.869,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623150417-w064-068",
+  "grid": [
+   756,
+   2940
+  ],
+  "triangles": 3990444,
+  "pairs": 2132,
+  "events": 41,
+  "events_beyond_cut": 33,
+  "covering_span_rev": 4.989,
+  "separation_rev": 3.896,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623151041-w069-072",
+  "grid": [
+   753,
+   2547
+  ],
+  "triangles": 3441308,
+  "pairs": 263,
+  "events": 19,
+  "events_beyond_cut": 19,
+  "covering_span_rev": 4.007,
+  "separation_rev": 0.998,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 4.01 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623151729-w073-076",
+  "grid": [
+   753,
+   2692
+  ],
+  "triangles": 3624486,
+  "pairs": 537,
+  "events": 27,
+  "events_beyond_cut": 27,
+  "covering_span_rev": 4.017,
+  "separation_rev": 0.999,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 4.02 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623152443-w077-080",
+  "grid": [
+   755,
+   2843
+  ],
+  "triangles": 3843432,
+  "pairs": 561,
+  "events": 27,
+  "events_beyond_cut": 27,
+  "covering_span_rev": 4.015,
+  "separation_rev": 1.986,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623153216-w081-084",
+  "grid": [
+   760,
+   3014
+  ],
+  "triangles": 4082774,
+  "pairs": 1264,
+  "events": 42,
+  "events_beyond_cut": 42,
+  "covering_span_rev": 3.97,
+  "separation_rev": 0.993,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 3.97 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623154006-w085-088",
+  "grid": [
+   763,
+   3176
+  ],
+  "triangles": 4279188,
+  "pairs": 857,
+  "events": 32,
+  "events_beyond_cut": 32,
+  "covering_span_rev": 3.977,
+  "separation_rev": 0.986,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 3.98 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623154617-w089-091",
+  "grid": [
+   761,
+   2526
+  ],
+  "triangles": 3370000,
+  "pairs": 682,
+  "events": 28,
+  "events_beyond_cut": 28,
+  "covering_span_rev": 2.984,
+  "separation_rev": 1.884,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623155240-w092-094",
+  "grid": [
+   762,
+   2614
+  ],
+  "triangles": 3485404,
+  "pairs": 1008,
+  "events": 35,
+  "events_beyond_cut": 35,
+  "covering_span_rev": 2.988,
+  "separation_rev": 1.937,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623155914-w095-097",
+  "grid": [
+   761,
+   2694
+  ],
+  "triangles": 3577634,
+  "pairs": 1032,
+  "events": 41,
+  "events_beyond_cut": 41,
+  "covering_span_rev": 2.992,
+  "separation_rev": 1.942,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623160554-w098-100",
+  "grid": [
+   757,
+   2758
+  ],
+  "triangles": 3637678,
+  "pairs": 1063,
+  "events": 43,
+  "events_beyond_cut": 43,
+  "covering_span_rev": 3.002,
+  "separation_rev": 1.959,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623161233-w101-103",
+  "grid": [
+   756,
+   2811
+  ],
+  "triangles": 3703354,
+  "pairs": 2126,
+  "events": 80,
+  "events_beyond_cut": 80,
+  "covering_span_rev": 3.005,
+  "separation_rev": 1.98,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623161921-w104-106",
+  "grid": [
+   764,
+   2858
+  ],
+  "triangles": 3771184,
+  "pairs": 2544,
+  "events": 100,
+  "events_beyond_cut": 100,
+  "covering_span_rev": 3.001,
+  "separation_rev": 1.984,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623162614-w107-109",
+  "grid": [
+   768,
+   2907
+  ],
+  "triangles": 3855904,
+  "pairs": 5076,
+  "events": 160,
+  "events_beyond_cut": 160,
+  "covering_span_rev": 3.008,
+  "separation_rev": 1.994,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623163339-w110-112",
+  "grid": [
+   769,
+   2952
+  ],
+  "triangles": 3912400,
+  "pairs": 9613,
+  "events": 200,
+  "events_beyond_cut": 200,
+  "covering_span_rev": 3.019,
+  "separation_rev": 2.009,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623164141-w113-115",
+  "grid": [
+   767,
+   3013
+  ],
+  "triangles": 3963696,
+  "pairs": 18151,
+  "events": 185,
+  "events_beyond_cut": 185,
+  "covering_span_rev": 3.021,
+  "separation_rev": 2.007,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623164704-w116-117",
+  "grid": [
+   758,
+   2059
+  ],
+  "triangles": 2678052,
+  "pairs": 10006,
+  "events": 139,
+  "events_beyond_cut": 139,
+  "covering_span_rev": 2.022,
+  "separation_rev": 1.006,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.02 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623165230-w118-119",
+  "grid": [
+   752,
+   2076
+  ],
+  "triangles": 2698778,
+  "pairs": 13555,
+  "events": 189,
+  "events_beyond_cut": 189,
+  "covering_span_rev": 2.03,
+  "separation_rev": 1.01,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.03 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623165742-w120-121",
+  "grid": [
+   745,
+   2092
+  ],
+  "triangles": 2721586,
+  "pairs": 17488,
+  "events": 205,
+  "events_beyond_cut": 205,
+  "covering_span_rev": 2.029,
+  "separation_rev": 1.005,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.03 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623170305-w122-123",
+  "grid": [
+   743,
+   2102
+  ],
+  "triangles": 2739986,
+  "pairs": 21605,
+  "events": 233,
+  "events_beyond_cut": 233,
+  "covering_span_rev": 2.026,
+  "separation_rev": 1.001,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.03 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623170833-w124-125",
+  "grid": [
+   777,
+   2138
+  ],
+  "triangles": 2769746,
+  "pairs": 26082,
+  "events": 450,
+  "events_beyond_cut": 358,
+  "covering_span_rev": 1.997,
+  "separation_rev": 1.028,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.00 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623171400-w126-127",
+  "grid": [
+   968,
+   2348
+  ],
+  "triangles": 2978632,
+  "pairs": 81208,
+  "events": 1428,
+  "events_beyond_cut": 925,
+  "covering_span_rev": 1.998,
+  "separation_rev": 1.033,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.00 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260623171929-w128-129",
+  "grid": [
+   1082,
+   2392
+  ],
+  "triangles": 3282748,
+  "pairs": 346763,
+  "events": 1870,
+  "events_beyond_cut": 1723,
+  "covering_span_rev": 1.999,
+  "separation_rev": 1.045,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.00 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260701183124-w010-027",
+  "grid": [
+   1070,
+   2611
+  ],
+  "triangles": 5309278,
+  "pairs": 4655,
+  "events": 133,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.01,
+  "separation_rev": 0.227,
+  "band": "one-revolution",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260701183125-w028-037",
+  "grid": [
+   1098,
+   2682
+  ],
+  "triangles": 5523674,
+  "pairs": 9074,
+  "events": 214,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.257,
+  "separation_rev": 0.13,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 1 (PHercParis4)",
+  "segment": "20260701183126-w038-045",
+  "grid": [
+   1148,
+   2825
+  ],
+  "triangles": 5850912,
+  "pairs": 11673,
+  "events": 408,
+  "events_beyond_cut": 399,
+  "covering_span_rev": 7.923,
+  "separation_rev": 2.922,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250917143559-w062_20250917143559205_flatboi",
+  "grid": [
+   630,
+   687
+  ],
+  "triangles": 770094,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.977,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250926112011-w078_20250926112011918_flatboi",
+  "grid": [
+   685,
+   625
+  ],
+  "triangles": 697266,
+  "pairs": 14183,
+  "events": 211,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.698,
+  "separation_rev": 0.03,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250926113336-w079_20250926113336891_flatboi",
+  "grid": [
+   726,
+   819
+  ],
+  "triangles": 680582,
+  "pairs": 18847,
+  "events": 164,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.676,
+  "separation_rev": 0.039,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250926114310-w080_20250926114310705_flatboi",
+  "grid": [
+   624,
+   571
+  ],
+  "triangles": 540574,
+  "pairs": 19861,
+  "events": 163,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.753,
+  "separation_rev": 0.093,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250926122938-w082_20250926122938619_flatboi",
+  "grid": [
+   716,
+   576
+  ],
+  "triangles": 611360,
+  "pairs": 43693,
+  "events": 161,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.635,
+  "separation_rev": 0.076,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250926132117-w083_20250926132117595_flatboi",
+  "grid": [
+   697,
+   581
+  ],
+  "triangles": 617284,
+  "pairs": 24505,
+  "events": 181,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.525,
+  "separation_rev": 0.085,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250926145427-w084_20250926145427439_flatboi",
+  "grid": [
+   483,
+   601
+  ],
+  "triangles": 402704,
+  "pairs": 2639,
+  "events": 54,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.806,
+  "separation_rev": 0.023,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250926150345-w086_20250926150345176_flatboi",
+  "grid": [
+   623,
+   485
+  ],
+  "triangles": 520508,
+  "pairs": 1026,
+  "events": 15,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.74,
+  "separation_rev": 0.026,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20250926153406-w088_20250926153406704_flatboi",
+  "grid": [
+   728,
+   625
+  ],
+  "triangles": 565668,
+  "pairs": 2761,
+  "events": 78,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.656,
+  "separation_rev": 0.016,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251106133152-w077_20251106133152767_flatboi",
+  "grid": [
+   797,
+   590
+  ],
+  "triangles": 659776,
+  "pairs": 10867,
+  "events": 202,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.732,
+  "separation_rev": 0.034,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251106170358-w076_20251106170358232_flatboi",
+  "grid": [
+   673,
+   608
+  ],
+  "triangles": 694156,
+  "pairs": 21209,
+  "events": 222,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.717,
+  "separation_rev": 0.05,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251107063327-w063_20251107063327215_flatboi",
+  "grid": [
+   642,
+   704
+  ],
+  "triangles": 818112,
+  "pairs": 150,
+  "events": 11,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.933,
+  "separation_rev": 0.003,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251107110950-w064_20251107110950052_flatboi",
+  "grid": [
+   671,
+   747
+  ],
+  "triangles": 914022,
+  "pairs": 1315,
+  "events": 19,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.004,
+  "separation_rev": 0.03,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251107175958-w061_20251107175958270_flatboi",
+  "grid": [
+   602,
+   634
+  ],
+  "triangles": 683024,
+  "pairs": 118,
+  "events": 4,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.918,
+  "separation_rev": 0.003,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251109232817-w065_20251109232817724_flatboi",
+  "grid": [
+   759,
+   743
+  ],
+  "triangles": 905768,
+  "pairs": 1866,
+  "events": 11,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.997,
+  "separation_rev": 0.027,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251110110112-w066_20251110110112608_flatboi",
+  "grid": [
+   837,
+   749
+  ],
+  "triangles": 902150,
+  "pairs": 1786,
+  "events": 31,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.992,
+  "separation_rev": 0.029,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251110135146-w085_20251110135146457_flatboi",
+  "grid": [
+   632,
+   484
+  ],
+  "triangles": 520406,
+  "pairs": 4923,
+  "events": 82,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.504,
+  "separation_rev": 0.019,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251110135803-w067_20251110135803677_flatboi",
+  "grid": [
+   657,
+   743
+  ],
+  "triangles": 897510,
+  "pairs": 1048,
+  "events": 23,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.972,
+  "separation_rev": 0.018,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251111010954-w068_20251111010954408_flatboi",
+  "grid": [
+   654,
+   746
+  ],
+  "triangles": 896190,
+  "pairs": 945,
+  "events": 26,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.965,
+  "separation_rev": 0.016,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251111151836-w069_20251111151836406_flatboi",
+  "grid": [
+   818,
+   873
+  ],
+  "triangles": 1120346,
+  "pairs": 38322,
+  "events": 207,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.917,
+  "separation_rev": 0.115,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251111210734-w070_20251111210734722_flatboi",
+  "grid": [
+   646,
+   749
+  ],
+  "triangles": 886640,
+  "pairs": 1267,
+  "events": 13,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.943,
+  "separation_rev": 0.016,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251112000002-w087_20251112000002214_flatboi",
+  "grid": [
+   621,
+   481
+  ],
+  "triangles": 513330,
+  "pairs": 419,
+  "events": 12,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.75,
+  "separation_rev": 0.016,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251112163527-w071_20251112163527854_flatboi",
+  "grid": [
+   645,
+   754
+  ],
+  "triangles": 883926,
+  "pairs": 506,
+  "events": 22,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.924,
+  "separation_rev": 0.011,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251113021010-w072_20251113021010674_flatboi",
+  "grid": [
+   638,
+   754
+  ],
+  "triangles": 876020,
+  "pairs": 352,
+  "events": 25,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.933,
+  "separation_rev": 0.01,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251113130119-w073_20251113130119516_flatboi",
+  "grid": [
+   636,
+   757
+  ],
+  "triangles": 873492,
+  "pairs": 315,
+  "events": 16,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.923,
+  "separation_rev": 0.012,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251113152136-w074_20251113152136889_flatboi",
+  "grid": [
+   634,
+   752
+  ],
+  "triangles": 867270,
+  "pairs": 88,
+  "events": 11,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.919,
+  "separation_rev": 0.005,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251113204233-w075_20251113204233755_flatboi",
+  "grid": [
+   629,
+   751
+  ],
+  "triangles": 860016,
+  "pairs": 354,
+  "events": 8,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.916,
+  "separation_rev": 0.007,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251114202035-w081_20251114202035261_flatboi",
+  "grid": [
+   588,
+   571
+  ],
+  "triangles": 504264,
+  "pairs": 5576,
+  "events": 97,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.607,
+  "separation_rev": 0.081,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002740-auto_grown_20251115002740308_0_flatboi",
+  "grid": [
+   555,
+   2460
+  ],
+  "triangles": 2504630,
+  "pairs": 10907,
+  "events": 181,
+  "events_beyond_cut": 104,
+  "covering_span_rev": 6.031,
+  "separation_rev": 2.112,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002741-auto_grown_20251115002740308_1_flatboi",
+  "grid": [
+   629,
+   2815
+  ],
+  "triangles": 3127998,
+  "pairs": 27416,
+  "events": 662,
+  "events_beyond_cut": 464,
+  "covering_span_rev": 9.075,
+  "separation_rev": 5.044,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002742-auto_grown_20251115002740308_2_flatboi",
+  "grid": [
+   619,
+   2790
+  ],
+  "triangles": 3130778,
+  "pairs": 47560,
+  "events": 200,
+  "events_beyond_cut": 130,
+  "covering_span_rev": 7.548,
+  "separation_rev": 3.088,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002743-auto_grown_20251115002740308_3_flatboi",
+  "grid": [
+   648,
+   2878
+  ],
+  "triangles": 3308118,
+  "pairs": 27686,
+  "events": 199,
+  "events_beyond_cut": 160,
+  "covering_span_rev": 6.685,
+  "separation_rev": 2.035,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002744-auto_grown_20251115002740308_4_flatboi",
+  "grid": [
+   800,
+   2927
+  ],
+  "triangles": 3580474,
+  "pairs": 149795,
+  "events": 701,
+  "events_beyond_cut": 503,
+  "covering_span_rev": 3.427,
+  "separation_rev": 2.716,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002745-auto_grown_20251115002740308_5_flatboi",
+  "grid": [
+   637,
+   3065
+  ],
+  "triangles": 3535554,
+  "pairs": 117445,
+  "events": 563,
+  "events_beyond_cut": 379,
+  "covering_span_rev": 5.911,
+  "separation_rev": 4.909,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002746-auto_grown_20251115002740308_6_flatboi",
+  "grid": [
+   558,
+   2777
+  ],
+  "triangles": 2588608,
+  "pairs": 42900,
+  "events": 83,
+  "events_beyond_cut": 80,
+  "covering_span_rev": 5.107,
+  "separation_rev": 2.042,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002747-auto_grown_20251115002740308_7_flatboi",
+  "grid": [
+   612,
+   2817
+  ],
+  "triangles": 3028226,
+  "pairs": 123834,
+  "events": 268,
+  "events_beyond_cut": 205,
+  "covering_span_rev": 4.67,
+  "separation_rev": 3.95,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251115002748-auto_grown_20251115002740308_8_flatboi",
+  "grid": [
+   637,
+   1867
+  ],
+  "triangles": 2187198,
+  "pairs": 34622,
+  "events": 168,
+  "events_beyond_cut": 95,
+  "covering_span_rev": 2.993,
+  "separation_rev": 2.025,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251203230500-w089_20251203230500465_flatboi",
+  "grid": [
+   646,
+   611
+  ],
+  "triangles": 561752,
+  "pairs": 2723,
+  "events": 79,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.65,
+  "separation_rev": 0.02,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251204060522-w090_20251204060522416_flatboi",
+  "grid": [
+   643,
+   609
+  ],
+  "triangles": 562132,
+  "pairs": 2412,
+  "events": 88,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.651,
+  "separation_rev": 0.014,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251204071911-w091_20251204071911070_flatboi",
+  "grid": [
+   639,
+   608
+  ],
+  "triangles": 560114,
+  "pairs": 2088,
+  "events": 79,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.649,
+  "separation_rev": 0.012,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251204101314-w092_20251204101314959_flatboi",
+  "grid": [
+   677,
+   628
+  ],
+  "triangles": 572660,
+  "pairs": 2466,
+  "events": 91,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.654,
+  "separation_rev": 0.019,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251204192708-w093_20251204192708445_flatboi",
+  "grid": [
+   753,
+   865
+  ],
+  "triangles": 589168,
+  "pairs": 3071,
+  "events": 114,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.77,
+  "separation_rev": 0.039,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251205115859-w094_20251205115859448_flatboi",
+  "grid": [
+   563,
+   520
+  ],
+  "triangles": 416398,
+  "pairs": 4,
+  "events": 1,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.701,
+  "separation_rev": 0.003,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251206184729-w095_20251206184729906_flatboi",
+  "grid": [
+   724,
+   571
+  ],
+  "triangles": 467178,
+  "pairs": 3535,
+  "events": 64,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.724,
+  "separation_rev": 0.089,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251207123912-w060_20251207123912611_flatboi",
+  "grid": [
+   550,
+   578
+  ],
+  "triangles": 569378,
+  "pairs": 45,
+  "events": 3,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.878,
+  "separation_rev": 0.008,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251210142414-w059_20251210142414060_flatboi",
+  "grid": [
+   476,
+   660
+  ],
+  "triangles": 571060,
+  "pairs": 401,
+  "events": 17,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.958,
+  "separation_rev": 0.019,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251210153304-w058_20251210153304503_flatboi",
+  "grid": [
+   546,
+   660
+  ],
+  "triangles": 654542,
+  "pairs": 839,
+  "events": 15,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.959,
+  "separation_rev": 0.038,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251210160810-w057_20251210160810301_flatboi",
+  "grid": [
+   544,
+   651
+  ],
+  "triangles": 643324,
+  "pairs": 739,
+  "events": 13,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.957,
+  "separation_rev": 0.038,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251211095724-w056_20251211095724922_flatboi",
+  "grid": [
+   533,
+   645
+  ],
+  "triangles": 631256,
+  "pairs": 720,
+  "events": 14,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.96,
+  "separation_rev": 0.039,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251211111451-w055_20251211111451620_flatboi",
+  "grid": [
+   537,
+   635
+  ],
+  "triangles": 617814,
+  "pairs": 1088,
+  "events": 6,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.959,
+  "separation_rev": 0.032,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251211135303-w054_20251211135303394_flatboi",
+  "grid": [
+   530,
+   626
+  ],
+  "triangles": 601924,
+  "pairs": 497,
+  "events": 13,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.959,
+  "separation_rev": 0.032,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251211152543-w053_20251211152543204_flatboi",
+  "grid": [
+   530,
+   617
+  ],
+  "triangles": 589734,
+  "pairs": 164,
+  "events": 13,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.957,
+  "separation_rev": 0.005,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "Scroll 5 (PHerc0172)",
+  "segment": "20251212105627-w052_20251212105627148_flatboi",
+  "grid": [
+   529,
+   610
+  ],
+  "triangles": 578996,
+  "pairs": 174,
+  "events": 9,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.956,
+  "separation_rev": 0.006,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20250108000000-w025_2025010863",
+  "grid": [
+   364,
+   340
+  ],
+  "triangles": 202988,
+  "pairs": 26,
+  "events": 2,
+  "events_beyond_cut": 1,
+  "covering_span_rev": 1.453,
+  "separation_rev": 1.158,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.45 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20250108000001-w026_2025010854",
+  "grid": [
+   372,
+   366
+  ],
+  "triangles": 231620,
+  "pairs": 630,
+  "events": 17,
+  "events_beyond_cut": 8,
+  "covering_span_rev": 1.466,
+  "separation_rev": 1.145,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.47 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20250108000002-w027_2025010845",
+  "grid": [
+   366,
+   365
+  ],
+  "triangles": 223232,
+  "pairs": 302,
+  "events": 12,
+  "events_beyond_cut": 7,
+  "covering_span_rev": 1.463,
+  "separation_rev": 1.138,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.46 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20250108000003-w028_2025010836",
+  "grid": [
+   363,
+   368
+  ],
+  "triangles": 224124,
+  "pairs": 52,
+  "events": 4,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 1.456,
+  "separation_rev": 1.139,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.46 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20250108000004-w029_2025010827",
+  "grid": [
+   361,
+   371
+  ],
+  "triangles": 224428,
+  "pairs": 43,
+  "events": 5,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 1.455,
+  "separation_rev": 1.161,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.46 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20250108000005-w030_2025010818",
+  "grid": [
+   357,
+   373
+  ],
+  "triangles": 225090,
+  "pairs": 136,
+  "events": 4,
+  "events_beyond_cut": 3,
+  "covering_span_rev": 1.446,
+  "separation_rev": 1.167,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.45 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20250223000000-w059_2025022312",
+  "grid": [
+   361,
+   501
+  ],
+  "triangles": 309368,
+  "pairs": 73,
+  "events": 3,
+  "events_beyond_cut": 3,
+  "covering_span_rev": 1.046,
+  "separation_rev": 1.006,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.05 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20250831000000-w040_2025083102",
+  "grid": [
+   320,
+   399
+  ],
+  "triangles": 218386,
+  "pairs": 63,
+  "events": 4,
+  "events_beyond_cut": 3,
+  "covering_span_rev": 1.032,
+  "separation_rev": 0.946,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.03 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20251226000000-w055_2025122611",
+  "grid": [
+   386,
+   521
+  ],
+  "triangles": 340354,
+  "pairs": 1840,
+  "events": 30,
+  "events_beyond_cut": 13,
+  "covering_span_rev": 1.077,
+  "separation_rev": 0.948,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.08 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260108000000-w041_2026010816",
+  "grid": [
+   310,
+   401
+  ],
+  "triangles": 215868,
+  "pairs": 62,
+  "events": 2,
+  "events_beyond_cut": 1,
+  "covering_span_rev": 1.133,
+  "separation_rev": 1.041,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.13 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260112000000-w043_2026011217",
+  "grid": [
+   306,
+   406
+  ],
+  "triangles": 217794,
+  "pairs": 24,
+  "events": 2,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 1.107,
+  "separation_rev": 1.038,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.11 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260115000000-w044_2026011522",
+  "grid": [
+   302,
+   408
+  ],
+  "triangles": 217390,
+  "pairs": 175,
+  "events": 5,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 1.099,
+  "separation_rev": 1.039,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.10 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260115000001-w056_2026011514",
+  "grid": [
+   359,
+   487
+  ],
+  "triangles": 302808,
+  "pairs": 231,
+  "events": 5,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.054,
+  "separation_rev": 0.077,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260126000000-w045_2026012619",
+  "grid": [
+   299,
+   412
+  ],
+  "triangles": 215970,
+  "pairs": 11,
+  "events": 1,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.085,
+  "separation_rev": 0.005,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260127000000-w057_2026012713",
+  "grid": [
+   380,
+   489
+  ],
+  "triangles": 322988,
+  "pairs": 312,
+  "events": 9,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.056,
+  "separation_rev": 0.094,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260130000000-w031_2026013019",
+  "grid": [
+   354,
+   375
+  ],
+  "triangles": 225822,
+  "pairs": 1105,
+  "events": 12,
+  "events_beyond_cut": 11,
+  "covering_span_rev": 1.444,
+  "separation_rev": 1.19,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.44 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260203000000-w032_2026020303",
+  "grid": [
+   355,
+   380
+  ],
+  "triangles": 229952,
+  "pairs": 1286,
+  "events": 8,
+  "events_beyond_cut": 7,
+  "covering_span_rev": 1.443,
+  "separation_rev": 1.197,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.44 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260206000000-w042_2026020613",
+  "grid": [
+   299,
+   394
+  ],
+  "triangles": 205862,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.101,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260206000001-w047_2026020613",
+  "grid": [
+   292,
+   422
+  ],
+  "triangles": 215964,
+  "pairs": 3,
+  "events": 1,
+  "events_beyond_cut": 1,
+  "covering_span_rev": 1.055,
+  "separation_rev": 1.004,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.05 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260206000002-w054_2026020617",
+  "grid": [
+   383,
+   557
+  ],
+  "triangles": 356912,
+  "pairs": 3103,
+  "events": 44,
+  "events_beyond_cut": 18,
+  "covering_span_rev": 1.333,
+  "separation_rev": 1.145,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.33 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260210000000-w058_2026021020",
+  "grid": [
+   375,
+   494
+  ],
+  "triangles": 317228,
+  "pairs": 9,
+  "events": 1,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.049,
+  "separation_rev": 0.002,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260215000000-w024_2026021572",
+  "grid": [
+   355,
+   331
+  ],
+  "triangles": 191792,
+  "pairs": 32,
+  "events": 1,
+  "events_beyond_cut": 1,
+  "covering_span_rev": 1.45,
+  "separation_rev": 1.152,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.45 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260219000000-w033_2026021913",
+  "grid": [
+   355,
+   384
+  ],
+  "triangles": 233864,
+  "pairs": 1650,
+  "events": 11,
+  "events_beyond_cut": 10,
+  "covering_span_rev": 1.435,
+  "separation_rev": 1.201,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.44 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260219000001-w048_2026021912",
+  "grid": [
+   286,
+   426
+  ],
+  "triangles": 215664,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.042,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260220000000-w053_2026022021",
+  "grid": [
+   372,
+   518
+  ],
+  "triangles": 329494,
+  "pairs": 417,
+  "events": 14,
+  "events_beyond_cut": 4,
+  "covering_span_rev": 1.248,
+  "separation_rev": 1.076,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.25 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260227000000-w052_2026022705",
+  "grid": [
+   385,
+   488
+  ],
+  "triangles": 332552,
+  "pairs": 1708,
+  "events": 28,
+  "events_beyond_cut": 14,
+  "covering_span_rev": 1.116,
+  "separation_rev": 1.035,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.12 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260302000000-w039_2026030210",
+  "grid": [
+   428,
+   386
+  ],
+  "triangles": 206966,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.013,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260302000001-w050_2026030220",
+  "grid": [
+   265,
+   194
+  ],
+  "triangles": 89552,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.614,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260303000000-w034_2026030317",
+  "grid": [
+   352,
+   386
+  ],
+  "triangles": 233028,
+  "pairs": 2084,
+  "events": 9,
+  "events_beyond_cut": 8,
+  "covering_span_rev": 1.428,
+  "separation_rev": 1.207,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.43 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260306000000-w038_2026030608",
+  "grid": [
+   310,
+   372
+  ],
+  "triangles": 195962,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.004,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260306000001-w051_2026030600",
+  "grid": [
+   379,
+   480
+  ],
+  "triangles": 326248,
+  "pairs": 1601,
+  "events": 15,
+  "events_beyond_cut": 4,
+  "covering_span_rev": 1.159,
+  "separation_rev": 1.044,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.16 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260310000000-w037_2026031015",
+  "grid": [
+   307,
+   360
+  ],
+  "triangles": 186266,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.994,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260311000000-w023_202603112281",
+  "grid": [
+   347,
+   319
+  ],
+  "triangles": 181868,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.435,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260316000000-w036_2026031607",
+  "grid": [
+   299,
+   349
+  ],
+  "triangles": 174736,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.091,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260317000000-w035_2026031718",
+  "grid": [
+   291,
+   262
+  ],
+  "triangles": 125826,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.749,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260318000000-w049_20260318",
+  "grid": [
+   283,
+   470
+  ],
+  "triangles": 235088,
+  "pairs": 303,
+  "events": 7,
+  "events_beyond_cut": 7,
+  "covering_span_rev": 1.158,
+  "separation_rev": 1.046,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.16 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260325000000-w046_20260325",
+  "grid": [
+   299,
+   413
+  ],
+  "triangles": 216626,
+  "pairs": 32,
+  "events": 1,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.084,
+  "separation_rev": 0.011,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0139",
+  "segment": "20260422000000-title_2026042222_zmid_flatboi",
+  "grid": [
+   89,
+   268
+  ],
+  "triangles": 41148,
+  "pairs": 72,
+  "events": 2,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 2.353,
+  "separation_rev": 1.029,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.35 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250925161630-auto_grown_20250925161630635",
+  "grid": [
+   258,
+   950
+  ],
+  "triangles": 171422,
+  "pairs": 311,
+  "events": 6,
+  "events_beyond_cut": 6,
+  "covering_span_rev": 3.299,
+  "separation_rev": 3.174,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250925182632-auto_grown_20250925182632715",
+  "grid": [
+   239,
+   1084
+  ],
+  "triangles": 180812,
+  "pairs": 4120,
+  "events": 37,
+  "events_beyond_cut": 37,
+  "covering_span_rev": 3.099,
+  "separation_rev": 2.041,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250925204843-auto_grown_20250925204843950",
+  "grid": [
+   232,
+   1593
+  ],
+  "triangles": 252306,
+  "pairs": 5992,
+  "events": 50,
+  "events_beyond_cut": 49,
+  "covering_span_rev": 3.285,
+  "separation_rev": 3.021,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250925212701-auto_grown_20250925212701145",
+  "grid": [
+   204,
+   345
+  ],
+  "triangles": 63084,
+  "pairs": 3377,
+  "events": 13,
+  "events_beyond_cut": 13,
+  "covering_span_rev": 1.241,
+  "separation_rev": 1.205,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.24 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250925222237-auto_grown_20250925222237459",
+  "grid": [
+   196,
+   595
+  ],
+  "triangles": 97192,
+  "pairs": 9290,
+  "events": 14,
+  "events_beyond_cut": 14,
+  "covering_span_rev": 2.941,
+  "separation_rev": 1.088,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.94 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250926051122-auto_grown_20250926051122829",
+  "grid": [
+   270,
+   2589
+  ],
+  "triangles": 445442,
+  "pairs": 35745,
+  "events": 80,
+  "events_beyond_cut": 80,
+  "covering_span_rev": 7.81,
+  "separation_rev": 3.494,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250926165636-auto_trace_20250926165636789",
+  "grid": [
+   241,
+   1361
+  ],
+  "triangles": 235058,
+  "pairs": 1260,
+  "events": 14,
+  "events_beyond_cut": 14,
+  "covering_span_rev": 2.8,
+  "separation_rev": 2.042,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250926203608-auto_grown_20250926203608932",
+  "grid": [
+   231,
+   1223
+  ],
+  "triangles": 192740,
+  "pairs": 3217,
+  "events": 16,
+  "events_beyond_cut": 16,
+  "covering_span_rev": 2.876,
+  "separation_rev": 2.148,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250928235953-auto_grown_20250928235953722",
+  "grid": [
+   252,
+   2638
+  ],
+  "triangles": 480342,
+  "pairs": 4265,
+  "events": 64,
+  "events_beyond_cut": 64,
+  "covering_span_rev": 8.844,
+  "separation_rev": 2.376,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250929040153-auto_grown_20250929040153260",
+  "grid": [
+   168,
+   562
+  ],
+  "triangles": 76346,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 2.147,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20250930083742-auto_grown_20250930083742882",
+  "grid": [
+   253,
+   1027
+  ],
+  "triangles": 181514,
+  "pairs": 1424,
+  "events": 14,
+  "events_beyond_cut": 14,
+  "covering_span_rev": 3.869,
+  "separation_rev": 1.81,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20251001060526-auto_grown_20251001060526760",
+  "grid": [
+   236,
+   1234
+  ],
+  "triangles": 182510,
+  "pairs": 27855,
+  "events": 41,
+  "events_beyond_cut": 37,
+  "covering_span_rev": 3.516,
+  "separation_rev": 0.917,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 3.52 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc0814",
+  "segment": "20260226000000-46527_2um_try2",
+  "grid": [
+   109,
+   178
+  ],
+  "triangles": 22302,
+  "pairs": 0,
+  "events": 0,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.704,
+  "separation_rev": null,
+  "band": "none",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20240304141531-w013_20240304141531_flatboi",
+  "grid": [
+   634,
+   1217
+  ],
+  "triangles": 1451972,
+  "pairs": 58,
+  "events": 2,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 5.542,
+  "separation_rev": 1.054,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 5.54 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20240304144031-w018_20240304144031_flatboi",
+  "grid": [
+   646,
+   1500
+  ],
+  "triangles": 1800118,
+  "pairs": 42,
+  "events": 3,
+  "events_beyond_cut": 3,
+  "covering_span_rev": 5.369,
+  "separation_rev": 1.096,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 5.37 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20240304161941-w023_20240304161941_flatboi",
+  "grid": [
+   638,
+   1565
+  ],
+  "triangles": 1828904,
+  "pairs": 59,
+  "events": 3,
+  "events_beyond_cut": 3,
+  "covering_span_rev": 4.646,
+  "separation_rev": 1.058,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 4.65 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20251206103305-w012_20251206103305555_flatboi",
+  "grid": [
+   600,
+   240
+  ],
+  "triangles": 233646,
+  "pairs": 142,
+  "events": 6,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.083,
+  "separation_rev": 0.064,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20251208130119-w028_20251208130119156_flatboi",
+  "grid": [
+   570,
+   464
+  ],
+  "triangles": 453556,
+  "pairs": 379,
+  "events": 13,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.051,
+  "separation_rev": 0.005,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20251212185248-w029_20251212185248662_flatboi",
+  "grid": [
+   579,
+   479
+  ],
+  "triangles": 471756,
+  "pairs": 101,
+  "events": 11,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.246,
+  "separation_rev": 0.008,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20251220020000-w030_2025122002_flatboi",
+  "grid": [
+   576,
+   485
+  ],
+  "triangles": 475742,
+  "pairs": 390,
+  "events": 19,
+  "events_beyond_cut": 6,
+  "covering_span_rev": 1.094,
+  "separation_rev": 0.899,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.09 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20251223230000-w031_2025122323_flatboi",
+  "grid": [
+   571,
+   492
+  ],
+  "triangles": 429400,
+  "pairs": 570,
+  "events": 24,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 1.435,
+  "separation_rev": 1.192,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.44 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260105050000-w032_2026010505_flatboi",
+  "grid": [
+   580,
+   502
+  ],
+  "triangles": 445014,
+  "pairs": 1210,
+  "events": 61,
+  "events_beyond_cut": 6,
+  "covering_span_rev": 1.432,
+  "separation_rev": 1.214,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.43 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260108140509-w011_20260108140509268_flatboi",
+  "grid": [
+   602,
+   225
+  ],
+  "triangles": 216116,
+  "pairs": 952,
+  "events": 44,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.09,
+  "separation_rev": 0.074,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260110010000-w033_2026011001_flatboi",
+  "grid": [
+   550,
+   483
+  ],
+  "triangles": 391536,
+  "pairs": 127,
+  "events": 8,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.42,
+  "separation_rev": 0.009,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260115160000-w034_2026011516_flatboi",
+  "grid": [
+   547,
+   496
+  ],
+  "triangles": 383020,
+  "pairs": 450,
+  "events": 31,
+  "events_beyond_cut": 4,
+  "covering_span_rev": 1.409,
+  "separation_rev": 1.234,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.41 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260116230000-w035_2026011623_flatboi",
+  "grid": [
+   559,
+   498
+  ],
+  "triangles": 410762,
+  "pairs": 2273,
+  "events": 45,
+  "events_beyond_cut": 14,
+  "covering_span_rev": 1.33,
+  "separation_rev": 1.201,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.33 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260119120000-w036_2026011912_flatboi",
+  "grid": [
+   608,
+   507
+  ],
+  "triangles": 402640,
+  "pairs": 2003,
+  "events": 75,
+  "events_beyond_cut": 8,
+  "covering_span_rev": 1.35,
+  "separation_rev": 1.203,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.35 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260123230000-w037_2026012323_flatboi",
+  "grid": [
+   522,
+   486
+  ],
+  "triangles": 334408,
+  "pairs": 565,
+  "events": 15,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.145,
+  "separation_rev": 0.021,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260128140000-w038_2026012814_flatboi",
+  "grid": [
+   536,
+   503
+  ],
+  "triangles": 361294,
+  "pairs": 483,
+  "events": 44,
+  "events_beyond_cut": 3,
+  "covering_span_rev": 1.259,
+  "separation_rev": 1.186,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.26 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260130150000-w039_2026013015_flatboi",
+  "grid": [
+   550,
+   509
+  ],
+  "triangles": 372796,
+  "pairs": 842,
+  "events": 67,
+  "events_beyond_cut": 2,
+  "covering_span_rev": 1.04,
+  "separation_rev": 0.968,
+  "band": "one-revolution",
+  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.04 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260203210000-w040_2026020321_flatboi",
+  "grid": [
+   535,
+   482
+  ],
+  "triangles": 312378,
+  "pairs": 251,
+  "events": 27,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 1.032,
+  "separation_rev": 0.009,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260205070000-w041_2026020507_flatboi",
+  "grid": [
+   521,
+   467
+  ],
+  "triangles": 260480,
+  "pairs": 1011,
+  "events": 67,
+  "events_beyond_cut": 0,
+  "covering_span_rev": 0.991,
+  "separation_rev": 0.011,
+  "band": "local",
+  "verdict": "no wrap-scale self-overlap detected"
+ },
+ {
+  "corpus": "PHerc1667",
+  "segment": "20260612121456-w011_20260108140509268_merged_v4_flatboi_straightened_v4",
+  "grid": [
+   628,
+   9204
+  ],
+  "triangles": 8711602,
+  "pairs": 636628,
+  "events": 3696,
+  "events_beyond_cut": 3107,
+  "covering_span_rev": 18.557,
+  "separation_rev": 14.595,
+  "band": "wrap-scale",
+  "verdict": "wrap-scale self-overlap present"
+ }
+]
