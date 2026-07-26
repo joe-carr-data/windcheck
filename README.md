@@ -1,11 +1,17 @@
 # windcheck
 
-**Finds where a traced Herculaneum scroll surface passes through itself.**
+**Automated detection of sheet switches in traced Herculaneum scroll surfaces.**
 
-A traced sheet cannot pass through itself. Wherever a published `tifxyz` surface
-does, that is a defect in the representation — and unlike proximity, saying so
-needs no threshold, because it does not depend on how tightly the scroll is
-packed.
+Vesuvius Challenge names *sheet switching* — *"meshes can jump from one wrap to
+another"* — among its current open problems, and notes that *"automatic growth
+still needs human inspection and correction."* This does that inspection
+automatically, deterministically, and at corpus scale.
+
+The method: a traced sheet cannot pass *through* itself. Wherever a published
+`tifxyz` surface does, that is a defect in the representation — and unlike
+proximity, saying so needs no threshold, because it does not depend on how
+tightly the scroll is packed. A trace that switches wraps and later returns meets
+itself a full wrap or more away, which is directly measurable.
 
 Across **179 published segments from five scrolls** — Scroll 1, Scroll 5,
 PHerc0139, PHerc0814, PHerc1667, 228 million triangles — **160 contain at least

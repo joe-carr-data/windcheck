@@ -1,4 +1,4 @@
-# Published scroll meshes pass through themselves
+# Detecting sheet switches: published scroll meshes pass through themselves
 
 **windcheck — a deterministic self-intersection validator, and an audit of 179
 published segments across five Herculaneum scrolls.**
@@ -41,6 +41,42 @@ scroll its segments reach (§4).
 The tool emits a per-trace certificate and an overlay that loads directly into
 volume-cartographer's existing point-collection widget, so a result is something
 you open rather than something you read.
+
+---
+
+## 1b. Which open problem this addresses
+
+Vesuvius Challenge lists **sheet switching** among its current bottlenecks:
+
+> *"mergers, where two nearby sheets are joined by mistake; holes, where the
+> predicted surface disappears; sheet switches"*
+>
+> *"Meshes can jump from one wrap to another"*
+>
+> *"a small local error can send a traced mesh onto the wrong wrap entirely,
+> with no easy way to recover"*
+>
+> *"label quality is now one of the main unwrapping bottlenecks"*
+>
+> *"automatic growth still needs human inspection and correction"*
+
+A trace that switches sheets and later returns visits the same physical place at
+two points far apart along its own parameter. That is exactly the wrap-scale band
+in §4: two parts of a trace **1.8 revolutions or more apart in parameter, meeting
+in 3D**. Seventeen of the 179 segments show it.
+
+This is a detector for a specific, checkable *consequence* of sheet switching,
+and the scope of that claim matters:
+
+- A trace that switches wraps and never comes back need not self-intersect, so
+  this is not a complete sheet-switch detector.
+- A self-intersection is not by itself proof that a switch occurred — see §9,
+  where three separate attempts to establish that failed.
+
+What it does give is an automated, deterministic, corpus-scale answer to
+"which published segments contain a place where the traced sheet meets itself a
+full wrap or more away, and where exactly" — for meshes that today rely on human
+inspection to find such things. On the five scrolls tested it runs in 91 seconds.
 
 ---
 
