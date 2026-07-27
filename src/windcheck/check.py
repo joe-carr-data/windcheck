@@ -6,11 +6,12 @@ the write-up. This is the part someone else runs:
     windcheck check data/scroll5_tifxyz/20251115002745-auto_grown_..._flatboi
 
     20251115002745-auto_grown_20251115002740308_5_flatboi
-      grid                637 x 3065          triangles  3,535,576
+      grid                637 x 3065          triangles  3,535,554
       covering span       5.91 revolutions
-      widest separation   4.91 revolutions    ->  wrap-scale
-      crossing events     563   (379 beyond the wrap-scale cut)
-      VERDICT             wrap-scale self-overlap present
+      widest separation   4.91 revolutions
+      crossing events     563   (181 separated by 1.6 revolutions or more)
+      VERDICT             self-intersection present; widest separation 4.91
+                          revolutions along the trace's own parameter
 
       certificate  out/check/<name>_certificate.json
       overlay      out/check/<name>_points.json    <- opens in VC3D
@@ -32,7 +33,7 @@ from pathlib import Path
 
 import numpy as np
 
-from . import atlas, tifxyz
+from . import atlas, classify, tifxyz
 from .certificate import (WRAP_SCALE_CUT_REV, certificate, write_collection)
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -97,6 +98,37 @@ def revolution_period(P: np.ndarray, V: np.ndarray) -> float:
     if turn < 0.35:                       # under ~20 degrees: no period
         return float("nan")
     return (have[-1] - have[0]) * 2.0 * np.pi / turn
+
+
+def neighbour_period(mesh: Path, out: Path, stride: int = 4,
+                     threads: int = 0) -> float:
+    """Second, centre-free period estimate: columns to the adjacent wrap.
+
+    For each grid point, the physically nearest part of the SAME surface at
+    least a few columns away is the neighbouring wrap, so the column offset to
+    it is one revolution. Returns nan when there is no neighbouring wrap inside
+    the segment -- a single winding has none, which is a property of the segment
+    and not a failure.
+    """
+    eng = ROOT / "engines" / "atlas_query"
+    if not eng.exists():
+        return float("nan")
+    s = tifxyz.read(mesh)
+    v, u = np.nonzero(s.valid[::stride, ::stride])
+    if len(v) < 2000:
+        return float("nan")
+    V, U = v * stride, u * stride
+    gap = max(s.shape[1] // 100, 3)
+    out.mkdir(parents=True, exist_ok=True)
+    atlas.write_atlas([_Entry(mesh)], out / "_np_atlas.bin")
+    atlas.write_queries_grouped(s.points[V, U], U, out / "_np_query.bin")
+    r = atlas.run_engine(out / "_np_atlas.bin", out / "_np_query.bin",
+                         out / "_np_result.bin", threads=threads, exclude_u=gap)
+    d, w1 = r["d1"], r["w1"]
+    m = np.isfinite(d) & (d < 24.0)
+    if m.sum() < 200:
+        return float("nan")
+    return float(np.median(np.abs(w1[m] - U[m])))
 
 
 def components(rec: np.ndarray) -> dict:
@@ -192,6 +224,9 @@ def analyse(target: Path, out: Path, volume: str = "", threads: int = 0,
             pts = [P[int(r["v1"]), int(r["u1"])].tolist() for r in best.values()]
             assert len(pts) == n_far
 
+    neigh = neighbour_period(mesh, out, threads=threads)
+    pstatus = classify.period_status(period if period == period else None, neigh)
+
     area = quad_area_mm2(P, V, vx_um) if vx_um == vx_um else np.zeros((1, 1))
     part = 0.0
     if len(rec) and vx_um == vx_um:
@@ -218,24 +253,25 @@ def analyse(target: Path, out: Path, volume: str = "", threads: int = 0,
         covering_span_revolutions=span_rev,
         revolution_period_columns={
             "turning_estimate": round(period, 1) if period == period else None,
-            "method": "centreline turning; externally validated against "
-                      "published winding counts at r=0.9999"},
+            "neighbour_estimate": round(neigh, 1) if neigh == neigh else None,
+            "method": "centreline turning, cross-checked against the column "
+                      "offset to the neighbouring wrap"},
+        period_status=pstatus,
         n_pairs=int(len(rec)), n_events=n_events, events_beyond_cut=n_far,
         median_penetration_vx=(float(np.nanmedian(rec["pen"])) if len(rec) else 0.0))
     (out / f"{name[:40]}_certificate.json").write_text(json.dumps(cert, indent=2))
 
     return {"name": name, "mesh": mesh, "grid": list(P.shape[:2]),
             "triangles": stats["triangles"], "pairs": int(len(rec)),
-            "period": period, "span_rev": span_rev, "sep_rev": sep_rev or None,
+            "period": period, "neighbour": neigh, "period_status": pstatus,
+            "span_rev": span_rev, "sep_rev": sep_rev or None,
+            "band": classify.separation_band(sep_rev or None),
             "events": n_events, "events_beyond_cut": n_far,
-            "verdict": cert["verdict"], "out": out, "points": len(pts)}
+            "verdict": cert["verdict"], "note": cert["note"],
+            "out": out, "points": len(pts)}
 
 
 def report(r: dict) -> None:
-    band = ("-" if not r["sep_rev"] else
-            "local" if r["sep_rev"] < 0.15 else
-            "one revolution (the segment's own ends meeting)"
-            if r["sep_rev"] < 1.6 else "wrap-scale")
     print(f"\n{r['name']}")
     print(f"  grid                {r['grid'][0]} x {r['grid'][1]}"
           f"{'':6s}triangles  {r['triangles']:,}")
@@ -244,16 +280,19 @@ def report(r: dict) -> None:
     if r["pairs"] == 0:
         print("  self-overlap        none found")
     else:
-        print(f"  widest separation   "
-              f"{('%.2f revolutions' % r['sep_rev']) if r['sep_rev'] else 'n/a'}"
-              f"    ->  {band}")
+        sep = (f"{r['sep_rev']:.2f} revolutions" if r["sep_rev"] else "n/a")
+        if r["period_status"] != "agreed":
+            sep += f"    (period {r['period_status']}; treat with caution)"
+        print(f"  widest separation   {sep}")
         print(f"  crossing events     {r['events']:,}"
-              f"   ({r['events_beyond_cut']:,} beyond the wrap-scale cut)")
+              f"   ({r['events_beyond_cut']:,} separated by "
+              f"{classify.SEP_WIDE} revolutions or more)")
     print(f"  VERDICT             {r['verdict']}")
     print(f"\n  certificate  {r['out']}/{r['name'][:40]}_certificate.json")
     if r["points"]:
         print(f"  overlay      {r['out']}/{r['name'][:40]}_points.json"
               f"   <- open in VC3D ({r['points']} points)")
-    print("\n  This measures that the surface meets itself, and how far apart "
-          "along its\n  own parameter. It does not establish that any crossing "
+    print(f"\n  {r['note']}")
+    print("  This measures that the surface meets itself, and how far apart "
+          "along its own\n  parameter. It does not establish that any crossing "
           "is a tracing error.")

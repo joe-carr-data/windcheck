@@ -18,6 +18,7 @@ import json
 from pathlib import Path
 
 from windcheck import check as C
+from windcheck import classify
 
 CORPORA = [
     ("Scroll 1 (PHercParis4)", "data/scroll1_tifxyz", "20230205180739"),
@@ -26,16 +27,6 @@ CORPORA = [
     ("PHerc0814", "data/PHerc0814_tifxyz", "20250804134230"),
     ("PHerc1667", "data/PHerc1667_tifxyz", "20231117161658"),
 ]
-
-
-def band(sep: float | None) -> str:
-    if sep is None:
-        return "none"
-    if sep < 0.15:
-        return "local"
-    if sep < 1.6:
-        return "one-revolution"
-    return "wrap-scale"
 
 
 def main() -> None:
@@ -69,28 +60,33 @@ def main() -> None:
                                       if r["span_rev"] else None),
                 "separation_rev": (round(r["sep_rev"], 3)
                                    if r["sep_rev"] else None),
-                "band": band(r["sep_rev"]),
+                "band": r["band"],
+                "crossing_status": classify.crossing_status(r["pairs"]),
+                "period_status": r["period_status"],
                 "verdict": r["verdict"],
             })
             print(f"  {corpus[:12]:14s} {r['name'][:38]:40s} "
-                  f"{band(r['sep_rev']):15s} "
-                  f"sep {str(round(r['sep_rev'], 3)) if r['sep_rev'] else '-':>6s}",
+                  f"{r['band']:16s} period {r['period_status']:12s} "
+                  f"sep {str(round(r['sep_rev'], 3)) if r['sep_rev'] else '-':>7s}",
                   flush=True)
 
     (a.out / "index.json").write_text(json.dumps(index, indent=1))
-    # The per-pair CSVs are large and are not part of the bundle.
-    for f in certs.glob("*_pairs.csv"):
-        f.unlink()
-    for f in certs.glob("_atlas.bin"):
-        f.unlink()
+    # Intermediates are large and are not part of the bundle: the per-pair CSVs
+    # and the engine's serialised atlas/query/result buffers.
+    for pat in ("*_pairs.csv", "_atlas.bin", "_np_atlas.bin", "_np_query.bin",
+                "_np_result.bin"):
+        for f in certs.glob(pat):
+            f.unlink()
 
     n = len(index)
     from collections import Counter
-    c = Counter(r["band"] for r in index)
     print(f"\n{n} segments -> {a.out}/index.json")
-    for k in ("none", "local", "one-revolution", "wrap-scale"):
-        if c[k]:
-            print(f"   {k:16s} {c[k]:4d}")
+    for label, key in (("separation band", "band"),
+                       ("period status", "period_status"),
+                       ("crossing status", "crossing_status")):
+        print(f"  {label}:")
+        for k, v in sorted(Counter(r[key] for r in index).items()):
+            print(f"     {k:22s} {v:4d}")
 
 
 if __name__ == "__main__":

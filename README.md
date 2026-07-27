@@ -1,11 +1,15 @@
 # windcheck
 
-**Automated detection of sheet switches in traced Herculaneum scroll surfaces.**
+**A deterministic self-intersection validator for traced Herculaneum surfaces**,
+with corpus-scale measurements of a geometry associated with sheet switches that
+return.
 
 Vesuvius Challenge names *sheet switching* — *"meshes can jump from one wrap to
 another"* — among its current open problems, and notes that *"automatic growth
-still needs human inspection and correction."* This does that inspection
-automatically, deterministically, and at corpus scale.
+still needs human inspection and correction."* A trace that switches wraps and
+later returns meets itself, which this measures exactly. A switch that never
+returns need not self-intersect, so this is **not** a complete sheet-switch
+detector, and a crossing is not proof that a switch occurred.
 
 The method: a traced sheet cannot pass *through* itself. Wherever a published
 `tifxyz` surface does, that is a defect in the representation — and unlike
@@ -99,18 +103,35 @@ crossing *event*, not per triangle pair.
 
 ## What the number means
 
-Self-overlaps fall into three bands, separated by how far apart the two
-overlapping parts lie in **turns of the scroll**:
+Three facts are reported separately, and none of them asserts a cause.
 
-| separation | reading |
+| field | values |
 |---|---|
-| under 0.12 revolutions | local pinch; common, associated with elevated quad twist |
-| 0.90 – 1.24 revolutions | the segment's own two ends meeting — **correct geometry, not a defect** |
-| over 1.8 revolutions | the trace has jumped its wrap |
+| `crossing_status` | `none` · `present` |
+| `separation_revolutions` | a continuous distance along the trace's own parameter |
+| `period_status` | `agreed` · `disagreed` · `unavailable` |
 
-The boundary between the first two is the largest gap in the whole distribution,
-9.56×, against 1.47× for the next largest — so it is found in the data rather
-than chosen.
+Separation is a distance divided by an estimated revolution period. Two
+independent estimators of that period are computed; when they disagree the ratio
+is not interpretable, and the segment is reported as intersecting with the scale
+**unavailable** rather than being placed in a band.
+
+Across the 179 audited segments:
+
+```
+  crossing        present 160    none 19
+  period          agreed   96    disagreed 38    unavailable 45
+  separation      < 0.15 rev  59    0.15-1.6 rev  63    >= 1.6 rev  38
+```
+
+Of the 38 with a separation of 1.6 revolutions or more, **34 have an agreed
+period**; the other four are reported without a scale.
+
+An earlier version of this tool sorted segments into "local", "one revolution"
+and "wrap-scale". That was dropped: adding a fifth scroll closed the gap between
+the upper two, so the three-way split was an artifact of the four corpora it came
+from, and the last label implied a cause that was never established. Filters over
+separation remain, labelled literally.
 
 ## How far to trust it
 

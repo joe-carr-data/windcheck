@@ -29,6 +29,8 @@ from typing import Sequence
 
 import numpy as np
 
+from . import classify
+
 SCHEMA_NOTE = ("volume-cartographer PointCollections JSON; keys from "
                "core/src/PointCollections.cpp")
 
@@ -88,34 +90,9 @@ def write_collection(path: Path, name: str, points, **kw) -> int:
     return len(points)
 
 
-# Midpoint of the gap observed across four scrolls: no segment covering at most
-# one revolution exceeds 0.115, and the least-separated trace covering more than
-# two revolutions sits at 0.440. Quoted as an observed gap, not a tuned
-# parameter -- any cut between the two gives the same partition of that corpus.
-WRAP_SCALE_CUT_REV = 0.25
-SINGLE_COVER_MAX_REV = 1.005
-
-
-def verdict_for(separation_rev: float | None, covering_span_rev: float | None,
-                events_beyond_cut: int) -> str:
-    """Three outcomes, because the honest answer is sometimes the third.
-
-    A segment covering more than one revolution can overlap itself for a
-    perfectly correct reason -- its two ends cover the same angular sector. That
-    case is neither a clean sheet nor a defect, and collapsing it into either
-    would be the whole earlier mistake repeated: on Scroll 5 every labelled file
-    covers at most one revolution, so the case never arose and a two-valued
-    verdict looked sufficient.
-    """
-    if events_beyond_cut <= 0 or separation_rev is None:
-        return "no wrap-scale self-overlap detected"
-    if (covering_span_rev is not None
-            and covering_span_rev > SINGLE_COVER_MAX_REV
-            and separation_rev < 1.4):
-        return ("self-overlap at under 1.4 revolutions in a segment covering "
-                f"{covering_span_rev:.2f} revolutions; consistent with the "
-                "segment's own ends meeting, not adjudicated")
-    return "wrap-scale self-overlap present"
+# Kept as a name other modules import; it is a LITERAL filter boundary on a
+# measured separation, not a claim about what a segment is. See classify.py.
+WRAP_SCALE_CUT_REV = classify.SEP_WIDE
 
 
 def certificate(*, segment: str, mesh_path: Path, voxel_um: float,
@@ -125,6 +102,7 @@ def certificate(*, segment: str, mesh_path: Path, voxel_um: float,
                 separation_revolutions: float | None,
                 covering_span_revolutions: float | None,
                 revolution_period_columns: dict,
+                period_status: str = "unavailable",
                 n_pairs: int, n_events: int,
                 events_beyond_cut: int, median_penetration_vx: float,
                 extra: dict | None = None) -> dict:
@@ -156,6 +134,9 @@ def certificate(*, segment: str, mesh_path: Path, voxel_um: float,
             "separation_revolutions": (round(separation_revolutions, 3)
                                        if separation_revolutions is not None
                                        else None),
+            "separation_band": classify.separation_band(separation_revolutions),
+            "crossing_status": classify.crossing_status(n_pairs),
+            "period_status": period_status,
             "covering_span_revolutions": (round(covering_span_revolutions, 3)
                                           if covering_span_revolutions is not None
                                           else None),
@@ -165,9 +146,13 @@ def certificate(*, segment: str, mesh_path: Path, voxel_um: float,
             "crossing_events": int(n_events),
             "events_beyond_cut": int(events_beyond_cut),
         },
-        "wrap_scale_cut_revolutions": WRAP_SCALE_CUT_REV,
-        "verdict": verdict_for(separation_revolutions, covering_span_revolutions,
-                               events_beyond_cut),
+        "separation_filter_revolutions": {"nearby": classify.SEP_NEARBY,
+                                          "wide": classify.SEP_WIDE},
+        "verdict": classify.verdict(classify.crossing_status(n_pairs),
+                                    period_status, separation_revolutions,
+                                    covering_span_revolutions),
+        "note": classify.describe(separation_revolutions,
+                                  covering_span_revolutions),
         # Stated on the artifact itself so it cannot be separated from the number.
         "caveats": [
             "Deterministic floating-point validator, not exact predicates.",
@@ -180,9 +165,11 @@ def certificate(*, segment: str, mesh_path: Path, voxel_um: float,
             "The revolution period is measured from the surface's own geometry "
             "and carries its own error; two independent estimators agree to "
             "within about 15% where both are measurable.",
-            "A segment covering more than one revolution is expected to meet "
-            "itself at about one revolution of separation. That case is "
-            "reported, not adjudicated.",
+            "Separations are reported as measured distances. No band in this "
+            "output asserts a cause; three attempts to connect crossings to "
+            "sheet misassignment did not succeed.",
+            "A segment covering more than one revolution has two ends in the "
+            "same angular sector and can meet itself there without error.",
             "The mesh fingerprint is a partial one: file names, sizes and a "
             "bounded head of each file, not full content.",
         ],

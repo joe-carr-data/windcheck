@@ -1,7 +1,7 @@
 {
   "tool": "windcheck selfcross",
   "schema": 2,
-  "generated_utc": "2026-07-26T23:12:59Z",
+  "generated_utc": "2026-07-27T07:28:29Z",
   "segment": "20251111210734-w070_20251111210734722_flatboi",
   "mesh": {
     "path": "data/scroll5_tifxyz/20251111210734-w070_20251111210734722_flatboi/mesh/20251111210734-on-20241024131839-7.91um.tifxyz",
@@ -21,25 +21,34 @@
     "participating_quad_fraction": 0.001078,
     "parameter_span_mm_estimate": 0.0,
     "separation_revolutions": 0.016,
+    "separation_band": "< 0.15 rev",
+    "crossing_status": "present",
+    "period_status": "unavailable",
     "covering_span_revolutions": 0.943,
     "revolution_period_columns": {
       "turning_estimate": 791.1,
-      "method": "centreline turning; externally validated against published winding counts at r=0.9999"
+      "neighbour_estimate": null,
+      "method": "centreline turning, cross-checked against the column offset to the neighbouring wrap"
     },
     "median_penetration_vx": 3.869,
     "intersecting_pairs": 1267,
     "crossing_events": 13,
     "events_beyond_cut": 0
   },
-  "wrap_scale_cut_revolutions": 0.25,
-  "verdict": "no wrap-scale self-overlap detected",
+  "separation_filter_revolutions": {
+    "nearby": 0.15,
+    "wide": 1.6
+  },
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made",
+  "note": "A short-range self-contact. These are common across the corpus and are associated with elevated quad twist.",
   "caveats": [
     "Deterministic floating-point validator, not exact predicates.",
     "Detects that the surface overlaps itself; does not identify which branch is wrong, nor establish a cause.",
     "Event counts depend on the clustering rule and on sampling density; the span in revolutions does not.",
     "Local overlaps are common across the published corpus and are associated with elevated quad twist.",
     "The revolution period is measured from the surface's own geometry and carries its own error; two independent estimators agree to within about 15% where both are measurable.",
-    "A segment covering more than one revolution is expected to meet itself at about one revolution of separation. That case is reported, not adjudicated.",
+    "Separations are reported as measured distances. No band in this output asserts a cause; three attempts to connect crossings to sheet misassignment did not succeed.",
+    "A segment covering more than one revolution has two ends in the same angular sector and can meet itself there without error.",
     "The mesh fingerprint is a partial one: file names, sizes and a bounded head of each file, not full content."
   ]
 }

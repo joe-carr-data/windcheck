@@ -12,8 +12,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.477,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "disagreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -28,8 +30,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 2.697,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -41,11 +45,13 @@
   "triangles": 1398020,
   "pairs": 20,
   "events": 1,
-  "events_beyond_cut": 1,
+  "events_beyond_cut": 0,
   "covering_span_rev": 3.507,
   "separation_rev": 0.823,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 3.51 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.82 revolutions along the trace's own parameter, in a segment covering 3.51"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -60,8 +66,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.551,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "disagreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -76,8 +84,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.424,
   "separation_rev": 0.1,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -92,8 +102,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.508,
   "separation_rev": 0.191,
-  "band": "one-revolution",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -108,8 +120,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 7.656,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -124,8 +138,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.466,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "disagreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -137,11 +153,13 @@
   "triangles": 741208,
   "pairs": 10,
   "events": 1,
-  "events_beyond_cut": 1,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.942,
   "separation_rev": 0.271,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -156,8 +174,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.462,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "disagreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -172,8 +192,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 2.826,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -188,8 +210,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.472,
   "separation_rev": 0.027,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -201,11 +225,13 @@
   "triangles": 417396,
   "pairs": 1441,
   "events": 37,
-  "events_beyond_cut": 16,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.466,
   "separation_rev": 0.341,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -217,11 +243,13 @@
   "triangles": 398070,
   "pairs": 2128,
   "events": 36,
-  "events_beyond_cut": 32,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.466,
   "separation_rev": 0.345,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -233,11 +261,13 @@
   "triangles": 379038,
   "pairs": 842,
   "events": 12,
-  "events_beyond_cut": 9,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.458,
   "separation_rev": 0.345,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -249,11 +279,13 @@
   "triangles": 364570,
   "pairs": 704,
   "events": 15,
-  "events_beyond_cut": 6,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.539,
   "separation_rev": 0.356,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -265,11 +297,13 @@
   "triangles": 342652,
   "pairs": 2398,
   "events": 38,
-  "events_beyond_cut": 13,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.544,
   "separation_rev": 0.417,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -281,11 +315,13 @@
   "triangles": 276386,
   "pairs": 1848,
   "events": 34,
-  "events_beyond_cut": 19,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.543,
   "separation_rev": 0.358,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -297,11 +333,13 @@
   "triangles": 305506,
   "pairs": 1066,
   "events": 24,
-  "events_beyond_cut": 9,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.461,
   "separation_rev": 0.358,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -313,11 +351,13 @@
   "triangles": 333834,
   "pairs": 710,
   "events": 13,
-  "events_beyond_cut": 12,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.463,
   "separation_rev": 0.317,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -329,11 +369,13 @@
   "triangles": 1062510,
   "pairs": 5399,
   "events": 29,
-  "events_beyond_cut": 24,
+  "events_beyond_cut": 4,
   "covering_span_rev": 2.011,
   "separation_rev": 1.758,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.76 revolutions along the trace's own parameter, in a segment covering 2.01"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -345,11 +387,13 @@
   "triangles": 1364200,
   "pairs": 5038,
   "events": 84,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 0.495,
   "separation_rev": 0.395,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -361,11 +405,13 @@
   "triangles": 3999428,
   "pairs": 1926,
   "events": 58,
-  "events_beyond_cut": 58,
+  "events_beyond_cut": 1,
   "covering_span_rev": 6.958,
   "separation_rev": 1.938,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.94 revolutions along the trace's own parameter, in a segment covering 6.96"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -377,11 +423,13 @@
   "triangles": 3888872,
   "pairs": 3788,
   "events": 86,
-  "events_beyond_cut": 74,
+  "events_beyond_cut": 7,
   "covering_span_rev": 5.987,
   "separation_rev": 2.035,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.03 revolutions along the trace's own parameter, in a segment covering 5.99"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -393,11 +441,13 @@
   "triangles": 3419404,
   "pairs": 1467,
   "events": 25,
-  "events_beyond_cut": 25,
+  "events_beyond_cut": 0,
   "covering_span_rev": 18.033,
   "separation_rev": 1.512,
-  "band": "one-revolution",
-  "verdict": "wrap-scale self-overlap present"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.51 revolutions along the trace's own parameter, in a segment covering 18.03"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -409,11 +459,13 @@
   "triangles": 3609674,
   "pairs": 851,
   "events": 25,
-  "events_beyond_cut": 25,
+  "events_beyond_cut": 1,
   "covering_span_rev": 9.756,
   "separation_rev": 2.2,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.20 revolutions along the trace's own parameter, in a segment covering 9.76"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -425,11 +477,13 @@
   "triangles": 3615528,
   "pairs": 1584,
   "events": 52,
-  "events_beyond_cut": 52,
+  "events_beyond_cut": 1,
   "covering_span_rev": 7.818,
   "separation_rev": 1.948,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.95 revolutions along the trace's own parameter, in a segment covering 7.82"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -441,11 +495,13 @@
   "triangles": 3999308,
   "pairs": 2863,
   "events": 103,
-  "events_beyond_cut": 99,
+  "events_beyond_cut": 10,
   "covering_span_rev": 6.922,
   "separation_rev": 2.961,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.96 revolutions along the trace's own parameter, in a segment covering 6.92"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -457,11 +513,13 @@
   "triangles": 3895254,
   "pairs": 3585,
   "events": 74,
-  "events_beyond_cut": 60,
+  "events_beyond_cut": 19,
   "covering_span_rev": 5.999,
   "separation_rev": 3.907,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 3.91 revolutions along the trace's own parameter, in a segment covering 6.00"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -473,11 +531,13 @@
   "triangles": 3594692,
   "pairs": 6378,
   "events": 83,
-  "events_beyond_cut": 65,
+  "events_beyond_cut": 39,
   "covering_span_rev": 4.96,
   "separation_rev": 3.869,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 3.87 revolutions along the trace's own parameter, in a segment covering 4.96"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -489,11 +549,13 @@
   "triangles": 3990444,
   "pairs": 2132,
   "events": 41,
-  "events_beyond_cut": 33,
+  "events_beyond_cut": 11,
   "covering_span_rev": 4.989,
   "separation_rev": 3.896,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 3.90 revolutions along the trace's own parameter, in a segment covering 4.99"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -505,11 +567,13 @@
   "triangles": 3441308,
   "pairs": 263,
   "events": 19,
-  "events_beyond_cut": 19,
+  "events_beyond_cut": 0,
   "covering_span_rev": 4.007,
   "separation_rev": 0.998,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 4.01 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.00 revolutions along the trace's own parameter, in a segment covering 4.01"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -521,11 +585,13 @@
   "triangles": 3624486,
   "pairs": 537,
   "events": 27,
-  "events_beyond_cut": 27,
+  "events_beyond_cut": 0,
   "covering_span_rev": 4.017,
   "separation_rev": 0.999,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 4.02 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.00 revolutions along the trace's own parameter, in a segment covering 4.02"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -537,11 +603,13 @@
   "triangles": 3843432,
   "pairs": 561,
   "events": 27,
-  "events_beyond_cut": 27,
+  "events_beyond_cut": 2,
   "covering_span_rev": 4.015,
   "separation_rev": 1.986,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.99 revolutions along the trace's own parameter, in a segment covering 4.02"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -553,11 +621,13 @@
   "triangles": 4082774,
   "pairs": 1264,
   "events": 42,
-  "events_beyond_cut": 42,
+  "events_beyond_cut": 0,
   "covering_span_rev": 3.97,
   "separation_rev": 0.993,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 3.97 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.99 revolutions along the trace's own parameter, in a segment covering 3.97"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -569,11 +639,13 @@
   "triangles": 4279188,
   "pairs": 857,
   "events": 32,
-  "events_beyond_cut": 32,
+  "events_beyond_cut": 0,
   "covering_span_rev": 3.977,
   "separation_rev": 0.986,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 3.98 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.99 revolutions along the trace's own parameter, in a segment covering 3.98"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -585,11 +657,13 @@
   "triangles": 3370000,
   "pairs": 682,
   "events": 28,
-  "events_beyond_cut": 28,
+  "events_beyond_cut": 1,
   "covering_span_rev": 2.984,
   "separation_rev": 1.884,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.88 revolutions along the trace's own parameter, in a segment covering 2.98"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -601,11 +675,13 @@
   "triangles": 3485404,
   "pairs": 1008,
   "events": 35,
-  "events_beyond_cut": 35,
+  "events_beyond_cut": 1,
   "covering_span_rev": 2.988,
   "separation_rev": 1.937,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.94 revolutions along the trace's own parameter, in a segment covering 2.99"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -617,11 +693,13 @@
   "triangles": 3577634,
   "pairs": 1032,
   "events": 41,
-  "events_beyond_cut": 41,
+  "events_beyond_cut": 3,
   "covering_span_rev": 2.992,
   "separation_rev": 1.942,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.94 revolutions along the trace's own parameter, in a segment covering 2.99"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -633,11 +711,13 @@
   "triangles": 3637678,
   "pairs": 1063,
   "events": 43,
-  "events_beyond_cut": 43,
+  "events_beyond_cut": 3,
   "covering_span_rev": 3.002,
   "separation_rev": 1.959,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.96 revolutions along the trace's own parameter, in a segment covering 3.00"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -649,11 +729,13 @@
   "triangles": 3703354,
   "pairs": 2126,
   "events": 80,
-  "events_beyond_cut": 80,
+  "events_beyond_cut": 8,
   "covering_span_rev": 3.005,
   "separation_rev": 1.98,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.98 revolutions along the trace's own parameter, in a segment covering 3.00"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -665,11 +747,13 @@
   "triangles": 3771184,
   "pairs": 2544,
   "events": 100,
-  "events_beyond_cut": 100,
+  "events_beyond_cut": 10,
   "covering_span_rev": 3.001,
   "separation_rev": 1.984,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.98 revolutions along the trace's own parameter, in a segment covering 3.00"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -681,11 +765,13 @@
   "triangles": 3855904,
   "pairs": 5076,
   "events": 160,
-  "events_beyond_cut": 160,
+  "events_beyond_cut": 28,
   "covering_span_rev": 3.008,
   "separation_rev": 1.994,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.99 revolutions along the trace's own parameter, in a segment covering 3.01"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -697,11 +783,13 @@
   "triangles": 3912400,
   "pairs": 9613,
   "events": 200,
-  "events_beyond_cut": 200,
+  "events_beyond_cut": 43,
   "covering_span_rev": 3.019,
   "separation_rev": 2.009,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.01 revolutions along the trace's own parameter, in a segment covering 3.02"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -713,11 +801,13 @@
   "triangles": 3963696,
   "pairs": 18151,
   "events": 185,
-  "events_beyond_cut": 185,
+  "events_beyond_cut": 61,
   "covering_span_rev": 3.021,
   "separation_rev": 2.007,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.01 revolutions along the trace's own parameter, in a segment covering 3.02"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -729,11 +819,13 @@
   "triangles": 2678052,
   "pairs": 10006,
   "events": 139,
-  "events_beyond_cut": 139,
+  "events_beyond_cut": 0,
   "covering_span_rev": 2.022,
   "separation_rev": 1.006,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.02 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.01 revolutions along the trace's own parameter, in a segment covering 2.02"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -745,11 +837,13 @@
   "triangles": 2698778,
   "pairs": 13555,
   "events": 189,
-  "events_beyond_cut": 189,
+  "events_beyond_cut": 0,
   "covering_span_rev": 2.03,
   "separation_rev": 1.01,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.03 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.01 revolutions along the trace's own parameter, in a segment covering 2.03"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -761,11 +855,13 @@
   "triangles": 2721586,
   "pairs": 17488,
   "events": 205,
-  "events_beyond_cut": 205,
+  "events_beyond_cut": 0,
   "covering_span_rev": 2.029,
   "separation_rev": 1.005,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.03 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.01 revolutions along the trace's own parameter, in a segment covering 2.03"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -777,11 +873,13 @@
   "triangles": 2739986,
   "pairs": 21605,
   "events": 233,
-  "events_beyond_cut": 233,
+  "events_beyond_cut": 0,
   "covering_span_rev": 2.026,
   "separation_rev": 1.001,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.03 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.00 revolutions along the trace's own parameter, in a segment covering 2.03"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -793,11 +891,13 @@
   "triangles": 2769746,
   "pairs": 26082,
   "events": 450,
-  "events_beyond_cut": 358,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.997,
   "separation_rev": 1.028,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.00 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.03 revolutions along the trace's own parameter, in a segment covering 2.00"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -809,11 +909,13 @@
   "triangles": 2978632,
   "pairs": 81208,
   "events": 1428,
-  "events_beyond_cut": 925,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.998,
   "separation_rev": 1.033,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.00 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.03 revolutions along the trace's own parameter, in a segment covering 2.00"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -825,11 +927,13 @@
   "triangles": 3282748,
   "pairs": 346763,
   "events": 1870,
-  "events_beyond_cut": 1723,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.999,
   "separation_rev": 1.045,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.00 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.05 revolutions along the trace's own parameter, in a segment covering 2.00"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -844,8 +948,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.01,
   "separation_rev": 0.227,
-  "band": "one-revolution",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -860,8 +966,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.257,
   "separation_rev": 0.13,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 1 (PHercParis4)",
@@ -873,11 +981,13 @@
   "triangles": 5850912,
   "pairs": 11673,
   "events": 408,
-  "events_beyond_cut": 399,
+  "events_beyond_cut": 38,
   "covering_span_rev": 7.923,
   "separation_rev": 2.922,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.92 revolutions along the trace's own parameter, in a segment covering 7.92"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -892,8 +1002,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.977,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "unavailable",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -908,8 +1020,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.698,
   "separation_rev": 0.03,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -924,8 +1038,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.676,
   "separation_rev": 0.039,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -940,8 +1056,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.753,
   "separation_rev": 0.093,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -956,8 +1074,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.635,
   "separation_rev": 0.076,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -972,8 +1092,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.525,
   "separation_rev": 0.085,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -988,8 +1110,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.806,
   "separation_rev": 0.023,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1004,8 +1128,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.74,
   "separation_rev": 0.026,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1020,8 +1146,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.656,
   "separation_rev": 0.016,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1036,8 +1164,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.732,
   "separation_rev": 0.034,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1052,8 +1182,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.717,
   "separation_rev": 0.05,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1068,8 +1200,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.933,
   "separation_rev": 0.003,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1084,8 +1218,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.004,
   "separation_rev": 0.03,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1100,8 +1236,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.918,
   "separation_rev": 0.003,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1116,8 +1254,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.997,
   "separation_rev": 0.027,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1132,8 +1272,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.992,
   "separation_rev": 0.029,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1148,8 +1290,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.504,
   "separation_rev": 0.019,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1164,8 +1308,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.972,
   "separation_rev": 0.018,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1180,8 +1326,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.965,
   "separation_rev": 0.016,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1196,8 +1344,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.917,
   "separation_rev": 0.115,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1212,8 +1362,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.943,
   "separation_rev": 0.016,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1228,8 +1380,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.75,
   "separation_rev": 0.016,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1244,8 +1398,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.924,
   "separation_rev": 0.011,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1260,8 +1416,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.933,
   "separation_rev": 0.01,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1276,8 +1434,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.923,
   "separation_rev": 0.012,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1292,8 +1452,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.919,
   "separation_rev": 0.005,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1308,8 +1470,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.916,
   "separation_rev": 0.007,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1324,8 +1488,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.607,
   "separation_rev": 0.081,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1337,11 +1503,13 @@
   "triangles": 2504630,
   "pairs": 10907,
   "events": 181,
-  "events_beyond_cut": 104,
+  "events_beyond_cut": 5,
   "covering_span_rev": 6.031,
   "separation_rev": 2.112,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1353,11 +1521,13 @@
   "triangles": 3127998,
   "pairs": 27416,
   "events": 662,
-  "events_beyond_cut": 464,
+  "events_beyond_cut": 174,
   "covering_span_rev": 9.075,
   "separation_rev": 5.044,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 5.04 revolutions along the trace's own parameter, in a segment covering 9.07"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1369,11 +1539,13 @@
   "triangles": 3130778,
   "pairs": 47560,
   "events": 200,
-  "events_beyond_cut": 130,
+  "events_beyond_cut": 15,
   "covering_span_rev": 7.548,
   "separation_rev": 3.088,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 3.09 revolutions along the trace's own parameter, in a segment covering 7.55"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1385,11 +1557,13 @@
   "triangles": 3308118,
   "pairs": 27686,
   "events": 199,
-  "events_beyond_cut": 160,
+  "events_beyond_cut": 7,
   "covering_span_rev": 6.685,
   "separation_rev": 2.035,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.04 revolutions along the trace's own parameter, in a segment covering 6.68"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1401,11 +1575,13 @@
   "triangles": 3580474,
   "pairs": 149795,
   "events": 701,
-  "events_beyond_cut": 503,
+  "events_beyond_cut": 55,
   "covering_span_rev": 3.427,
   "separation_rev": 2.716,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1417,11 +1593,13 @@
   "triangles": 3535554,
   "pairs": 117445,
   "events": 563,
-  "events_beyond_cut": 379,
+  "events_beyond_cut": 181,
   "covering_span_rev": 5.911,
   "separation_rev": 4.909,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 4.91 revolutions along the trace's own parameter, in a segment covering 5.91"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1433,11 +1611,13 @@
   "triangles": 2588608,
   "pairs": 42900,
   "events": 83,
-  "events_beyond_cut": 80,
+  "events_beyond_cut": 3,
   "covering_span_rev": 5.107,
   "separation_rev": 2.042,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.04 revolutions along the trace's own parameter, in a segment covering 5.11"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1449,11 +1629,13 @@
   "triangles": 3028226,
   "pairs": 123834,
   "events": 268,
-  "events_beyond_cut": 205,
+  "events_beyond_cut": 5,
   "covering_span_rev": 4.67,
   "separation_rev": 3.95,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 3.95 revolutions along the trace's own parameter, in a segment covering 4.67"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1465,11 +1647,13 @@
   "triangles": 2187198,
   "pairs": 34622,
   "events": 168,
-  "events_beyond_cut": 95,
+  "events_beyond_cut": 4,
   "covering_span_rev": 2.993,
   "separation_rev": 2.025,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.02 revolutions along the trace's own parameter, in a segment covering 2.99"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1484,8 +1668,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.65,
   "separation_rev": 0.02,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1500,8 +1686,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.651,
   "separation_rev": 0.014,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1516,8 +1704,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.649,
   "separation_rev": 0.012,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1532,8 +1722,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.654,
   "separation_rev": 0.019,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1548,8 +1740,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.77,
   "separation_rev": 0.039,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1564,8 +1758,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.701,
   "separation_rev": 0.003,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1580,8 +1776,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.724,
   "separation_rev": 0.089,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1596,8 +1794,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.878,
   "separation_rev": 0.008,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1612,8 +1812,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.958,
   "separation_rev": 0.019,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1628,8 +1830,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.959,
   "separation_rev": 0.038,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1644,8 +1848,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.957,
   "separation_rev": 0.038,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1660,8 +1866,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.96,
   "separation_rev": 0.039,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1676,8 +1884,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.959,
   "separation_rev": 0.032,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1692,8 +1902,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.959,
   "separation_rev": 0.032,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1708,8 +1920,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.957,
   "separation_rev": 0.005,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "Scroll 5 (PHerc0172)",
@@ -1724,8 +1938,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.956,
   "separation_rev": 0.006,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "PHerc0139",
@@ -1737,11 +1953,13 @@
   "triangles": 202988,
   "pairs": 26,
   "events": 2,
-  "events_beyond_cut": 1,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.453,
   "separation_rev": 1.158,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.45 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.16 revolutions along the trace's own parameter, in a segment covering 1.45"
  },
  {
   "corpus": "PHerc0139",
@@ -1753,11 +1971,13 @@
   "triangles": 231620,
   "pairs": 630,
   "events": 17,
-  "events_beyond_cut": 8,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.466,
   "separation_rev": 1.145,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.47 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.15 revolutions along the trace's own parameter, in a segment covering 1.47"
  },
  {
   "corpus": "PHerc0139",
@@ -1769,11 +1989,13 @@
   "triangles": 223232,
   "pairs": 302,
   "events": 12,
-  "events_beyond_cut": 7,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.463,
   "separation_rev": 1.138,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.46 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.14 revolutions along the trace's own parameter, in a segment covering 1.46"
  },
  {
   "corpus": "PHerc0139",
@@ -1785,11 +2007,13 @@
   "triangles": 224124,
   "pairs": 52,
   "events": 4,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.456,
   "separation_rev": 1.139,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.46 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.14 revolutions along the trace's own parameter, in a segment covering 1.46"
  },
  {
   "corpus": "PHerc0139",
@@ -1801,11 +2025,13 @@
   "triangles": 224428,
   "pairs": 43,
   "events": 5,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.455,
   "separation_rev": 1.161,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.46 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.16 revolutions along the trace's own parameter, in a segment covering 1.46"
  },
  {
   "corpus": "PHerc0139",
@@ -1817,11 +2043,13 @@
   "triangles": 225090,
   "pairs": 136,
   "events": 4,
-  "events_beyond_cut": 3,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.446,
   "separation_rev": 1.167,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.45 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.17 revolutions along the trace's own parameter, in a segment covering 1.45"
  },
  {
   "corpus": "PHerc0139",
@@ -1833,11 +2061,13 @@
   "triangles": 309368,
   "pairs": 73,
   "events": 3,
-  "events_beyond_cut": 3,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.046,
   "separation_rev": 1.006,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.05 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.01 revolutions along the trace's own parameter, in a segment covering 1.05"
  },
  {
   "corpus": "PHerc0139",
@@ -1849,11 +2079,13 @@
   "triangles": 218386,
   "pairs": 63,
   "events": 4,
-  "events_beyond_cut": 3,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.032,
   "separation_rev": 0.946,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.03 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.95 revolutions along the trace's own parameter, in a segment covering 1.03"
  },
  {
   "corpus": "PHerc0139",
@@ -1865,11 +2097,13 @@
   "triangles": 340354,
   "pairs": 1840,
   "events": 30,
-  "events_beyond_cut": 13,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.077,
   "separation_rev": 0.948,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.08 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.95 revolutions along the trace's own parameter, in a segment covering 1.08"
  },
  {
   "corpus": "PHerc0139",
@@ -1881,11 +2115,13 @@
   "triangles": 215868,
   "pairs": 62,
   "events": 2,
-  "events_beyond_cut": 1,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.133,
   "separation_rev": 1.041,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.13 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.04 revolutions along the trace's own parameter, in a segment covering 1.13"
  },
  {
   "corpus": "PHerc0139",
@@ -1897,11 +2133,13 @@
   "triangles": 217794,
   "pairs": 24,
   "events": 2,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.107,
   "separation_rev": 1.038,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.11 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.04 revolutions along the trace's own parameter, in a segment covering 1.11"
  },
  {
   "corpus": "PHerc0139",
@@ -1913,11 +2151,13 @@
   "triangles": 217390,
   "pairs": 175,
   "events": 5,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.099,
   "separation_rev": 1.039,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.10 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.04 revolutions along the trace's own parameter, in a segment covering 1.10"
  },
  {
   "corpus": "PHerc0139",
@@ -1932,8 +2172,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.054,
   "separation_rev": 0.077,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.08 revolutions along the trace's own parameter, in a segment covering 1.05"
  },
  {
   "corpus": "PHerc0139",
@@ -1948,8 +2190,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.085,
   "separation_rev": 0.005,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "PHerc0139",
@@ -1964,8 +2208,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.056,
   "separation_rev": 0.094,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.09 revolutions along the trace's own parameter, in a segment covering 1.06"
  },
  {
   "corpus": "PHerc0139",
@@ -1977,11 +2223,13 @@
   "triangles": 225822,
   "pairs": 1105,
   "events": 12,
-  "events_beyond_cut": 11,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.444,
   "separation_rev": 1.19,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.44 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.19 revolutions along the trace's own parameter, in a segment covering 1.44"
  },
  {
   "corpus": "PHerc0139",
@@ -1993,11 +2241,13 @@
   "triangles": 229952,
   "pairs": 1286,
   "events": 8,
-  "events_beyond_cut": 7,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.443,
   "separation_rev": 1.197,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.44 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.20 revolutions along the trace's own parameter, in a segment covering 1.44"
  },
  {
   "corpus": "PHerc0139",
@@ -2012,8 +2262,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.101,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2025,11 +2277,13 @@
   "triangles": 215964,
   "pairs": 3,
   "events": 1,
-  "events_beyond_cut": 1,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.055,
   "separation_rev": 1.004,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.05 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "PHerc0139",
@@ -2041,11 +2295,13 @@
   "triangles": 356912,
   "pairs": 3103,
   "events": 44,
-  "events_beyond_cut": 18,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.333,
   "separation_rev": 1.145,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.33 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.14 revolutions along the trace's own parameter, in a segment covering 1.33"
  },
  {
   "corpus": "PHerc0139",
@@ -2060,8 +2316,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.049,
   "separation_rev": 0.002,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.00 revolutions along the trace's own parameter, in a segment covering 1.05"
  },
  {
   "corpus": "PHerc0139",
@@ -2073,11 +2331,13 @@
   "triangles": 191792,
   "pairs": 32,
   "events": 1,
-  "events_beyond_cut": 1,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.45,
   "separation_rev": 1.152,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.45 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.15 revolutions along the trace's own parameter, in a segment covering 1.45"
  },
  {
   "corpus": "PHerc0139",
@@ -2089,11 +2349,13 @@
   "triangles": 233864,
   "pairs": 1650,
   "events": 11,
-  "events_beyond_cut": 10,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.435,
   "separation_rev": 1.201,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.44 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.20 revolutions along the trace's own parameter, in a segment covering 1.44"
  },
  {
   "corpus": "PHerc0139",
@@ -2108,8 +2370,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.042,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "unavailable",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2121,11 +2385,13 @@
   "triangles": 329494,
   "pairs": 417,
   "events": 14,
-  "events_beyond_cut": 4,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.248,
   "separation_rev": 1.076,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.25 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.08 revolutions along the trace's own parameter, in a segment covering 1.25"
  },
  {
   "corpus": "PHerc0139",
@@ -2137,11 +2403,13 @@
   "triangles": 332552,
   "pairs": 1708,
   "events": 28,
-  "events_beyond_cut": 14,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.116,
   "separation_rev": 1.035,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.12 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.04 revolutions along the trace's own parameter, in a segment covering 1.12"
  },
  {
   "corpus": "PHerc0139",
@@ -2156,8 +2424,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.013,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2172,8 +2442,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.614,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "unavailable",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2185,11 +2457,13 @@
   "triangles": 233028,
   "pairs": 2084,
   "events": 9,
-  "events_beyond_cut": 8,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.428,
   "separation_rev": 1.207,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.43 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.21 revolutions along the trace's own parameter, in a segment covering 1.43"
  },
  {
   "corpus": "PHerc0139",
@@ -2204,8 +2478,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.004,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2217,11 +2493,13 @@
   "triangles": 326248,
   "pairs": 1601,
   "events": 15,
-  "events_beyond_cut": 4,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.159,
   "separation_rev": 1.044,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.16 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.04 revolutions along the trace's own parameter, in a segment covering 1.16"
  },
  {
   "corpus": "PHerc0139",
@@ -2236,8 +2514,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.994,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2252,8 +2532,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.435,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2268,8 +2550,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.091,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "unavailable",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2284,8 +2568,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.749,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "unavailable",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0139",
@@ -2297,11 +2583,13 @@
   "triangles": 235088,
   "pairs": 303,
   "events": 7,
-  "events_beyond_cut": 7,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.158,
   "separation_rev": 1.046,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.16 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.05 revolutions along the trace's own parameter, in a segment covering 1.16"
  },
  {
   "corpus": "PHerc0139",
@@ -2316,8 +2604,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.084,
   "separation_rev": 0.011,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "PHerc0139",
@@ -2329,11 +2619,13 @@
   "triangles": 41148,
   "pairs": 72,
   "events": 2,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 2.353,
   "separation_rev": 1.029,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.35 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "PHerc0814",
@@ -2345,11 +2637,13 @@
   "triangles": 171422,
   "pairs": 311,
   "events": 6,
-  "events_beyond_cut": 6,
+  "events_beyond_cut": 3,
   "covering_span_rev": 3.299,
   "separation_rev": 3.174,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 3.17 revolutions along the trace's own parameter, in a segment covering 3.30"
  },
  {
   "corpus": "PHerc0814",
@@ -2361,11 +2655,13 @@
   "triangles": 180812,
   "pairs": 4120,
   "events": 37,
-  "events_beyond_cut": 37,
+  "events_beyond_cut": 6,
   "covering_span_rev": 3.099,
   "separation_rev": 2.041,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.04 revolutions along the trace's own parameter, in a segment covering 3.10"
  },
  {
   "corpus": "PHerc0814",
@@ -2377,11 +2673,13 @@
   "triangles": 252306,
   "pairs": 5992,
   "events": 50,
-  "events_beyond_cut": 49,
+  "events_beyond_cut": 26,
   "covering_span_rev": 3.285,
   "separation_rev": 3.021,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 3.02 revolutions along the trace's own parameter, in a segment covering 3.29"
  },
  {
   "corpus": "PHerc0814",
@@ -2393,11 +2691,13 @@
   "triangles": 63084,
   "pairs": 3377,
   "events": 13,
-  "events_beyond_cut": 13,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.241,
   "separation_rev": 1.205,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.24 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "PHerc0814",
@@ -2409,11 +2709,13 @@
   "triangles": 97192,
   "pairs": 9290,
   "events": 14,
-  "events_beyond_cut": 14,
+  "events_beyond_cut": 0,
   "covering_span_rev": 2.941,
   "separation_rev": 1.088,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 2.94 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "PHerc0814",
@@ -2425,11 +2727,13 @@
   "triangles": 445442,
   "pairs": 35745,
   "events": 80,
-  "events_beyond_cut": 80,
+  "events_beyond_cut": 34,
   "covering_span_rev": 7.81,
   "separation_rev": 3.494,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 3.49 revolutions along the trace's own parameter, in a segment covering 7.81"
  },
  {
   "corpus": "PHerc0814",
@@ -2441,11 +2745,13 @@
   "triangles": 235058,
   "pairs": 1260,
   "events": 14,
-  "events_beyond_cut": 14,
+  "events_beyond_cut": 12,
   "covering_span_rev": 2.8,
   "separation_rev": 2.042,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "PHerc0814",
@@ -2457,11 +2763,13 @@
   "triangles": 192740,
   "pairs": 3217,
   "events": 16,
-  "events_beyond_cut": 16,
+  "events_beyond_cut": 4,
   "covering_span_rev": 2.876,
   "separation_rev": 2.148,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.15 revolutions along the trace's own parameter, in a segment covering 2.88"
  },
  {
   "corpus": "PHerc0814",
@@ -2473,11 +2781,13 @@
   "triangles": 480342,
   "pairs": 4265,
   "events": 64,
-  "events_beyond_cut": 64,
+  "events_beyond_cut": 14,
   "covering_span_rev": 8.844,
   "separation_rev": 2.376,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 2.38 revolutions along the trace's own parameter, in a segment covering 8.84"
  },
  {
   "corpus": "PHerc0814",
@@ -2492,8 +2802,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 2.147,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "agreed",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc0814",
@@ -2505,11 +2817,13 @@
   "triangles": 181514,
   "pairs": 1424,
   "events": 14,
-  "events_beyond_cut": 14,
+  "events_beyond_cut": 2,
   "covering_span_rev": 3.869,
   "separation_rev": 1.81,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.81 revolutions along the trace's own parameter, in a segment covering 3.87"
  },
  {
   "corpus": "PHerc0814",
@@ -2521,11 +2835,13 @@
   "triangles": 182510,
   "pairs": 27855,
   "events": 41,
-  "events_beyond_cut": 37,
+  "events_beyond_cut": 0,
   "covering_span_rev": 3.516,
   "separation_rev": 0.917,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 3.52 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "PHerc0814",
@@ -2540,8 +2856,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.704,
   "separation_rev": null,
-  "band": "none",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "no crossing",
+  "crossing_status": "none",
+  "period_status": "unavailable",
+  "verdict": "no self-intersection detected"
  },
  {
   "corpus": "PHerc1667",
@@ -2553,11 +2871,13 @@
   "triangles": 1451972,
   "pairs": 58,
   "events": 2,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 5.542,
   "separation_rev": 1.054,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 5.54 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.05 revolutions along the trace's own parameter, in a segment covering 5.54"
  },
  {
   "corpus": "PHerc1667",
@@ -2569,11 +2889,13 @@
   "triangles": 1800118,
   "pairs": 42,
   "events": 3,
-  "events_beyond_cut": 3,
+  "events_beyond_cut": 0,
   "covering_span_rev": 5.369,
   "separation_rev": 1.096,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 5.37 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.10 revolutions along the trace's own parameter, in a segment covering 5.37"
  },
  {
   "corpus": "PHerc1667",
@@ -2585,11 +2907,13 @@
   "triangles": 1828904,
   "pairs": 59,
   "events": 3,
-  "events_beyond_cut": 3,
+  "events_beyond_cut": 0,
   "covering_span_rev": 4.646,
   "separation_rev": 1.058,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 4.65 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.06 revolutions along the trace's own parameter, in a segment covering 4.65"
  },
  {
   "corpus": "PHerc1667",
@@ -2604,8 +2928,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.083,
   "separation_rev": 0.064,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "PHerc1667",
@@ -2620,8 +2946,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.051,
   "separation_rev": 0.005,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.00 revolutions along the trace's own parameter, in a segment covering 1.05"
  },
  {
   "corpus": "PHerc1667",
@@ -2636,8 +2964,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.246,
   "separation_rev": 0.008,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.01 revolutions along the trace's own parameter, in a segment covering 1.25"
  },
  {
   "corpus": "PHerc1667",
@@ -2649,11 +2979,13 @@
   "triangles": 475742,
   "pairs": 390,
   "events": 19,
-  "events_beyond_cut": 6,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.094,
   "separation_rev": 0.899,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.09 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.90 revolutions along the trace's own parameter, in a segment covering 1.09"
  },
  {
   "corpus": "PHerc1667",
@@ -2665,11 +2997,13 @@
   "triangles": 429400,
   "pairs": 570,
   "events": 24,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.435,
   "separation_rev": 1.192,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.44 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.19 revolutions along the trace's own parameter, in a segment covering 1.44"
  },
  {
   "corpus": "PHerc1667",
@@ -2681,11 +3015,13 @@
   "triangles": 445014,
   "pairs": 1210,
   "events": 61,
-  "events_beyond_cut": 6,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.432,
   "separation_rev": 1.214,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.43 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.21 revolutions along the trace's own parameter, in a segment covering 1.43"
  },
  {
   "corpus": "PHerc1667",
@@ -2700,8 +3036,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.09,
   "separation_rev": 0.074,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  },
  {
   "corpus": "PHerc1667",
@@ -2716,8 +3054,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.42,
   "separation_rev": 0.009,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.01 revolutions along the trace's own parameter, in a segment covering 1.42"
  },
  {
   "corpus": "PHerc1667",
@@ -2729,11 +3069,13 @@
   "triangles": 383020,
   "pairs": 450,
   "events": 31,
-  "events_beyond_cut": 4,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.409,
   "separation_rev": 1.234,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.41 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.23 revolutions along the trace's own parameter, in a segment covering 1.41"
  },
  {
   "corpus": "PHerc1667",
@@ -2745,11 +3087,13 @@
   "triangles": 410762,
   "pairs": 2273,
   "events": 45,
-  "events_beyond_cut": 14,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.33,
   "separation_rev": 1.201,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.33 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.20 revolutions along the trace's own parameter, in a segment covering 1.33"
  },
  {
   "corpus": "PHerc1667",
@@ -2761,11 +3105,13 @@
   "triangles": 402640,
   "pairs": 2003,
   "events": 75,
-  "events_beyond_cut": 8,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.35,
   "separation_rev": 1.203,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.35 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.20 revolutions along the trace's own parameter, in a segment covering 1.35"
  },
  {
   "corpus": "PHerc1667",
@@ -2780,8 +3126,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.145,
   "separation_rev": 0.021,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.02 revolutions along the trace's own parameter, in a segment covering 1.14"
  },
  {
   "corpus": "PHerc1667",
@@ -2793,11 +3141,13 @@
   "triangles": 361294,
   "pairs": 483,
   "events": 44,
-  "events_beyond_cut": 3,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.259,
   "separation_rev": 1.186,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.26 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 1.19 revolutions along the trace's own parameter, in a segment covering 1.26"
  },
  {
   "corpus": "PHerc1667",
@@ -2809,11 +3159,13 @@
   "triangles": 372796,
   "pairs": 842,
   "events": 67,
-  "events_beyond_cut": 2,
+  "events_beyond_cut": 0,
   "covering_span_rev": 1.04,
   "separation_rev": 0.968,
-  "band": "one-revolution",
-  "verdict": "self-overlap at under 1.4 revolutions in a segment covering 1.04 revolutions; consistent with the segment's own ends meeting, not adjudicated"
+  "band": "0.15 - 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "agreed",
+  "verdict": "self-intersection present; widest separation 0.97 revolutions along the trace's own parameter, in a segment covering 1.04"
  },
  {
   "corpus": "PHerc1667",
@@ -2828,8 +3180,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 1.032,
   "separation_rev": 0.009,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "PHerc1667",
@@ -2844,8 +3198,10 @@
   "events_beyond_cut": 0,
   "covering_span_rev": 0.991,
   "separation_rev": 0.011,
-  "band": "local",
-  "verdict": "no wrap-scale self-overlap detected"
+  "band": "< 0.15 rev",
+  "crossing_status": "present",
+  "period_status": "unavailable",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates could not both be made"
  },
  {
   "corpus": "PHerc1667",
@@ -2857,10 +3213,12 @@
   "triangles": 8711602,
   "pairs": 636628,
   "events": 3696,
-  "events_beyond_cut": 3107,
+  "events_beyond_cut": 1920,
   "covering_span_rev": 18.557,
   "separation_rev": 14.595,
-  "band": "wrap-scale",
-  "verdict": "wrap-scale self-overlap present"
+  "band": ">= 1.6 rev",
+  "crossing_status": "present",
+  "period_status": "disagreed",
+  "verdict": "self-intersection present; revolution-scale classification unavailable because the two period estimates disagree"
  }
 ]
