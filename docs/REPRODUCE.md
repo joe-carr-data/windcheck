@@ -51,29 +51,33 @@ reproducibility problem.
 
 ## 3. Data
 
-Four published corpora. The S3 bucket is public and needs no credentials.
+Five published corpora. The S3 bucket is public and needs no credentials.
 
 ```sh
-uv run python -m windcheck.fetch --sample all      # download + hash, 18.07 GB
+uv run python -m windcheck.fetch --sample all           # 740 files, 1.55 GB
 uv run python -m windcheck.fetch --sample all --verify
 ```
 
-`--verify` re-hashes every file against the manifest and exits nonzero on any
+`--verify` re-hashes every file against its manifest and exits nonzero on any
 mismatch. To pin an already-downloaded tree without re-fetching, add
 `--skip-download`.
 
-| sample | local directory | manifest | files | size | role in the argument |
-|---|---|---|---|---|---|
-| `PHerc0172` | `data/scroll5_tifxyz` | `data/MANIFEST.json` | 424 | 0.64 GB | Scroll 5: 44 labelled segments + 9 multi-wrap partitions |
-| `PHerc0814` | `data/PHerc0814_tifxyz` | `data/MANIFEST-PHerc0814.json` | 228 | 3.77 GB | second scroll; also the three-resolution sampling test |
-| `PHerc0139` | `data/PHerc0139_tifxyz` | `data/MANIFEST-PHerc0139.json` | 756 | 7.10 GB | control corpus — its labelled windings cover 1.01–1.47 revolutions |
-| `PHerc1667` | `data/PHerc1667_tifxyz` | `data/MANIFEST-PHerc1667.json` | 316 | 6.57 GB | control corpus — the one that broke the millimetre criterion |
+| sample | local directory | volume the audit reads | files | size |
+|---|---|---|---|---|
+| `PHercParis4` | `data/scroll1_tifxyz` | `20230205180739` (7.91 µm) | 220 | 0.94 GB |
+| `PHerc0172` | `data/scroll5_tifxyz` | `20241024131839` (7.91 µm) | 212 | 0.41 GB |
+| `PHerc1667` | `data/PHerc1667_tifxyz` | `20231117161658` (7.91 µm) | 80 | 0.09 GB |
+| `PHerc0139` | `data/PHerc0139_tifxyz` | `20250728140407` (9.362 µm) | 152 | 0.06 GB |
+| `PHerc0814` | `data/PHerc0814_tifxyz` | `20250804134230` (9.362 µm) | 76 | 0.04 GB |
 
-Total 1,724 files, 18.07 GB.
-
-The last two are the reason the headline is stated in revolutions rather than
-millimetres. They are part of the evidence, not optional extras: see
-`docs/submission.md` §4.1.
+**Each corpus is pinned to one volume, and that is not a convenience.** These
+scrolls are published at up to four resolutions. The crossing CSVs hold `(v, u)`
+indices into the grid the census measured, so reading a different resolution of
+the same segment silently reinterprets them against the wrong grid — which
+happened here across all 20 PHerc1667 segments and produced a plausible,
+entirely fictional cluster of results. The manifests therefore record exactly
+the files a result depends on, and the fetcher downloads exactly that set:
+1.55 GB rather than the 18 GB an unfiltered pull would bring.
 
 **A `.tifxyz` surface is a directory** — three float32 TIFFs plus `meta.json` —
 not a file. Code that treats it as a file raises `IsADirectoryError`.
@@ -114,24 +118,40 @@ uv run --with trimesh --with python-fcl --with rtree \
        python bench/validate_fcl.py --n 250                         # §5
 ```
 
-### The four-corpus comparison
+### The five-corpus comparison
 
 `revolution_summary.py` reads one `revdiag.json` per corpus, so each corpus has
-to be censused and diagnosed first. Note the **separate `--work` directory per
-corpus**: an earlier run wrote four scrolls' CSVs into one directory, and a
-script that globbed it reported the mixture as a single corpus.
+to be censused and diagnosed first. Note the **separate `--work` directory** and
+the **explicit `--volume`** on every line: an earlier run wrote four scrolls'
+CSVs into one directory, and a later one read the wrong resolution back. Both
+produced wrong numbers that looked entirely reasonable.
 
 ```sh
-for c in "PHerc0814_tifxyz 20250804134230 0814" \
-         "PHerc0139_tifxyz '' 0139" \
-         "PHerc1667_tifxyz '' 1667"; do
-  set -- $c
-  uv run python bench/crossing_census.py --root data/$1 --volume "$2" \
-        --json out/crossing_$3/census.json --work out/crossing_$3
-  uv run python bench/revolution_diag.py --root data/$1 --volume "$2" \
-        --dir out/crossing_$3 --json out/crossing_$3/revdiag.json
-done
+run() {   # corpus  volume  tag
+  uv run python bench/crossing_census.py --root "data/$1" --volume "$2" \
+        --json "out/crossing_$3/census.json" --work "out/crossing_$3"
+  uv run python bench/revolution_diag.py --root "data/$1" --volume "$2" \
+        --dir "out/crossing_$3" --json "out/crossing_$3/revdiag.json"
+  uv run python bench/period_cross_check.py --root "data/$1" --volume "$2" \
+        --work "out/period_$3" --json "out/crossing_$3/period.json"
+}
+run scroll1_tifxyz   20230205180739 s1
+run scroll5_tifxyz   20241024131839 s5
+run PHerc0139_tifxyz 20250728140407 0139
+run PHerc0814_tifxyz 20250804134230 0814
+run PHerc1667_tifxyz 20231117161658 1667
+
 uv run python bench/revolution_summary.py
+```
+
+`revolution_diag.py` refuses to run when the mesh it reads has a different grid
+shape from the census beside it, so a wrong `--volume` fails loudly rather than
+producing a plausible answer.
+
+Every segment, with a certificate and overlay each:
+
+```sh
+uv run python bench/precompute_all.py --out results
 ```
 
 ---
@@ -162,10 +182,15 @@ fcl                                3.5s  exit 0     --n 250
 total                             91.4s
 ```
 
-The whole audit reproduces in **under two minutes** once the data is on disk.
-That is deliberate: a check nobody can afford to run is a check nobody runs.
-Hashing all four corpora with `--verify` takes considerably longer than the
-audit itself — 18.07 GB of SHA-256.
+**Scope of that 91.4 s: it is the Scroll 5 pipeline only** — one corpus of 53
+surfaces, plus the verification steps. Censusing all five corpora, 179 segments
+and 228 M triangles, takes **82.7 s** on the same machine; `precompute_all.py`,
+which additionally computes a second period estimate and writes a certificate
+and overlay per segment, takes several minutes.
+
+The point stands either way: a check nobody can afford to run is a check nobody
+runs. Hashing all five corpora with `--verify` takes longer than the audit
+itself.
 
 ---
 
@@ -192,12 +217,15 @@ across nine configurations. Two regression tests pin this. If your counts move
 between runs of the same command, that is a bug and not a tolerance issue — it
 was twice, and both times the determinism check found a real defect.
 
-**The pooled four-corpus table** should read:
+**The pooled five-corpus strata** should read:
 
 ```
-segments covering <= 1 revolution     n=56   max separation 0.115 rev
-segments covering  > 2 revolutions    n=25   min nonzero    0.440 rev
+  no exclusion at all           <=1-period n=66  max 0.417   >2-period n=59  min nz 0.823
+  period agreement enforced     <=1-period n=38  max 0.039   >2-period n=53  min nz 0.823
 ```
+
+and `precompute_all.py` should classify 179 segments as: crossing present 160 /
+none 19; period agreed 96 / disagreed 38 / unavailable 45.
 
 **FCL agreement**: 250/250 on positives, 249/250 on negatives. The single
 disagreement is expected and explained — quads (547,2256) and (547,2258) share
@@ -228,3 +256,6 @@ Stated because a reviewer will find them.
   of drops is printed.
 - Runtimes were measured with the data already on local disk. First-run download
   time depends entirely on your link to S3.
+- Each corpus is pinned to a single published volume. Results at other
+  resolutions of the same segments are not covered by these manifests, and the
+  analysis will refuse to mix them.

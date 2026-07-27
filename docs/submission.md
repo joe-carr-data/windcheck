@@ -394,7 +394,7 @@ clang++ -O3 -std=c++17 -pthread -o engines/selfcross   engines/selfcross.cpp
 clang++ -O3 -std=c++17 -pthread -o engines/atlas_query engines/atlas_query.cpp
 uv run pytest -q                                  # 21 tests, no data needed
 
-uv run python -m windcheck.fetch --sample all     # 18.07 GB, hash-pinned
+uv run python -m windcheck.fetch --sample all     # 1.55 GB, hash-pinned
 uv run python -m windcheck.fetch --sample all --verify
 
 sh bench/time_pipeline.sh                         # the whole audit, timed
@@ -403,4 +403,6 @@ sh bench/time_pipeline.sh                         # the whole audit, timed
 `docs/REPRODUCE.md` has every step against the section it produces, the measured
 runtime of each, what each output file contains, and what a mismatch means.
 
-All inputs are pinned by SHA-256 across four manifests: 1,724 files, 18.07 GB.
+All inputs are pinned by SHA-256 across five manifests — **740 files, 1.55 GB** —
+one per corpus, each restricted to the single published volume the audit reads.
+`--verify` re-hashes the lot and exits nonzero on any mismatch.

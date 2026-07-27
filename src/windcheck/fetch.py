@@ -17,10 +17,16 @@ from pathlib import Path
 
 from . import S3_BUCKET
 
-# Only the two volume-space variants. The `intermediate/` flattened and
-# normalized grids are outputs of the flattening step, not the traced geometry,
-# so they are not part of the invariant check.
-INCLUDE = "*/mesh/*.tifxyz/*"
+# Only the volume-space meshes. The `intermediate/` flattened and normalized
+# grids are outputs of the flattening step, not the traced geometry, so they are
+# not part of the invariant check.
+#
+# The pattern is narrowed per corpus to the ONE published volume the audit
+# measures. Without that, a scroll published at four resolutions pulls all four
+# -- for Scroll 1 that is 133 MB per channel per segment against 2 MB for the
+# volume actually used. Narrowing also makes the manifest describe exactly the
+# files a result depends on, rather than a superset.
+INCLUDE = "*/mesh/*{volume}*.tifxyz/*"
 
 # Local directory for each published sample. All four share the S3 layout
 # `<sample>/segments/`, verified against the bucket.
@@ -29,11 +35,13 @@ INCLUDE = "*/mesh/*.tifxyz/*"
 # result that rests on corpora nobody else can check is not reproducible, it is
 # just asserted. PHerc0172 keeps the unsuffixed manifest name because the
 # already-published tool refers to it.
+# sample -> (local directory, the volume id the audit measures)
 CORPORA = {
-    "PHerc0172": "scroll5_tifxyz",
-    "PHerc0814": "PHerc0814_tifxyz",
-    "PHerc0139": "PHerc0139_tifxyz",
-    "PHerc1667": "PHerc1667_tifxyz",
+    "PHercParis4": ("scroll1_tifxyz", "20230205180739"),
+    "PHerc0172": ("scroll5_tifxyz", "20241024131839"),
+    "PHerc0814": ("PHerc0814_tifxyz", "20250804134230"),
+    "PHerc0139": ("PHerc0139_tifxyz", "20250728140407"),
+    "PHerc1667": ("PHerc1667_tifxyz", "20231117161658"),
 }
 
 
@@ -42,17 +50,25 @@ def paths_for(sample: str, root_dir: Path) -> tuple[Path, Path]:
     if sample not in CORPORA:
         raise SystemExit(f"unknown sample {sample!r}; known: "
                          f"{', '.join(sorted(CORPORA))}")
-    data = root_dir / "data" / CORPORA[sample]
+    data = root_dir / "data" / CORPORA[sample][0]
     name = "MANIFEST.json" if sample == "PHerc0172" else f"MANIFEST-{sample}.json"
     return data, root_dir / "data" / name
+
+
+def volume_of(sample: str) -> str:
+    return CORPORA[sample][1]
+
+
+def include_for(sample: str) -> str:
+    return INCLUDE.format(volume=CORPORA[sample][1])
 
 
 def download(sample: str, dest: Path) -> None:
     dest.mkdir(parents=True, exist_ok=True)
     subprocess.run(
         ["aws", "s3", "cp", f"s3://{S3_BUCKET}/{sample}/segments/", str(dest),
-         "--no-sign-request", "--recursive", "--exclude", "*", "--include", INCLUDE,
-         "--only-show-errors"],
+         "--no-sign-request", "--recursive", "--exclude", "*",
+         "--include", include_for(sample), "--only-show-errors"],
         check=True,
     )
 
@@ -66,8 +82,16 @@ def sha256(path: Path, chunk: int = 1 << 20) -> str:
 
 
 def write_manifest(sample: str, root: Path, out: Path) -> dict:
-    """Hash every downloaded file and write the manifest."""
-    files = sorted(p for p in root.rglob("*") if p.is_file())
+    """Hash the files this corpus's result depends on, and write the manifest.
+
+    Restricted to the audited volume, so the manifest is exactly the set
+    `download` fetches -- a manifest listing files the fetcher would not bring
+    down is not a reproduction recipe.
+    """
+    vol = CORPORA[sample][1]
+    files = sorted(p for p in root.rglob("*")
+                   if p.is_file() and "/mesh/" in p.as_posix()
+                   and vol in p.as_posix() and ".tifxyz/" in p.as_posix())
     entries = []
     total = 0
     for p in files:
@@ -84,7 +108,8 @@ def write_manifest(sample: str, root: Path, out: Path) -> dict:
     manifest = {
         "bucket": S3_BUCKET,
         "sample": sample,
-        "include_pattern": INCLUDE,
+        "include_pattern": include_for(sample),
+        "volume": vol,
         "n_files": len(entries),
         "total_bytes": total,
         "files": entries,
