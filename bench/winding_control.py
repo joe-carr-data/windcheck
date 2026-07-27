@@ -67,7 +67,11 @@ def measured_revolutions(path: Path) -> float | None:
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--root", type=Path, default=Path("data/scroll1_tifxyz"))
-    ap.add_argument("--volume", default="45.532um")
+    # The volume the submission quotes. Defaulting to the coarse 45.532um
+    # variant produced 58 rows with three failures while the text described 33
+    # rows on this one -- a reader following the default got different numbers
+    # from the ones they were reading about.
+    ap.add_argument("--volume", default="20230205180739")
     ap.add_argument("--json", type=Path, default=Path("out/winding_control.json"))
     a = ap.parse_args()
 

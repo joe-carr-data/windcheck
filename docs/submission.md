@@ -34,9 +34,9 @@ and PHerc1667 — 228 million triangles:
 passes through itself.**
 
 Those crossings are not one phenomenon. Expressed as a fraction of each
-segment's own revolution period, they fall into three bands with a large empty
-gap between the first two, and each band is explained by how far around the
-scroll its segments reach (§4).
+segment's own revolution period, the separations span four orders of magnitude,
+with one dominant empty gap in the distribution (§4). How far apart the two
+overlapping parts lie is the number a mesher can act on.
 
 The tool emits a per-trace certificate and an overlay that loads directly into
 volume-cartographer's existing point-collection widget, so a result is something
@@ -61,9 +61,10 @@ Vesuvius Challenge lists **sheet switching** among its current bottlenecks:
 > *"automatic growth still needs human inspection and correction"*
 
 A trace that switches sheets and later returns visits the same physical place at
-two points far apart along its own parameter. That is exactly the wrap-scale band
-in §4: two parts of a trace **1.8 revolutions or more apart in parameter, meeting
-in 3D**. Seventeen of the 179 segments show it.
+two points far apart along its own parameter, which is exactly what this
+measures. **38 of the 179 segments separate by 1.6 revolutions or more; 34 of
+those have a period estimate both estimators agree on**, and the other four are
+reported without a scale rather than counted.
 
 This is a detector for a specific, checkable *consequence* of sheet switching,
 and the scope of that claim matters:
@@ -73,10 +74,14 @@ and the scope of that claim matters:
 - A self-intersection is not by itself proof that a switch occurred — see §9,
   where three separate attempts to establish that failed.
 
-What it does give is an automated, deterministic, corpus-scale answer to
-"which published segments contain a place where the traced sheet meets itself a
-full wrap or more away, and where exactly" — for meshes that today rely on human
-inspection to find such things. On the five scrolls tested it runs in 91 seconds.
+- A segment covering more than a full turn has two ends in the same angular
+  sector and can meet itself there with nothing wrong. This measurement does not
+  distinguish that case from a genuine return.
+
+What it does give is an automated, deterministic answer to "which published
+segments contain a place where the traced sheet meets itself, how far apart along
+the trace, and exactly where" — for meshes that today rely on human inspection to
+find such things.
 
 ---
 
@@ -130,51 +135,71 @@ volume data at all — only the published surface meshes.
 
 ---
 
-## 4. The three bands
+## 4. Separation, and how far it can be trusted
 
 Millimetres do not compare between scrolls: voxel size differs, scrolls differ in
 diameter, and a crushed scroll has no single circumference. So separation is
 expressed as a fraction of each segment's **own** revolution period, measured
 from its own geometry. No axis is fitted; axis fitting failed its own positive
-control on this data (residual sd 79.8 vx against 12–17 vx sheet spacing — these
-scrolls are crushed, not round).
+control on this data.
 
-Sorting every segment by its maximum separation and splitting wherever
+### The period has to be trusted before the ratio means anything
+
+Separation is a distance divided by an estimated period, so two independent
+estimators of that period are computed — the turning of the segment's own
+centreline, and the column offset to the physically nearest other part of the
+same surface. When they disagree by more than a quarter, the ratio is not
+interpretable, and such segments are reported as intersecting with the scale
+**unavailable** rather than being placed in a band.
+
+That gate is load-bearing, and both distributions are shown because of it:
+
+```
+                                   <=1-period stratum      >2-period stratum
+                                    n    median    max      n   median   min nz    gap    AUC
+  no exclusion at all              66    0.025   0.417     59    1.979    0.823    2.0x   0.937
+  period agreement enforced        38    0.015   0.039     53    1.957    0.823   21.1x   0.929
+```
+
+**Read the conservative row first.** Excluding nothing, the boundary between the
+two strata is a factor of 2.0. Requiring the two period estimates to agree makes
+it 21.1× — but at the cost of 36 segments, and a claim resting on an exclusion
+must show what the exclusion does.
+
+Among the agreement-passing segments, the whole distribution has one dominant
+feature. Sorting every such segment by its maximum separation and splitting where
 consecutive values differ by 1.4× **and** by at least 0.05 revolutions:
 
 ```
-                                              covering span
-   n     separation, revolutions              of the segment
-  ----  ---------------------------          ----------------
-   54    0.002  -  0.115                      0.65  -  1.42       local
-                            <-- gap 9.56x
-   35    0.899  -  1.234                      1.03  -  5.55       one revolution
-                            <-- gap 1.47x
-   14    1.810  -  5.044                      2.88  -  9.08       wrap-scale
+   n= 44   separation  0.002 - 0.094 rev   covering span  0.47 -  1.42 rev
+                                                            <-- gap  8.76x
+   n= 82   separation  0.823 - 5.044 rev   covering span  1.03 - 18.04 rev
 ```
 
-**The largest gap is 9.56×, and the next largest anywhere in the data is 1.47×.**
-No threshold is chosen and defended; the dominant feature of the distribution is
-a gap, and that gap is the criterion.
+One gap, 8.76×, against a next-largest of 1.24× anywhere in the data.
 
-The third column is what gives the bands meaning, and it was not placed by hand:
+### What used to be here, and why it is gone
 
-- **Local** overlaps occur at every covering span.
-- **One-revolution** overlaps occur *only* in segments covering 1.03 revolutions
-  or more — never below, where they are geometrically impossible. These are a
-  segment's own two ends covering the same angular sector: **correct geometry,
-  not a defect.** They appear consistently across three scrolls.
-- **Wrap-scale** overlaps occur only in traces covering 2.88 revolutions or more.
+An earlier version of this report described **three** bands — "local", "one
+revolution" and "wrap-scale" — separated by two gaps. That was derived from four
+scrolls. Adding Scroll 1 closes the second gap: two of its segments land inside
+it, at 1.512 and 1.758 revolutions. **The three-band structure was an artifact of
+the corpora it came from, and the third label asserted a cause that §9 shows was
+never established.** It is withdrawn.
 
-So the useful output is not a verdict but a distance: how far apart, in turns of
-the scroll, the two overlapping parts of a trace lie. That distinguishes a pinch
-from a segment closing on itself from a trace that has jumped its wrap.
+What survives is one lower cluster and one heterogeneous upper cluster. The upper
+cluster mixes at least two phenomena — segments covering more than a full turn
+whose two ends legitimately meet, and traces that have returned to a wrap they
+already traced — and this measurement does not separate them.
 
-`bench/figure_strata.py` plots all of it, with the period appearing on one axis
-only, so an error in the period estimate cannot manufacture the vertical
-structure.
+### The exceedances are not independent
 
----
+Eleven segments in the ≤1-period stratum exceed 0.15 revolutions, and **nine are
+one family**: `5753_0`, `5753_-1` … `5753_-6` and `5753_-1_copy`, variants of a
+single trace. They drive the 0.417 maximum. Their two period estimators disagree
+by 3.0–3.6× and eight of the nine fail the angular self-consistency check, so
+their revolution-scale classification is unavailable; they are retained in the
+raw census and excluded from the period-validated distribution.
 
 ## 5. The period is checked against published winding counts
 
@@ -188,10 +213,11 @@ compares the two on the 33 segments that carry both a range and a mesh on the
 annotated volume:
 
 ```
-   31 of 33 agree
-      correlation declared vs measured    r = 0.9999
-      mean absolute error                 0.033 windings
-      declared range                      2 to 18 windings
+   33 segments carry both a winding range and a mesh on the annotated volume
+
+   all 33          Pearson r = 0.594   mean absolute error 0.841 windings
+                   median ratio measured/declared 0.999, IQR 0.994 - 1.002
+   31 within 20%   Pearson r = 0.9999  mean absolute error 0.033 windings
 
       w116-117   declared  2   measured  2.022
       w089-091   declared  3   measured  2.984
@@ -199,12 +225,19 @@ annotated volume:
       w010-027   declared 18   measured 18.033
 ```
 
+**The near-perfect correlation is conditional on the 31 that pass.** Over all 33
+it is r = 0.594, because two failures dominate a least-squares fit. The robust
+statistic — a median ratio of 0.999 with an interquartile range of 0.994 to 1.002
+— is the one that describes the estimator's typical behaviour, and it is quoted
+alongside rather than instead.
+
 Two disagree, and loudly — measured 1.010 and 0.257 against declared 18 and 10.
 No cut could mistake 0.257 for 10. Two candidate explanations were tested and
-**both rejected**: it is not proximity to the scroll core, because the same
+**neither supported**: it is not proximity to the scroll core, because the same
 winding ranges are published twice and the other trace of each measures
-correctly; and it is not self-intersection density, because the densest segment
-in the whole set passes. The cause is open and is not guessed at here.
+correctly; and crossing density alone does not separate the failures from the
+successes, since the densest segment in the whole set passes. The cause is open
+and is not guessed at here.
 
 ---
 
