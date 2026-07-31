@@ -43,7 +43,7 @@ Throughout, **represented surface retained** means canonical quad area that surv
 
 **Disposition.**
 - `transformed` — the input carried transverse contacts; an excision was computed and an output mesh was emitted.
-- `already_clean` — the input censused transverse-clean under both canonical triangulations, so no cut was made and no output mesh exists.
+- `already_clean` — the input censused transverse-clean under both canonical triangulations, so no cut was made and no output mesh exists. Where the base was the published original (19 segments), that published file already is the certified geometry. Where the base was a displacement-repaired mesh (6 segments), the certified geometry is that repaired mesh, which is neither the published original nor anything in the per-scroll archives; those six are attached to the release separately as `windcheck-v0.1.0-beta-repaired-bases.tar.gz`, each with the certificate that produced it and the census that found it clean.
 - `not_censusable` — the input carries no triangles, so no census, no cut and no cleanliness claim is defined on it.
 
 **Input hash and output hash.** Each tifxyz mesh is three coordinate planes. The input hash column is the sha256 of the `x` plane of the pre-excision base that was actually cut; the output hash column is the sha256 of the `x` plane of the emitted mesh. `index.json` carries all three planes on both sides, plus the hashes of the original published mesh. The `y` and `z` planes are hashed the same way and are checked together, so the `x` plane alone is a convenient abbreviation, not the whole check.
