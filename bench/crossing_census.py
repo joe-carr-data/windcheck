@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -49,6 +50,7 @@ def _resolution_of(name: str) -> float | None:
 
 def census_one(path: Path, name: str, exclude: int, cell: float,
                threads: int, maxedge: float, work: Path = WORK) -> dict | None:
+    threads = int(os.environ.get("WINDCHECK_CENSUS_THREADS", threads))
     work.mkdir(parents=True, exist_ok=True)
     surf = tifxyz.read(path)
     if surf.valid.sum() < 5000:

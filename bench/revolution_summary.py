@@ -50,6 +50,7 @@ SINGLE_MAX = 1.005
 MULTI_MIN = 2.0
 
 CORPORA = [
+    ("Scroll 1", "out/crossing_s1/revdiag.json", "out/crossing_s1/period.json"),
     ("Scroll 5", "out/crossing/revdiag.json", "out/crossing/period.json"),
     ("PHerc0814", "out/crossing_0814/revdiag.json", "out/crossing_0814/period.json"),
     ("PHerc0139", "out/crossing_0139/revdiag.json", "out/crossing_0139/period.json"),

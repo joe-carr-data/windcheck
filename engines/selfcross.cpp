@@ -56,6 +56,7 @@
 #include <fstream>
 #include <mutex>
 #include <thread>
+#include <tuple>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -99,6 +100,8 @@ inline double norm(const Vec3& a) { return std::sqrt(dot(a, a)); }
 struct Tri {
     Vec3 a, b, c;
     int32_t v = 0, u = 0;      // grid origin of the owning quad
+    int32_t t = 0;             // local triangle index within the quad (0/1),
+                               // in the documented order for the diagonal
 };
 
 enum Verdict { NONE = 0, TRANSVERSE = 1, COPLANAR = 2, GRAZING = 3 };
@@ -367,11 +370,11 @@ int main(int argc, char** argv) {
                 if (e > maxedge) { ++dropped; continue; }
             }
             if (diagonal == 0) {
-                tris.push_back({p00, p01, p11, v, u});
-                tris.push_back({p00, p11, p10, v, u});
+                tris.push_back({p00, p01, p11, v, u, 0});
+                tris.push_back({p00, p11, p10, v, u, 1});
             } else {
-                tris.push_back({p00, p01, p10, v, u});
-                tris.push_back({p01, p11, p10, v, u});
+                tris.push_back({p00, p01, p10, v, u, 0});
+                tris.push_back({p01, p11, p10, v, u, 1});
             }
         }
     }
@@ -380,7 +383,9 @@ int main(int argc, char** argv) {
                  S.rows, S.cols, tris.size(), dropped, maxedge, cell, exclude,
                  diagonal, nthreads);
     if (tris.empty()) { std::FILE* fp = std::fopen(out, "w");
-        if (fp) { std::fprintf(fp, "v1,u1,v2,u2,verdict\n"); std::fclose(fp); }
+        if (fp) { std::fprintf(fp,
+            "v1,u1,v2,u2,verdict,penetration,angle_deg,tri1,tri2\n");
+            std::fclose(fp); }
         std::fprintf(stderr, "selfcross: no triangles\n"); return 0; }
 
     // ------------------------------------------------------- uniform grid
@@ -422,7 +427,8 @@ int main(int argc, char** argv) {
     std::fprintf(stderr, "selfcross: %zu occupied cells with >1 triangle\n", cells.size());
 
     // ---------------------------------------------------------- narrow phase
-    struct Hit { int32_t v1, u1, v2, u2; int verdict; float pen, ang; };
+    struct Hit { int32_t v1, u1, v2, u2; int verdict; float pen, ang;
+                 int32_t t1, t2; };
     std::vector<std::vector<Hit>> perThread(nthreads);
     std::atomic<size_t> next{0};
     std::atomic<size_t> tested{0};
@@ -473,9 +479,18 @@ int main(int argc, char** argv) {
                     if (ownerCell(T1, T2) != key) continue;   // tested elsewhere
                     ++local;
                     Result2 r = tri_tri(T1, T2, touch_tol);
-                    if (r.verdict != NONE)
-                        outv.push_back({T1.v, T1.u, T2.v, T2.u, (int)r.verdict,
-                                        (float)r.penetration, (float)r.angle_deg});
+                    if (r.verdict != NONE) {
+                        // Canonical endpoint order in the ENGINE (round 19):
+                        // the lexicographically smaller (v,u,t) is side 1, so
+                        // every reader sees one identity per geometric pair.
+                        bool swap = std::make_tuple(T1.v, T1.u, T1.t)
+                                  > std::make_tuple(T2.v, T2.u, T2.t);
+                        const Tri& A_ = swap ? T2 : T1;
+                        const Tri& B_ = swap ? T1 : T2;
+                        outv.push_back({A_.v, A_.u, B_.v, B_.u, (int)r.verdict,
+                                        (float)r.penetration,
+                                        (float)r.angle_deg, A_.t, B_.t});
+                    }
                 }
             }
         }
@@ -488,16 +503,34 @@ int main(int argc, char** argv) {
     size_t nT = 0, nC = 0, nG = 0;
     std::FILE* fp = std::fopen(out, "w");
     if (!fp) { std::fprintf(stderr, "selfcross: cannot write %s\n", out); return 1; }
-    std::fprintf(fp, "v1,u1,v2,u2,verdict,penetration,angle_deg\n");
-    for (auto& vec : perThread)
-        for (const Hit& h : vec) {
+    // schema v2: +tri1,tri2 (local triangle index per side). Legacy readers
+    // that index columns 0-6 are unaffected; strict transactional acceptance
+    // requires these columns (round 19).
+    std::fprintf(fp, "v1,u1,v2,u2,verdict,penetration,angle_deg,tri1,tri2\n");
+    // Rows were written in per-thread completion order, so identical meshes
+    // produced identical row SETS in scheduling-dependent order -- and
+    // different CSV bytes/hashes, and order-dependent downstream tie-breaks.
+    // (v1,u1,tri1,v2,u2,tri2) is unique per tested pair: a total order.
+    std::vector<Hit> allHits;
+    { size_t tot = 0;
+      for (auto& vec : perThread) tot += vec.size();
+      allHits.reserve(tot);
+      for (auto& vec : perThread)
+          allHits.insert(allHits.end(), vec.begin(), vec.end()); }
+    std::sort(allHits.begin(), allHits.end(),
+              [](const Hit& x, const Hit& y) {
+        return std::tie(x.v1, x.u1, x.t1, x.v2, x.u2, x.t2)
+             < std::tie(y.v1, y.u1, y.t1, y.v2, y.u2, y.t2);
+    });
+    for (const Hit& h : allHits) {
             const char* name = h.verdict == TRANSVERSE ? "transverse"
                              : h.verdict == COPLANAR ? "coplanar" : "grazing";
             if (h.verdict == TRANSVERSE) ++nT;
             else if (h.verdict == COPLANAR) ++nC;
             else ++nG;
-            std::fprintf(fp, "%d,%d,%d,%d,%s,%.6g,%.2f\n",
-                         h.v1, h.u1, h.v2, h.u2, name, h.pen, h.ang);
+            std::fprintf(fp, "%d,%d,%d,%d,%s,%.6g,%.2f,%d,%d\n",
+                         h.v1, h.u1, h.v2, h.u2, name, h.pen, h.ang,
+                         h.t1, h.t2);
         }
     std::fclose(fp);
 

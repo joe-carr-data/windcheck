@@ -64,10 +64,20 @@ def include_for(sample: str) -> str:
 
 
 def download(sample: str, dest: Path) -> None:
+    """Pull one corpus. WINDCHECK_S3_MIRROR (e.g. "mybucket/corpus-mirror")
+    switches the source to a private same-region mirror: authenticated, and
+    prefix-filtered listing over the mirror is cheap because it contains
+    ONLY the pinned files (the public bucket's segments/ prefixes hold
+    millions of keys, and filtering pays for listing all of them)."""
+    import os
     dest.mkdir(parents=True, exist_ok=True)
+    mirror = os.environ.get("WINDCHECK_S3_MIRROR", "")
+    src = (f"s3://{mirror}/{sample}/segments/" if mirror
+           else f"s3://{S3_BUCKET}/{sample}/segments/")
+    auth = [] if mirror else ["--no-sign-request"]
     subprocess.run(
-        ["aws", "s3", "cp", f"s3://{S3_BUCKET}/{sample}/segments/", str(dest),
-         "--no-sign-request", "--recursive", "--exclude", "*",
+        ["aws", "s3", "cp", src, str(dest), *auth,
+         "--recursive", "--exclude", "*",
          "--include", include_for(sample), "--only-show-errors"],
         check=True,
     )

@@ -20,7 +20,9 @@ dependencies = [
 # Upstream reader/writer for tifxyz + volume access. Kept optional so the core
 # invariant check has no dependency on the project we are auditing.
 vesuvius = ["vesuvius>=0.2.4"]
-viz = ["matplotlib>=3.9"]
+viz = [
+    "matplotlib>=3.9",
+]
 
 [project.scripts]
 windcheck = "windcheck.cli:main"

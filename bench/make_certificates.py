@@ -11,7 +11,7 @@ now come from the same map and an assert holds them together -- an overlay that
 disagrees with the certificate beside it is worse than no overlay.
 
 **A cut in revolutions, not millimetres.** The 30 mm cut held on Scroll 5 and
-inverted on PHerc0139 and PHerc1667. See `docs/submission.md` section 4.
+inverted on PHerc0139 and PHerc1667. See `notes/REPORT.md` section 4.1.
 """
 from __future__ import annotations
 

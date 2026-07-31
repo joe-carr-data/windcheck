@@ -1,154 +1,271 @@
-# windcheck
+# Windcheck
 
-**A deterministic self-intersection validator for traced Herculaneum surfaces**,
-with corpus-scale measurements of a geometry associated with sheet switches that
-return.
+**Certified topology auditing and transverse-clean `tifxyz` outputs for a
+five-scroll corpus.**
 
-Vesuvius Challenge names *sheet switching* — *"meshes can jump from one wrap to
-another"* — among its current open problems, and notes that *"automatic growth
-still needs human inspection and correction."* A trace that switches wraps and
-later returns meets itself, which this measures exactly. A switch that never
-returns need not self-intersect, so this is **not** a complete sheet-switch
-detector, and a crossing is not proof that a switch occurred.
+Of 185 pinned trace artifacts, 179 were censusable. All 179 now have
+reload-verified `tifxyz` outputs with zero non-adjacent transverse contacts
+under both canonical triangulations: 154 were transformed and 25 required no
+change. Six triangle-empty or invalid inputs have explicit terminal records.
 
-The method: a traced sheet cannot pass *through* itself. Wherever a published
-`tifxyz` surface does, that is a defect in the representation — and unlike
-proximity, saying so needs no threshold, because it does not depend on how
-tightly the scroll is packed. A trace that switches wraps and later returns meets
-itself a full wrap or more away, which is directly measurable.
+Two figures qualify that outcome, and they are stated separately because they
+measure different things:
 
-Across **179 published segments from five scrolls** — Scroll 1, Scroll 5,
-PHerc0139, PHerc0814, PHerc1667, 228 million triangles — **160 contain at least
-one transverse self-intersection.**
+- **Represented surface retained.** Unique-geometry-weighted retention of
+  original represented surface area is **99.505%** across the 185 priced
+  segments. The lowest per-segment retained fraction is **94.678%**
+  (`20251001060526-auto_grown_20251001060526760`).
+- **Fragmentation.** Five outputs do not meet the connectivity gate: every
+  component of the input 99.9%-area core was required to keep at least 90% of
+  its area in one descendant, and in five `auto_grown` segments it does not.
+  The lowest core value is 0.034. This is material, and it is not a bookkeeping
+  artifact.
 
-![a single sheet traced repeatedly](docs/img/sheet_switch_ct.png)
+Every emitted artifact was independently re-censused in a fresh working
+directory: 154/154 transformed meshes re-hashed clean, 179/179 re-censused at
+0/0 non-adjacent transverse contacts under both canonical triangulations, with
+zero disagreements against the recorded census.
 
-*One CT slice through Scroll 5. Each dot is the trace, coloured by how far along
-itself it is. A correct trace crosses a given sheet once, so one sheet should
-carry one colour — here the whole range lies on a single sheet, and at the marked
-point the trace returns to it 2,545 columns (4.9 revolutions) later.*
+Targets [Open Problems](https://scrollprize.org/2026_open_problems) §2 and §3 —
+sheet switches and mesh topology repair — on
+[Vesuvius Challenge](https://scrollprize.org) open data.
 
-## Results for every segment, precomputed
+---
 
-You do not need to download 18 GB to look up your own trace.
-[`results/index.json`](results/index.json) has all 179 segments with their
-band and verdict, and [`results/certificates/`](results/certificates) has the
-certificate and VC3D overlay for each — 38 wrap-scale,
-63 one-revolution, 59 local, 19 with no
-crossing found.
+## Install
 
-Read [`docs/submission.md`](docs/submission.md) for the full result and
-[`docs/REPRODUCE.md`](docs/REPRODUCE.md) to rerun it. The whole audit takes
-**91 seconds** once the data is local.
+```sh
+uv sync
+clang++ -O3 -std=c++17 -pthread -o engines/selfcross engines/selfcross.cpp
+uv run pytest -q
+```
 
-> **Note on earlier versions of this tool.** windcheck previously measured
-> *proximity* — how close a trace comes to another part of itself. Two
-> volume-cartographer maintainers pointed out that this is undecidable, since
-> wraps in a crushed scroll genuinely lie microns apart and a 20 vx quad mesh can
-> interpolate to closer positions than its samples support. They were right. The
-> tool now measures transverse self-intersection instead, which the packing
-> objection cannot touch. See `docs/submission.md` §2.
+The triangle-intersection kernel is the only compiled component: a
+deterministic floating-point triangle-intersection predicate with scale-aware
+tolerances, cross-validated against independent implementations — not exact
+arithmetic. No GPU, no volume download and no ML model is involved: the
+analysis reads only the `tifxyz` surface itself.
+
+Fetch a segment to work on:
+
+```sh
+uv run python -m windcheck.fetch --help
+```
 
 ---
 
 ## Quick start
 
+The tool has two commands. **`check` never modifies anything**, and it is the
+default posture. Transformation only happens when you ask for it by name.
+
+### 1. Audit a segment (report-only)
+
 ```sh
-uv sync --extra viz
-clang++ -O3 -std=c++17 -pthread -o engines/selfcross   engines/selfcross.cpp
-clang++ -O3 -std=c++17 -pthread -o engines/atlas_query engines/atlas_query.cpp
-uv run pytest -q                                  # 21 tests, no data needed
-
-# check one surface -- this is the whole tool
-uv run windcheck check path/to/segment
+uv run windcheck check data/scroll5_tifxyz/20251205115859-w094_20251205115859448_flatboi \
+    --volume 20241024131839 --out out/check/w094
 ```
 
-```
-20251115002745-auto_grown_20251115002740308_5_flatboi
-  grid                637 x 3065      triangles  3,535,554
-  covering span       5.91 revolutions
-  widest separation   4.91 revolutions    ->  wrap-scale
-  crossing events     563   (379 beyond the wrap-scale cut)
-  VERDICT             wrap-scale self-overlap present
+This runs the both-diagonal non-adjacent transverse-contact census, prints a
+verdict, writes a machine-readable certificate, and emits a viewer-loadable
+`PointCollection` of the crossing sites so you can jump straight to them in
+VC3D. On this segment: **not clean**, 4 transverse contacts under diagonal 0 and
+7 under diagonal 1, in 0.2 s.
 
-  certificate  out/check/..._certificate.json
-  overlay      out/check/..._points.json   <- open in VC3D (379 points)
-```
+### 2. Transform a segment (explicit)
 
-`bench/` reproduces every figure in the write-up; you do not need it to use the
-tool.
+Two worked examples, one per operator.
 
-No GPU. No labels, no ground truth, no model. The core measurement reads only
-the published surface meshes — no volume download at all.
+```sh
+# w094 — resolved by bounded displacement
+uv run windcheck transform data/scroll5_tifxyz/20251205115859-w094_20251205115859448_flatboi \
+    --volume 20241024131839 --out out/transform/w094
 
-## What you get
-
-A **certificate** per trace, in physical and revolution units, carrying its own
-caveats and enough provenance to reproduce it.
-
-An **overlay** in volume-cartographer's own `PointCollections` JSON schema, so it
-opens in the existing point-collection widget with no transform — one point per
-crossing *event*, not per triangle pair.
-
-```json
-"measurements": {
-  "total_area_mm2": 43952.5,
-  "separation_revolutions": 4.908,
-  "covering_span_revolutions": 5.91,
-  "crossing_events": 563,
-  "events_beyond_cut": 379
-},
-"verdict": "wrap-scale self-overlap present"
+# 20231005123336 — resolved by certified excision
+uv run windcheck transform data/scroll1_tifxyz/20231005123336 \
+    --out out/transform/20231005123336
 ```
 
-## What the number means
+Both finish in under three seconds on a laptop. Across the whole corpus the
+median segment takes 36.8 s, the 90th percentile 140 s and the slowest 211 s,
+against a 600 s policy limit — a full-corpus pass is an afternoon, not a cluster
+job.
 
-Three facts are reported separately, and none of them asserts a cause.
+`transform` exits non-zero unless the *reloaded* output censuses clean, which
+makes it usable as a post-export regression test or a CI gate.
 
-| field | values |
+---
+
+## Why both operators are necessary
+
+The obvious repair is to nudge the mesh: move vertices until the surface stops
+touching itself. That works, and it is tried first, because it removes no
+material. But it is not universal.
+
+Across the corpus, **1,477 crossing events carry certificates of rigid
+infeasibility with explicit witnesses** — no bounded displacement under the
+stated search and budget separates those contacts. For that population the only
+certified route to a clean surface is excision. Excision finds a feasible
+low-area mask. Minimum area is claimed only where the certificate records
+proven optimality.
+
+So the declared pipeline is **bounded displacement first, certified excision for
+the residual**. 103 of the 185 segments enter excision on a
+displacement-repaired base, each hash-verified against its repair certificate;
+82 enter on the original published mesh.
+
+The excision operator searches for low removed area subject to a
+feasibility constraint, and records per component whether the area it found
+is proven optimal. It does not optimise connectivity — which is exactly why
+the five fragmented outputs above are reported rather than hidden.
+
+---
+
+## Certification
+
+Nothing here is called clean because the optimiser thought it was finished. A
+segment is clean only when the emitted `tifxyz` has been written to disk, read
+back from disk, and re-censused from scratch at 0/0 under both canonical
+triangulations.
+
+Each certificate records:
+
+- input and output mesh identity as a **content manifest**, not a hash of the
+  coordinate planes alone: one explicit row per file a reader consumes
+  semantically — `x.tif`, `y.tif`, `z.tif`, `mask.tif`/`mask.png`,
+  `meta.json` — carrying path, byte size and SHA-256, plus a single directory
+  digest over a frozen serialisation of those rows. A declared file that is
+  absent is written in as an absent row rather than skipped, so "no mask" and
+  "a mask I did not look at" hash differently. The mask is what decides which
+  triangles exist, so it is inside the digest;
+- grid shape, valid-vertex and retained-quad counts, voxel scale;
+- the census engine's own binary and source hashes, and every census parameter;
+- per-diagonal contact counts before and after, crossing events, maximum
+  penetration;
+- the frozen policy version and hash, and the per-component solve method
+  (`exact_optimal`, `lp_improved`, `greedy_feasible`) — with **no minimum-area
+  claim made unless every component is proven optimal**;
+- whether the cut base was the original published mesh or a
+  displacement-repaired one, decided by **semantic manifest equality** against
+  the original mesh and never by comparing paths, since paths change between a
+  downloaded archive and a fresh working directory while the bytes do not;
+- removed-area accounting under both denominators, and the identity residual;
+- explicit caveats.
+
+Geometric certification and optimisation optimality are deliberately kept
+apart. A certificate can say "this surface is certified transverse-clean
+under the stated validator" and "this cut is not proven minimal" at the same
+time, and often does.
+
+### Verifying provenance without the private history
+
+Nothing published cites a repository commit. A commit sha is not evidence to
+someone holding a release: they have no repository to resolve it against. So
+certificates and `out/release/index.json` record provenance that is
+recomputable from the published files alone —
+
+- the **code version** and the **frozen policy version and hash**;
+- a **source-tree digest**: a SHA-256 over the canonical file manifest of
+  every published file that can change a result (`pyproject.toml`, `uv.lock`,
+  `src/windcheck/*.py`, `engines/*.cpp`, `engines/*.h`, `bench/*.py`),
+  serialised by the same frozen rule the mesh manifests use;
+- the engine binary and engine source SHA-256, and the lockfile SHA-256.
+
+Recompute the digest and compare it against the one in the index:
+
+```sh
+uv run python -m windcheck.provenance
+uv run python -m windcheck.provenance --verify <source_tree_digest from index.json>
+uv run python -m windcheck.provenance --manifest       # every file that feeds it
+uv run python -m windcheck.provenance --serialisation  # the exact bytes hashed
+```
+
+The serialisation is frozen and stated in `src/windcheck/manifest.py`: rows
+sorted by path, each row `path\0size\0sha256` (or `path\0absent\0absent`),
+joined by newlines with a trailing newline, hashed as UTF-8. A reader can
+reimplement it in a dozen lines and check every digest in the release without
+this repository's history.
+
+---
+
+## The corpus
+
+185 pinned trace artifacts across five scrolls:
+
+| corpus | artifacts |
 |---|---|
-| `crossing_status` | `none` · `present` |
-| `separation_revolutions` | a continuous distance along the trace's own parameter |
-| `period_status` | `agreed` · `disagreed` · `unavailable` |
+| Scroll 1 | 55 |
+| Scroll 5 | 53 |
+| PHerc0139 | 38 |
+| PHerc1667 | 20 |
+| PHerc0814 | 19 |
 
-Separation is a distance divided by an estimated revolution period. Two
-independent estimators of that period are computed; when they disagree the ratio
-is not interpretable, and the segment is reported as intersecting with the scale
-**unavailable** rather than being placed in a band.
+Per-segment results — input hash to output hash, disposition, certificate path,
+area retention under both denominators, fragmentation metrics and runtime — are
+in [`docs/CORPUS.md`](docs/CORPUS.md), with the machine-readable index at
+`out/release/index.json`. The six non-censusable inputs are listed there
+explicitly, by name and by reason.
 
-Across the 179 audited segments:
+---
+
+## Reproducing
+
+[`docs/REPRODUCE.md`](docs/REPRODUCE.md) gives a one-command spot reproduction of
+a single segment, the corpus verification command, expected outputs and
+runtimes, and how to re-census an emitted artifact independently of this tool.
+
+---
+
+## Limitations
+
+Stated plainly, because weaker versions of several of these were tested and
+died.
+
+- **No physical branch identity.** A transverse contact is a property of the
+  mesh. Nothing here establishes which physical sheet a surface belongs to, or
+  that a flagged region corresponds to a segmentation error.
+- **No claim that text improves.** Removing self-intersections changes the
+  geometry a downstream renderer sees. Whether that helps ink detection or
+  legibility is untested and is not claimed.
+- **Nothing is claimed about coplanar or grazing contacts.** The census
+  certifies non-adjacent *transverse* contacts under two canonical
+  triangulations. Coplanar overlap and grazing contact lie outside what is
+  certified.
+- **Material fragmentation in five `auto_grown` outputs.** See the figure at the
+  top. The search targets area, not connectivity, so this is a real
+  property of those outputs and not a reporting choice.
+- **Six inputs were never audited.** They are triangle-empty or otherwise
+  invalid, and carry explicit terminal records rather than a verdict.
+- **"Represented surface retained" is a geometric measure**, not a statement
+  about how much papyrus or text survives.
+- The corpus is 185 pinned artifacts. It is not the whole open dataset, and
+  nothing is claimed outside it.
+
+---
+
+## Layout
 
 ```
-  crossing        present 160    none 19
-  period          agreed   96    disagreed 38    unavailable 45
-  separation      < 0.15 rev  59    0.15-1.6 rev  63    >= 1.6 rev  38
+engines/selfcross.cpp     deterministic float triangle-contact predicate
+src/windcheck/
+  cli.py                  the two user commands
+  manifest.py             mesh content manifests, digests, base-kind rule
+  provenance.py           release provenance a public reader can recompute
+  pipeline.py             check / transform, end to end
+  tifxyz.py               reader and writer, written from the format spec
+  excise.py               certified excision under the frozen policy
+  repair.py               bounded displacement
+  intrinsic.py            quad retention and area accounting
+  certificate.py          certificates and viewer PointCollections
+  catalog.py, fetch.py    open-data catalog, download, SHA-256 manifest
+bench/                    benchmark and corpus drivers (users never need these)
+docs/CORPUS.md            per-segment corpus results
+docs/REPRODUCE.md         reproduction instructions
 ```
 
-Of the 38 with a separation of 1.6 revolutions or more, **34 have an agreed
-period**; the other four are reported without a scale.
-
-An earlier version of this tool sorted segments into "local", "one revolution"
-and "wrap-scale". That was dropped: adding a fifth scroll closed the gap between
-the upper two, so the three-way split was an artifact of the four corpora it came
-from, and the last label implied a cause that was never established. Filters over
-separation remain, labelled literally.
-
-## How far to trust it
-
-- Agrees with **FCL** in both directions: 250/250 on positives, 249/250 on
-  negatives, the single disagreement explained.
-- Counts are **deterministic** across thread counts and broad-phase cell sizes,
-  pinned by regression tests.
-- The revolution period is checked against **published winding counts**: on 31 of
-  33 Scroll 1 segments named by winding range, r = 0.9999, mean absolute error
-  0.033 windings.
-- Its span is invariant to **0.3%** across a 70× change in sampling density, and
-  ~90% of intersections survive **every** choice of quad diagonal.
-
-**It does not show that a crossing is a tracing error.** It shows the surface
-overlaps itself. Three attempts to connect the two failed and are documented in
-`docs/submission.md` §9, along with everything else this does not establish.
+`tifxyz.py` deliberately does not use the upstream `vesuvius` package: this tool
+audits that pipeline, so it must be able to disagree with it.
 
 ## Licence
 
-MIT. See `LICENSE`.
+MIT.
