@@ -210,6 +210,14 @@ explicitly, by name and by reason.
 
 ## Reproducing
 
+## The audit record
+
+Before any mesh was transformed, this tool audited the published corpus and
+reported what it found. That record is preserved as filed, in
+[`docs/submission.md`](docs/submission.md), with the precomputed per-segment
+certificates and viewer overlays in [`results/`](results). It measures the
+**published** meshes; everything above measures the meshes this tool emits.
+
 [`docs/REPRODUCE.md`](docs/REPRODUCE.md) gives a one-command spot reproduction of
 a single segment, the corpus verification command, expected outputs and
 runtimes, and how to re-census an emitted artifact independently of this tool.
@@ -261,6 +269,9 @@ src/windcheck/
 bench/                    benchmark and corpus drivers (users never need these)
 docs/CORPUS.md            per-segment corpus results
 docs/REPRODUCE.md         reproduction instructions
+docs/submission.md        the July 2026 audit record, as filed
+docs/HISTORY.md           what is production, supporting, retired
+results/                  precomputed audit results, all 179 segments
 ```
 
 `tifxyz.py` deliberately does not use the upstream `vesuvius` package: this tool

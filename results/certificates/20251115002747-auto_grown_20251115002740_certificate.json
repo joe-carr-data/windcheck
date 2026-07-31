@@ -1,0 +1,54 @@
+{
+  "tool": "windcheck selfcross",
+  "schema": 2,
+  "generated_utc": "2026-07-27T07:28:43Z",
+  "segment": "20251115002747-auto_grown_20251115002740308_7_flatboi",
+  "mesh": {
+    "path": "data/scroll5_tifxyz/20251115002747-auto_grown_20251115002740308_7_flatboi/mesh/20251115002747-on-20241024131839-7.91um.tifxyz",
+    "sha256_head": "b8f70b4b0c6444e0",
+    "voxel_um": 7.91
+  },
+  "parameters": {
+    "exclude": 1,
+    "cell": 40.0,
+    "maxedge": 60.0,
+    "touch_tol": 0.001,
+    "diagonal": 0
+  },
+  "measurements": {
+    "total_area_mm2": 37736.8,
+    "participating_quad_area_mm2": 1344.54,
+    "participating_quad_fraction": 0.035629,
+    "parameter_span_mm_estimate": 0.0,
+    "separation_revolutions": 3.95,
+    "separation_band": ">= 1.6 rev",
+    "crossing_status": "present",
+    "period_status": "agreed",
+    "covering_span_revolutions": 4.67,
+    "revolution_period_columns": {
+      "turning_estimate": 603.0,
+      "neighbour_estimate": 581.0,
+      "method": "centreline turning, cross-checked against the column offset to the neighbouring wrap"
+    },
+    "median_penetration_vx": 3.871,
+    "intersecting_pairs": 123834,
+    "crossing_events": 268,
+    "events_beyond_cut": 5
+  },
+  "separation_filter_revolutions": {
+    "nearby": 0.15,
+    "wide": 1.6
+  },
+  "verdict": "self-intersection present; widest separation 3.95 revolutions along the trace's own parameter, in a segment covering 4.67",
+  "note": "Two parts of this trace, more than 1.6 revolutions apart along its own parameter, occupy the same place. What caused that is not established here.",
+  "caveats": [
+    "Deterministic floating-point validator, not exact predicates.",
+    "Detects that the surface overlaps itself; does not identify which branch is wrong, nor establish a cause.",
+    "Event counts depend on the clustering rule and on sampling density; the span in revolutions does not.",
+    "Local overlaps are common across the published corpus and are associated with elevated quad twist.",
+    "The revolution period is measured from the surface's own geometry and carries its own error; two independent estimators agree to within about 15% where both are measurable.",
+    "Separations are reported as measured distances. No band in this output asserts a cause; three attempts to connect crossings to sheet misassignment did not succeed.",
+    "A segment covering more than one revolution has two ends in the same angular sector and can meet itself there without error.",
+    "The mesh fingerprint is a partial one: file names, sizes and a bounded head of each file, not full content."
+  ]
+}
