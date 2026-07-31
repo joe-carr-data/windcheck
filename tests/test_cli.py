@@ -163,8 +163,20 @@ def test_point_collection_is_loadable_and_well_formed(tmp_path):
     cli.main(["check", str(mesh), "--out", str(out)])
     doc = json.loads(next(out.glob("*_points.json")).read_text())
 
-    assert list(doc) == ["1"]
-    coll = doc["1"]
+    # The envelope is not cosmetic. PointCollections::loadFromJSON refuses any
+    # file lacking this exact key/value, then reads `collections`; without both
+    # it logs "incorrect version or missing version info" and loads nothing.
+    # An earlier version of this test asserted our own bare {"1": ...} shape
+    # and passed while every emitted overlay was unopenable in VC3D -- it
+    # checked that we wrote what we meant to write, not that the viewer reads
+    # it. Assert the consumer's contract instead.
+    assert doc["vc_pointcollections_json_version"] == "1"
+    assert set(doc) == {"vc_pointcollections_json_version", "collections"}
+    assert list(doc["collections"]) == ["1"]
+    coll = doc["collections"]["1"]
+    # Required by from_json(Collection): .at() on any of these throws.
+    for required in ("name", "points", "metadata", "color"):
+        assert required in coll, f"loadFromJSON requires {required!r}"
     assert coll["id"] == 1
     assert coll["name"].startswith("windcheck-crossings-")
     assert len(coll["color"]) == 3

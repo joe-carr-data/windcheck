@@ -1,47 +1,50 @@
 {
- "1": {
-  "id": 1,
-  "name": "windcheck-overlaps-20251115002746-auto_gr",
-  "color": [
-   1.0,
-   0.2,
-   0.2
-  ],
-  "points": {
-   "1": {
-    "id": 1,
-    "p": [
-     3278.3466796875,
-     2428.5400390625,
-     3259.802734375
-    ],
-    "wind_a": null,
-    "collection_id": 1
+ "vc_pointcollections_json_version": "1",
+ "collections": {
+  "1": {
+   "id": 1,
+   "name": "windcheck-overlaps-20251115002746-auto_gr",
+   "color": [
+    1.0,
+    0.2,
+    0.2
+   ],
+   "points": {
+    "1": {
+     "id": 1,
+     "p": [
+      3278.3466796875,
+      2428.5400390625,
+      3259.802734375
+     ],
+     "wind_a": null,
+     "collection_id": 1
+    },
+    "2": {
+     "id": 2,
+     "p": [
+      6430.3271484375,
+      4270.60986328125,
+      4287.55029296875
+     ],
+     "wind_a": null,
+     "collection_id": 1
+    },
+    "3": {
+     "id": 3,
+     "p": [
+      3366.127197265625,
+      2211.960693359375,
+      3283.99951171875
+     ],
+     "wind_a": null,
+     "collection_id": 1
+    }
    },
-   "2": {
-    "id": 2,
-    "p": [
-     6430.3271484375,
-     4270.60986328125,
-     4287.55029296875
-    ],
-    "wind_a": null,
-    "collection_id": 1
-   },
-   "3": {
-    "id": 3,
-    "p": [
-     3366.127197265625,
-     2211.960693359375,
-     3283.99951171875
-    ],
-    "wind_a": null,
-    "collection_id": 1
+   "metadata": {
+    "tool": "windcheck",
+    "cut_revolutions": 1.6
    }
-  },
-  "metadata": {
-   "tool": "windcheck",
-   "cut_revolutions": 1.6
   }
  }
 }

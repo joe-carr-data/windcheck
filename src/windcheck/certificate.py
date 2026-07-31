@@ -61,6 +61,17 @@ def _sha256_head(path: Path, limit: int = 8 << 20) -> str:
     return h.hexdigest()[:16]
 
 
+# `PointCollections::loadFromJSON` refuses any file whose top level does not
+# carry this key with this exact value, and then reads the collections out of
+# `collections`. Writing the bare `{"1": {...}}` map -- which is what the
+# collections VALUE looks like -- parses as JSON and loads as nothing: the
+# loader throws "incorrect version or missing version info" and returns false.
+# An overlay nobody can open is worth less than no overlay at all, so the
+# envelope is asserted by a test rather than trusted.
+PC_VERSION_KEY = "vc_pointcollections_json_version"
+PC_VERSION = "1"
+
+
 def point_collection(name: str, points: Sequence[Sequence[float]],
                      color: Sequence[float] = (1.0, 0.2, 0.2),
                      metadata: dict | None = None) -> dict:
@@ -74,13 +85,16 @@ def point_collection(name: str, points: Sequence[Sequence[float]],
             "collection_id": 1,
         }
     return {
-        "1": {
-            "id": 1,
-            "name": name,
-            "color": [float(c) for c in color],
-            "points": pts,
-            "metadata": metadata or {},
-        }
+        PC_VERSION_KEY: PC_VERSION,
+        "collections": {
+            "1": {
+                "id": 1,
+                "name": name,
+                "color": [float(c) for c in color],
+                "points": pts,
+                "metadata": metadata or {},
+            }
+        },
     }
 
 
