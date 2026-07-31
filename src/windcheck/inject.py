@@ -107,9 +107,10 @@ def inject(src: Path, dst: Path, defects: list[Defect], feather: int = 6,
     for i, axis in enumerate(("x", "y", "z")):
         arr = np.where(valid, P[..., i], -1.0).astype(np.float32)
         tifffile.imwrite(dst / f"{axis}.tif", arr)
-    meta = (src / "meta.json")
-    (dst / "meta.json").write_text(meta.read_text() if meta.exists()
-                                   else '{"format":"tifxyz","scale":[1,1]}')
+    from .tifxyz import write_meta
+    write_meta(src, dst, np.stack(
+        [np.where(valid, P[..., i], -1.0).astype(np.float32) for i in range(3)],
+        axis=-1), valid)
 
 
 def score(detected: np.ndarray, truth: np.ndarray) -> dict:

@@ -159,14 +159,19 @@ def main() -> None:
         dst.mkdir(parents=True)
         Q32 = P_arr.astype(np.float32)
         keep = ~s.valid
+        bands = []
         for i, ax in enumerate(("x", "y", "z")):
             a = Q32[..., i].copy()
             a[keep] = np.asarray(s.points, np.float32)[keep, i]
             tifffile.imwrite(dst / f"{ax}.tif", a)
-        for extra in ("meta.json", "mask.tif", "mask.png"):
+            bands.append(a)
+        for extra in ("mask.tif", "mask.png"):
             srcf = mesh / extra
             if srcf.exists():
                 shutil.copy(srcf, dst / extra)
+        # Displacement moves coordinates; the source bbox no longer describes
+        # what is written here, and consumers filter on it.
+        tifxyz.write_meta(mesh, dst, np.stack(bands, axis=-1), s.valid)
 
     after = None
     for attempt in range(12):

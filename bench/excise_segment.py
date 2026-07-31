@@ -503,15 +503,18 @@ def emit_excised_tifxyz(src: Path, dst: Path, valid_out: np.ndarray,
         assert not (src / stale).exists(), (
             f"input carries {stale}: the emission path would overwrite input "
             "validity semantics; refusing")
+    planes = []
     for ax in AXES:
         plane = np.asarray(tifffile.imread(src / f"{ax}.tif"))
         assert plane.shape == excised.shape, (ax, plane.shape, excised.shape)
         out = plane.copy()
         out[excised] = MISSING
         tifffile.imwrite(dst / f"{ax}.tif", out)
-    for extra in ("meta.json",):
-        if (src / extra).exists():
-            shutil.copy(src / extra, dst / extra)
+        planes.append(out.astype(np.float32))
+    if (src / "meta.json").exists():
+        # bbox recomputed, not inherited: the source one describes the
+        # pre-excision surface and consumers filter on it.
+        tifxyz.write_meta(src, dst, np.stack(planes, axis=-1), valid_out)
     if with_mask:
         tifffile.imwrite(dst / "mask.tif", valid_out.astype(np.uint8))
     return {"invalidation_carrier": HYBRID_INVALIDATION,

@@ -370,6 +370,7 @@ def emit_tifxyz(src: Path, dst: Path, valid_out: np.ndarray,
             raise ValueError(
                 f"input carries {stale}: emitting here would overwrite input "
                 "validity semantics; refusing")
+    planes = []
     for ax in AXES:
         plane = np.asarray(tifffile.imread(src / f"{ax}.tif"))
         if plane.shape != excised.shape:
@@ -378,8 +379,12 @@ def emit_tifxyz(src: Path, dst: Path, valid_out: np.ndarray,
         out = plane.copy()
         out[excised] = MISSING
         tifffile.imwrite(dst / f"{ax}.tif", out)
+        planes.append(out.astype(np.float32))
     if (src / "meta.json").exists():
-        shutil.copy(src / "meta.json", dst / "meta.json")
+        # Not a copy. The source bbox describes the surface BEFORE the cut, and
+        # consumers filter on it: a bbox that overstates the extent silently
+        # drops a surface from their inputs instead of failing loudly.
+        tifxyz.write_meta(src, dst, np.stack(planes, axis=-1), valid_out)
     if with_mask:
         tifffile.imwrite(dst / "mask.tif", valid_out.astype(np.uint8))
     return {"invalidation_carrier": HYBRID_INVALIDATION,
@@ -442,7 +447,18 @@ def check_segment(target: Path, out: Path, *, volume: str = "",
                  "grid_shape": [int(nv), int(nu)],
                  "n_valid_vertices": int(V.sum()),
                  "n_retained_quads": int(Q.sum()),
-                 "voxel_um": _voxel_um(mesh)},
+                 "voxel_um": _voxel_um(mesh),
+                 # Disclosed, not applied. `QuadSurface::load` discards every
+                 # point with z <= 0 before masking, so its valid set is a
+                 # subset of the one censused here. Stating the gap lets a
+                 # reader judge whether a count rests on cells their pipeline
+                 # would have dropped; silently adopting the stricter rule
+                 # would change every previously published number instead.
+                 "validity_rule": (
+                     "sentinel (-1,-1,-1) OR non-finite OR masked-out; the "
+                     "upstream loader additionally discards z <= 0"),
+                 "n_valid_vertices_upstream_rule": surf.n_valid_pipeline,
+                 "n_cells_below_z_floor": surf.z_floor_cells},
         "census": {
             "engine": str(ENGINE),
             "engine_sha256": sha(ENGINE) if ENGINE.exists() else None,

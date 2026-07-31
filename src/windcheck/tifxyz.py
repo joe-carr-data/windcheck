@@ -35,6 +35,9 @@ class Surface:
     scale: tuple[float, float]
     bbox: tuple[tuple[float, float, float], tuple[float, float, float]]
     path: Path
+    # The upstream loader's stricter rule, carried alongside rather than
+    # substituted for `valid`. See `read` for why both exist.
+    valid_pipeline: np.ndarray | None = None
 
     @property
     def shape(self) -> tuple[int, int]:
@@ -44,6 +47,22 @@ class Surface:
     @property
     def n_valid(self) -> int:
         return int(self.valid.sum())
+
+    @property
+    def n_valid_pipeline(self) -> int:
+        """Cells the upstream loader would keep. Never larger than n_valid."""
+        if self.valid_pipeline is None:
+            return self.n_valid
+        return int(self.valid_pipeline.sum())
+
+    @property
+    def z_floor_cells(self) -> int:
+        """Cells we keep that `QuadSurface` discards for z <= 0.
+
+        Zero on most surfaces. Where it is not, it is worth reporting: a
+        crossing confined to these cells is one the pipeline never sees.
+        """
+        return self.n_valid - self.n_valid_pipeline
 
     @property
     def coverage(self) -> float:
@@ -84,6 +103,17 @@ def read(directory: str | Path) -> Surface:
                 valid &= mask.astype(bool)
             break
 
+    # Convention 3, upstream only: `QuadSurface::load` rewrites every point
+    # with z <= 0 to the -1 sentinel BEFORE it applies the mask, so its valid
+    # set is a strict subset of the one above. We do not adopt that rule as
+    # the default, because every published count was measured without it and
+    # silently tightening a definition is how numbers stop meaning what they
+    # said. We carry it alongside instead, so a certificate can state both and
+    # a reader can see the size of the difference. Measured across the pinned
+    # corpus the gap is 44 of 185 meshes and 1.49% of transverse rows, and it
+    # changes no segment's verdict; see bench/zfloor_impact.py.
+    valid_pipeline = valid & (points[..., 2] > 0)
+
     meta_path = d / "meta.json"
     meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
     scale = tuple(meta.get("scale", (1.0, 1.0)))
@@ -95,4 +125,37 @@ def read(directory: str | Path) -> Surface:
         scale=(float(scale[0]), float(scale[1])),
         bbox=(tuple(bbox[0]), tuple(bbox[1])),  # type: ignore[arg-type]
         path=d,
+        valid_pipeline=valid_pipeline,
     )
+
+
+def write_meta(src: str | Path, dst: str | Path,
+               points: np.ndarray, valid: np.ndarray) -> None:
+    """Carry `meta.json` forward with a bbox recomputed from what was emitted.
+
+    Every field but `bbox` is preserved verbatim: scale, uuid and anything
+    else the pipeline put there is not ours to reinterpret. `bbox` is the
+    one field that describes the points rather than the surface's identity,
+    so it is the one field a writer must not inherit.
+    """
+    src, dst = Path(src), Path(dst)
+    meta_path = src / "meta.json"
+    meta = (json.loads(meta_path.read_text()) if meta_path.exists()
+            else {"format": "tifxyz", "scale": [1, 1]})
+    meta["bbox"] = bbox_of(points, valid)
+    (dst / "meta.json").write_text(json.dumps(meta, indent=1) + "\n")
+
+
+def bbox_of(points: np.ndarray, valid: np.ndarray) -> list[list[float]]:
+    """[[xmin,ymin,zmin],[xmax,ymax,zmax]] over the valid points.
+
+    `meta.json` carries a bbox that consumers filter on, and a stale one
+    silently drops a surface from their inputs rather than failing loudly.
+    An emitted mesh must therefore carry a bbox computed from the points
+    it actually contains, never one inherited from the mesh it came from.
+    """
+    if not valid.any():
+        return [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+    P = points[valid]
+    return [[float(v) for v in P.min(axis=0)],
+            [float(v) for v in P.max(axis=0)]]

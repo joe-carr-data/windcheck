@@ -282,3 +282,64 @@ def test_find_mesh_accepts_a_segment_directory(tmp_path):
     assert pipeline.find_mesh(mesh) == mesh
     assert pipeline.find_mesh(tmp_path / "nothing") is None
     assert pipeline.segment_name(mesh) == "segFLAT"
+
+
+def test_certificate_discloses_the_upstream_validity_gap(tmp_path):
+    """We keep cells the upstream loader drops; the certificate must say so.
+
+    QuadSurface::load rewrites any point with z <= 0 to the invalid sentinel
+    before masking. Our reader does not, so our valid set is a superset and a
+    crossing confined to those cells is one the pipeline never sees. The rule
+    is disclosed rather than adopted, because adopting it would silently
+    restate every published count.
+    """
+    import numpy as np
+    import tifffile
+    from windcheck import tifxyz
+
+    d = tmp_path / "zfloor.tifxyz"
+    d.mkdir()
+    x = np.ones((4, 4), np.float32)
+    y = np.ones((4, 4), np.float32)
+    z = np.ones((4, 4), np.float32)
+    z[0, 0] = -3.0     # below the floor: we keep it, the loader does not
+    z[1, 1] = 0.0      # exactly zero is discarded upstream too (z <= 0)
+    x[3, 3] = y[3, 3] = z[3, 3] = -1.0          # sentinel: invalid for both
+    for ax, arr in (("x", x), ("y", y), ("z", z)):
+        tifffile.imwrite(d / f"{ax}.tif", arr)
+
+    s = tifxyz.read(d)
+    assert s.n_valid == 15                       # only the sentinel is dropped
+    assert s.n_valid_pipeline == 13              # ...plus the two z <= 0 cells
+    assert s.z_floor_cells == 2
+    assert s.valid[0, 0] and not s.valid_pipeline[0, 0]
+
+
+def test_written_meta_carries_a_recomputed_bbox(tmp_path):
+    """A bbox inherited from the source describes the wrong surface.
+
+    Consumers filter on it, so a stale bbox drops a mesh from their inputs
+    without an error anywhere. This is the failure tifxyz-repair exists to
+    fix upstream; our writers must not reintroduce it.
+    """
+    import json
+    import numpy as np
+    from windcheck import tifxyz
+
+    src, dst = tmp_path / "src", tmp_path / "dst"
+    src.mkdir(); dst.mkdir()
+    (src / "meta.json").write_text(json.dumps(
+        {"format": "tifxyz", "scale": [2.0, 3.0],
+         "bbox": [[0, 0, 0], [9999, 9999, 9999]], "uuid": "keep-me"}))
+
+    pts = np.zeros((3, 3, 3), np.float32)
+    pts[..., 0] = 5.0; pts[..., 1] = 6.0; pts[..., 2] = 7.0
+    pts[0, 0] = (1.0, 2.0, 3.0)
+    valid = np.ones((3, 3), bool)
+    valid[2, 2] = False
+    pts[2, 2] = (1e6, 1e6, 1e6)          # invalid: must not reach the bbox
+
+    tifxyz.write_meta(src, dst, pts, valid)
+    m = json.loads((dst / "meta.json").read_text())
+    assert m["bbox"] == [[1.0, 2.0, 3.0], [5.0, 6.0, 7.0]]
+    assert m["scale"] == [2.0, 3.0] and m["uuid"] == "keep-me"

@@ -4,8 +4,8 @@
  "provenance": {
   "schema": "windcheck_provenance/v1",
   "code_version": "0.1.0",
-  "source_tree_digest": "fe8dfabb7603813c45d3006207e82d37e7f0ab13a5d4d8f8d01c21609618d1f8",
-  "source_tree_n_files": 76,
+  "source_tree_digest": "fa61eea2f1ec642fc606cf830da11d9aca61d46e96b0cf5248478f96a3ac6aa4",
+  "source_tree_n_files": 77,
   "source_tree_globs": [
    "pyproject.toml",
    "uv.lock",
@@ -20,11 +20,18 @@
   "verify_command": "uv run python -m windcheck.provenance",
   "policy_version": "round28-greedy-first-v1",
   "policy_hash": "26296e23cb4d08e4",
-  "superseded_digest": {
-   "digest": "ceebd6c8565a347c494a5829ffcd8675ff785c78ca87e6c503e910a87d745290",
-   "files": 75,
-   "reason": "v0.1.0-beta as first published. Its emitted point collections lacked the vc_pointcollections_json_version envelope that volume-cartographer's PointCollections loader requires, so they could not be opened in VC3D. Geometry, censuses, meshes and hashes are unaffected."
-  }
+  "superseded_digests": [
+   {
+    "digest": "ceebd6c8565a347c494a5829ffcd8675ff785c78ca87e6c503e910a87d745290",
+    "files": 75,
+    "reason": "v0.1.0-beta as first published. Its emitted point collections lacked the vc_pointcollections_json_version envelope that volume-cartographer's PointCollections loader requires, so they could not be opened in VC3D. Geometry, censuses, meshes and hashes are unaffected."
+   },
+   {
+    "digest": "fe8dfabb7603813c45d3006207e82d37e7f0ab13a5d4d8f8d01c21609618d1f8",
+    "files": 76,
+    "reason": "v0.1.0-beta after the point-collection envelope fix. Superseded by the disclosure of the upstream z <= 0 validity rule in every check certificate, and by writers that recompute meta.json bbox from the points they emit instead of copying the source. No census, mesh, hash or retention figure changes."
+   }
+  ]
  },
  "mesh_identity_rule": "mesh identity is a content manifest over every file a tifxyz reader consumes semantically -- x/y/z.tif, mask.tif or mask.png, meta.json -- not the coordinate planes alone, so a mask change (the carrier of an excision) cannot leave a recorded mesh hash valid.",
  "base_kind_rule": "base_kind is decided by SEMANTIC MANIFEST EQUALITY -- the input mesh's content manifest against the original published mesh's -- and never by path, because paths change in downloaded archives and fresh working directories. Index generation fails loudly when a certificate's declared base_kind disagrees with that hash-verified answer.",

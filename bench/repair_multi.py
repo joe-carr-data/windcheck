@@ -222,14 +222,20 @@ def emit_mesh(P_arr, surf, src_mesh: Path, dst: Path) -> None:
     dst.mkdir(parents=True)
     Q32 = P_arr.astype(np.float32)
     keep = ~surf.valid
+    bands = []
     for i, ax in enumerate(("x", "y", "z")):
         a = Q32[..., i].copy()
         a[keep] = np.asarray(surf.points, np.float32)[keep, i]
         tifffile.imwrite(dst / f"{ax}.tif", a)
-    for extra in ("meta.json", "mask.tif", "mask.png"):
+        bands.append(a)
+    for extra in ("mask.tif", "mask.png"):
         srcf = src_mesh / extra
         if srcf.exists():
             shutil.copy(srcf, dst / extra)
+    # Displacement moves coordinates, so the source bbox no longer describes
+    # what is written here. Consumers filter on it, and a stale one drops the
+    # surface from their inputs silently rather than failing.
+    tifxyz.write_meta(src_mesh, dst, np.stack(bands, axis=-1), surf.valid)
 
 
 def quality_metrics(P0, P32, inc) -> dict:
