@@ -4,8 +4,8 @@
  "provenance": {
   "schema": "windcheck_provenance/v1",
   "code_version": "0.1.0",
-  "source_tree_digest": "fa61eea2f1ec642fc606cf830da11d9aca61d46e96b0cf5248478f96a3ac6aa4",
-  "source_tree_n_files": 77,
+  "source_tree_digest": "aae5d295b710a3349eef8ed8a243ed0e0a1211bd40db4753d0201593a91654c5",
+  "source_tree_n_files": 80,
   "source_tree_globs": [
    "pyproject.toml",
    "uv.lock",
@@ -30,6 +30,11 @@
     "digest": "fe8dfabb7603813c45d3006207e82d37e7f0ab13a5d4d8f8d01c21609618d1f8",
     "files": 76,
     "reason": "v0.1.0-beta after the point-collection envelope fix. Superseded by the disclosure of the upstream z <= 0 validity rule in every check certificate, and by writers that recompute meta.json bbox from the points they emit instead of copying the source. No census, mesh, hash or retention figure changes."
+   },
+   {
+    "digest": "fa61eea2f1ec642fc606cf830da11d9aca61d46e96b0cf5248478f96a3ac6aa4",
+    "files": 77,
+    "reason": "superseded by the publication of the 84,316-patch audit: three new bench drivers (patch_audit, patch_diagnose, patch_baseline_tiles). No census, mesh, hash or retention figure in the pinned corpus changes."
    }
   ]
  },

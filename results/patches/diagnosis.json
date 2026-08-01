@@ -1,0 +1,499 @@
+{
+ "n_flagged": 5,
+ "results": [
+  {
+   "patch": "band-seed11817810-20260730-003948-986.tifxyz",
+   "source": "https://dl.ash2txt.org/datasets/spiral_datasets/PHercParis4/verified_patches/band-seed11817810-20260730-003948-986.tifxyz",
+   "grid": [
+    97,
+    97
+   ],
+   "n_valid": 4045,
+   "transverse_both_diagonals": 2,
+   "participating_quads": [
+    [
+     29,
+     45
+    ],
+    [
+     30,
+     48
+    ]
+   ],
+   "quad_depth_cells": [
+    1.0,
+    1.0
+   ],
+   "median_depth_cells": 5.0,
+   "p90_depth_cells": 11.313708498984761,
+   "max_penetration_vx": 3.4925,
+   "grid_separation": [
+    [
+     1,
+     3
+    ],
+    [
+     1,
+     3
+    ]
+   ],
+   "erosion": [
+    {
+     "cells": 1,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 3420,
+     "fraction_retained": 0.8454882571075402,
+     "clean": true
+    },
+    {
+     "cells": 2,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 2856,
+     "fraction_retained": 0.7060568603213844,
+     "clean": true
+    },
+    {
+     "cells": 3,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 2331,
+     "fraction_retained": 0.5762669962917182,
+     "clean": true
+    }
+   ],
+   "sha256": {
+    "meta.json": "1911c8cd18ca5a36ca849b998c755b01ea6ba015df3f0d91315722a446a4b3bb",
+    "x.tif": "7622252df1f6737588188945f6c53ab6f5bc7942c6454985cb456140314cef78",
+    "y.tif": "4f9cb1e03004a75ecc36f899d57a863578fea63e9e55385d0d1a7031805a8b72",
+    "z.tif": "844fc9eb94ef50b940583b7262b6b27b9c3b5ebf2b86cacc5f9216746b9177f1"
+   }
+  },
+  {
+   "patch": "band-seed12900803-20260729-195624-897.tifxyz",
+   "source": "https://dl.ash2txt.org/datasets/spiral_datasets/PHercParis4/verified_patches/band-seed12900803-20260729-195624-897.tifxyz",
+   "grid": [
+    107,
+    85
+   ],
+   "n_valid": 3465,
+   "transverse_both_diagonals": 5,
+   "participating_quads": [
+    [
+     80,
+     28
+    ],
+    [
+     80,
+     31
+    ]
+   ],
+   "quad_depth_cells": [
+    1.0,
+    1.0
+   ],
+   "median_depth_cells": 4.123105625617661,
+   "p90_depth_cells": 8.06225774829855,
+   "max_penetration_vx": 8.20666,
+   "grid_separation": [
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     3
+    ],
+    [
+     0,
+     3
+    ]
+   ],
+   "erosion": [
+    {
+     "cells": 1,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 2849,
+     "fraction_retained": 0.8222222222222222,
+     "clean": true
+    },
+    {
+     "cells": 2,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 2291,
+     "fraction_retained": 0.6611832611832612,
+     "clean": true
+    },
+    {
+     "cells": 3,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 1779,
+     "fraction_retained": 0.5134199134199134,
+     "clean": true
+    }
+   ],
+   "sha256": {
+    "meta.json": "d9bab1e715f06972de9a92190ba9fa60a7ff4d8bf94cdad0d8aa9f91564114b5",
+    "x.tif": "b44d032357572f3e229705c097855aecfed8a8d3c2368967b194b4045a36aaa9",
+    "y.tif": "a06c4e9427217be7dc985abd10bd8c2ee90c66a1cc6f84b775adb98903bcb989",
+    "z.tif": "c590eb37d782e9b049788bf4df2190c948c856166ed1c14a822a7f70613a1628"
+   }
+  },
+  {
+   "patch": "band-seed2570227-20260729-161313-704.tifxyz",
+   "source": "https://dl.ash2txt.org/datasets/spiral_datasets/PHercParis4/verified_patches/band-seed2570227-20260729-161313-704.tifxyz",
+   "grid": [
+    84,
+    162
+   ],
+   "n_valid": 6168,
+   "transverse_both_diagonals": 7,
+   "participating_quads": [
+    [
+     13,
+     149
+    ],
+    [
+     13,
+     150
+    ],
+    [
+     14,
+     30
+    ]
+   ],
+   "quad_depth_cells": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "median_depth_cells": 5.0,
+   "p90_depth_cells": 10.0,
+   "max_penetration_vx": 8.36306,
+   "grid_separation": [
+    [
+     1,
+     119
+    ],
+    [
+     1,
+     120
+    ],
+    [
+     1,
+     120
+    ],
+    [
+     1,
+     119
+    ],
+    [
+     1,
+     119
+    ],
+    [
+     1,
+     120
+    ],
+    [
+     1,
+     120
+    ]
+   ],
+   "erosion": [
+    {
+     "cells": 1,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 5169,
+     "fraction_retained": 0.8380350194552529,
+     "clean": true
+    },
+    {
+     "cells": 2,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 4265,
+     "fraction_retained": 0.6914721141374838,
+     "clean": true
+    },
+    {
+     "cells": 3,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 3503,
+     "fraction_retained": 0.5679312581063554,
+     "clean": true
+    }
+   ],
+   "sha256": {
+    "meta.json": "2bc2ddfb800583557d98f4fcce023bc231e8b1e99d7491a767ec7fe0159d89db",
+    "x.tif": "a5b25084d878a7a031432806d37fa9d7f344ecbdb3723f0fe1c6890fbefbf53f",
+    "y.tif": "e22b7ac6d11c9cbc1649df55547b5aa555dbe7bb12b543654403e9311eababd7",
+    "z.tif": "9a40f99ff66e954c92b981fd3c13973f075e39d5743d39679accfa517c438b5b"
+   }
+  },
+  {
+   "patch": "band-seed3224943-20260729-182133-568.tifxyz",
+   "source": "https://dl.ash2txt.org/datasets/spiral_datasets/PHercParis4/verified_patches/band-seed3224943-20260729-182133-568.tifxyz",
+   "grid": [
+    59,
+    62
+   ],
+   "n_valid": 1880,
+   "transverse_both_diagonals": 19,
+   "participating_quads": [
+    [
+     38,
+     31
+    ],
+    [
+     38,
+     32
+    ],
+    [
+     38,
+     33
+    ],
+    [
+     39,
+     32
+    ],
+    [
+     40,
+     33
+    ],
+    [
+     40,
+     34
+    ],
+    [
+     40,
+     35
+    ],
+    [
+     41,
+     34
+    ]
+   ],
+   "quad_depth_cells": [
+    1.0,
+    1.4142135623730951,
+    1.0,
+    1.0,
+    1.0,
+    1.4142135623730951,
+    1.0,
+    1.4142135623730951
+   ],
+   "median_depth_cells": 4.47213595499958,
+   "p90_depth_cells": 11.0,
+   "max_penetration_vx": 16.8824,
+   "grid_separation": [
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     2,
+     3
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     2,
+     2
+    ]
+   ],
+   "erosion": [
+    {
+     "cells": 1,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 1569,
+     "fraction_retained": 0.8345744680851064,
+     "clean": true
+    },
+    {
+     "cells": 2,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 1286,
+     "fraction_retained": 0.6840425531914893,
+     "clean": true
+    },
+    {
+     "cells": 3,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 1043,
+     "fraction_retained": 0.5547872340425531,
+     "clean": true
+    }
+   ],
+   "sha256": {
+    "meta.json": "368564ba857932a72835ce0b4de8194c243671f4caa108cf710fd79b01646a9c",
+    "x.tif": "152149385dbe3eb717f48815302bbdf197ed0f8745a6c727747890e4d56d93c3",
+    "y.tif": "6e6dd29ae68b092fca510896f5d23112f9b64d9676120e7d877d0ce06830ef0b",
+    "z.tif": "65924e5a99a22f5bcfd397f07ad7b84f86753f2a34d8fd893947552935bead4f"
+   }
+  },
+  {
+   "patch": "band-seed7630648-20260729-181254-173.tifxyz",
+   "source": "https://dl.ash2txt.org/datasets/spiral_datasets/PHercParis4/verified_patches/band-seed7630648-20260729-181254-173.tifxyz",
+   "grid": [
+    40,
+    62
+   ],
+   "n_valid": 1116,
+   "transverse_both_diagonals": 8,
+   "participating_quads": [
+    [
+     10,
+     45
+    ],
+    [
+     10,
+     47
+    ],
+    [
+     11,
+     47
+    ]
+   ],
+   "quad_depth_cells": [
+    1.0,
+    1.4142135623730951,
+    2.23606797749979
+   ],
+   "median_depth_cells": 3.605551275463989,
+   "p90_depth_cells": 7.211102550927978,
+   "max_penetration_vx": 7.57539,
+   "grid_separation": [
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     2
+    ],
+    [
+     1,
+     2
+    ]
+   ],
+   "erosion": [
+    {
+     "cells": 1,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 869,
+     "fraction_retained": 0.7786738351254481,
+     "clean": true
+    },
+    {
+     "cells": 2,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 645,
+     "fraction_retained": 0.5779569892473119,
+     "clean": true
+    },
+    {
+     "cells": 3,
+     "transverse_both_diagonals": 0,
+     "valid_retained": 446,
+     "fraction_retained": 0.3996415770609319,
+     "clean": true
+    }
+   ],
+   "sha256": {
+    "meta.json": "6eac5ed988adc401b53d6cf95cbbe9af5fb346c7ff222bf7cdc0132b0001abde",
+    "x.tif": "17d5378488fcc4235e76bff0eda7502d36507c2509ad010b13aa69d0a7b18fd3",
+    "y.tif": "8e6ac7167e91b714e3b3b458d650e89341aa7045ff514f3c3c7d516d81959e6a",
+    "z.tif": "5a5dd0266e6a995fe2f066356923ce5f8a13e9aa269d3ad775e8a75920138660"
+   }
+  }
+ ]
+}

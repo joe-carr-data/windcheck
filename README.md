@@ -210,6 +210,18 @@ explicitly, by name and by reason.
 
 ## Reproducing
 
+## Auditing someone else's data
+
+The same census was run over the whole `verified_patches` dataset for
+PHercParis4, published elsewhere on 30 July 2026: **84,316 patches,
+96.7 million valid cells, 40 minutes, no GPU**. 84,311 are transverse-clean
+and five self-intersect, against 527 expected at the rate published traces
+of the same scroll self-intersect when cut to the same size.
+
+All five share one cause, and one cell of boundary erosion clears every one
+of them. [`docs/PATCH-AUDIT.md`](docs/PATCH-AUDIT.md) has the method, the
+baseline that makes the number mean something, and the limits.
+
 ## The audit record
 
 Before any mesh was transformed, this tool audited the published corpus and
@@ -270,8 +282,10 @@ bench/                    benchmark and corpus drivers (users never need these)
 docs/CORPUS.md            per-segment corpus results
 docs/REPRODUCE.md         reproduction instructions
 docs/submission.md        the July 2026 audit record, as filed
+docs/PATCH-AUDIT.md       independent audit of 84,316 published patches
 docs/HISTORY.md           what is production, supporting, retired
 results/                  precomputed audit results, all 179 segments
+results/patches/          the patch audit summary and its five findings
 ```
 
 `tifxyz.py` deliberately does not use the upstream `vesuvius` package: this tool
