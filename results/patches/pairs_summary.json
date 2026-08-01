@@ -1,0 +1,143 @@
+{
+ "schema": "windcheck_patch_pairs/v1",
+ "question": "does patch cleanliness compose under assembly?",
+ "method": {
+  "stitch_gap_rows": 8,
+  "note": "both patches placed in one grid separated by invalid rows far wider than the Chebyshev adjacency exclusion of 1; each patch is independently clean, so every reported contact is between them. This is not a merge: no reparametrisation, no seam.",
+  "controls": {
+   "translated_50000_vx": 0,
+   "rotated_90_deg_about_centroid": 112
+  }
+ },
+ "population": {
+  "patches": 84316,
+  "bboxes_fetched": 84316,
+  "bbox_failures": 0,
+  "overlapping_pairs_above_1e6_vx3": 27778181
+ },
+ "result": {
+  "pairs_censused": 459,
+  "pairs_interpenetrating": 10,
+  "fraction": 0.02178649237472767,
+  "inter_patch_contacts_measured": 52081,
+  "angle_deg": {
+   "p5": 1.0,
+   "p25": 2.0,
+   "median": 3.2,
+   "p75": 5.1,
+   "p95": 10.9,
+   "below_10_deg": 0.936,
+   "above_30_deg": 0.001
+  },
+  "median_penetration_vx": 4.4,
+  "grazing_tolerance_vx": 0.025
+ },
+ "interpretation": "shallow angle with real penetration is not a fold: it is two nearly parallel surfaces weaving through each other, i.e. two patches disagreeing about where the same sheet is by a few voxels. Intra-patch crossings by contrast run 7.8 to 34.7 degrees.",
+ "caveats": [
+  "bounding-box overlap is a weak proxy for the pairs a merger would join",
+  "two patches covering one region are supposed to be near-coincident, so this measures inconsistency without attributing it",
+  "n is small; the interval is wide"
+ ],
+ "pairs": [
+  {
+   "a": "band-seed14143005-20260729-195144-171.tifxyz",
+   "b": "band-seed14143211-20260730-002934-897.tifxyz",
+   "overlap_vx3": 3319956399.278182,
+   "valid_a": 7117,
+   "valid_b": 5220,
+   "transverse_d0": 13126,
+   "transverse_d1": 12271,
+   "transverse_both": 25397
+  },
+  {
+   "a": "band-seed15575655-20260729-173745-648.tifxyz",
+   "b": "band-seed784505-20260729-232235-738.tifxyz",
+   "overlap_vx3": 1516441419.4569964,
+   "valid_a": 4286,
+   "valid_b": 6642,
+   "transverse_d0": 11942,
+   "transverse_d1": 11799,
+   "transverse_both": 23741
+  },
+  {
+   "a": "band-seed1122157-20260729-191818-240.tifxyz",
+   "b": "band-seed1367467-20260729-222844-920.tifxyz",
+   "overlap_vx3": 923524688.1931379,
+   "valid_a": 4518,
+   "valid_b": 3772,
+   "transverse_d0": 10870,
+   "transverse_d1": 10552,
+   "transverse_both": 21422
+  },
+  {
+   "a": "band-seed12678516-20260729-171343-607.tifxyz",
+   "b": "band-seed18772507-20260729-171434-283.tifxyz",
+   "overlap_vx3": 184083798.50877553,
+   "valid_a": 1615,
+   "valid_b": 923,
+   "transverse_d0": 2792,
+   "transverse_d1": 2322,
+   "transverse_both": 5114
+  },
+  {
+   "a": "band-seed13770291-20260729-165943-409.tifxyz",
+   "b": "band-seed18106814-20260729-172904-742.tifxyz",
+   "overlap_vx3": 375048210.59134984,
+   "valid_a": 1153,
+   "valid_b": 2892,
+   "transverse_d0": 2391,
+   "transverse_d1": 2245,
+   "transverse_both": 4636
+  },
+  {
+   "a": "band-seed18579864-20260729-202332-783.tifxyz",
+   "b": "band-seed19077303-20260729-195240-640.tifxyz",
+   "overlap_vx3": 136343601.86691028,
+   "valid_a": 4091,
+   "valid_b": 2464,
+   "transverse_d0": 490,
+   "transverse_d1": 538,
+   "transverse_both": 1028
+  },
+  {
+   "a": "band-seed10258511-20260729-180826-212.tifxyz",
+   "b": "band-seed6268853-20260729-192700-734.tifxyz",
+   "overlap_vx3": 5109477.481565717,
+   "valid_a": 4521,
+   "valid_b": 258,
+   "transverse_d0": 297,
+   "transverse_d1": 302,
+   "transverse_both": 599
+  },
+  {
+   "a": "band-seed15925901-20260729-184329-380.tifxyz",
+   "b": "band-seed7428298-20260729-174848-142.tifxyz",
+   "overlap_vx3": 46474698.40423905,
+   "valid_a": 1652,
+   "valid_b": 543,
+   "transverse_d0": 11,
+   "transverse_d1": 14,
+   "transverse_both": 25
+  },
+  {
+   "a": "band-seed3204027-20260729-160638-590.tifxyz",
+   "b": "band-seed3420247-20260730-002143-691.tifxyz",
+   "overlap_vx3": 1269694311.4078677,
+   "valid_a": 4545,
+   "valid_b": 9970,
+   "transverse_d0": 1,
+   "transverse_d1": 3,
+   "transverse_both": 4
+  },
+  {
+   "a": "band-seed14981306-20260729-230433-257.tifxyz",
+   "b": "band-seed8917382-20260729-175712-636.tifxyz",
+   "overlap_vx3": 37319717.491921306,
+   "valid_a": 371,
+   "valid_b": 8229,
+   "transverse_d0": 1,
+   "transverse_d1": 1,
+   "transverse_both": 2
+  }
+ ]
+}

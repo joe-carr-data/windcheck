@@ -105,7 +105,16 @@ uv run python bench/patch_diagnose.py --audit out/patches/audit_full.jsonl
 
 # the tile baseline, from this repository's own corpus
 uv run python bench/patch_baseline_tiles.py
+
+# does cleanliness compose: boxes, overlapping pairs, then a sample
+uv run python bench/patch_pairs.py bboxes --jobs 32     # ~9 min
+uv run python bench/patch_pairs.py pairs                # writes ~6 GB
+uv run python bench/patch_pairs.py census --sample 400
 ```
+
+The pair list is large enough that the census stage reservoir-samples it
+in a streaming pass rather than loading it, so memory stays proportional
+to the sample rather than the file.
 
 Sampling is deterministic given `--seed` and the cached sorted index, so
 a partial run is reproducible without fetching the whole set. Every
@@ -116,14 +125,65 @@ trust the aggregate.
 `--jobs 32` is the measured plateau; more workers gain nothing and the
 server is a shared community resource.
 
+## Does cleanliness compose?
+
+Patches are published to be assembled, and a per-patch verdict says
+nothing about that. Two surfaces each free of self-intersection can still
+pass through each other, and any merge of such a pair either
+self-intersects or must discard part of one.
+
+The census reads one surface at a time, so a pair is tested by stitching
+both into a single grid separated by eight invalid rows, far wider than
+the adjacency exclusion of one. Because each patch is independently
+clean, every contact reported is necessarily *between* them. This is not
+a merge: there is no reparametrisation and no seam. It answers the
+load-bearing question, which is whether the two occupy the same space
+transversally.
+
+The method was validated in both directions before use. A copy of a patch
+translated 50,000 voxels away reports **0** contacts; a copy rotated 90°
+about its own centroid reports **112**. It neither misses nor invents.
+
+Of 84,316 bounding boxes, **27,778,181 pairs overlap**. Of 459 sampled
+and censused, **10 interpenetrate — 2.2%** (95% CI 0.8–3.5%).
+
+### The angle is the finding
+
+| | |
+|---|---|
+| inter-patch contacts measured | 52,081 |
+| median crossing angle | **3.2°** |
+| below 10° | **93.6%** |
+| above 30° | 0.1% |
+| median penetration | ~4.4 vx |
+| grazing tolerance | 0.025 vx |
+
+Penetration three orders of magnitude above the tolerance means these are
+genuine contacts, not numerical noise. But shallow angle *with* real
+penetration is not a fold: it is two nearly parallel surfaces weaving
+through each other. The failure mode is **two patches disagreeing about
+where the same sheet is, by a few voxels**, not a sheet folding through
+itself. For contrast, the intra-patch crossings in the previous section
+run 7.8° to 34.7°.
+
+So a naive union of overlapping patches self-intersects roughly 2% of the
+time, and what has to be reconciled is positional disagreement rather
+than topology.
+
+Detail, including the ten pairs: `results/patches/pairs_summary.json`.
+
 ## Limits
 
 - **Self-intersection is a subset of tracing error.** A surface that
   leaves the correct sheet and never returns need not self-intersect.
   This audit says nothing about that case.
-- **Nothing here applies to merged output.** Two individually clean
-  patches can still be assembled into a self-intersecting sheet. Patch
-  cleanliness does not compose.
+- **Bounding-box overlap is a weak proxy** for the pairs a merger would
+  actually join, so the 2.2% is over box-overlapping pairs, not over
+  merge candidates. The rate among genuine merge neighbours is
+  unmeasured and could be higher or lower.
+- **The pair test attributes nothing.** Two patches covering one region
+  are supposed to be near-coincident; a disagreement between them says
+  they are inconsistent, not which one is wrong.
 - **The two populations differ by construction.** Patches are
   algorithmically selected; corpus tiles are arbitrary cuts of long
   traces. That difference *is* the effect being measured, but it means
