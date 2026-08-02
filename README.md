@@ -210,6 +210,19 @@ explicitly, by name and by reason.
 
 ## Reproducing
 
+## Every published trace
+
+Twelve samples in the open-data bucket publish surface traces as `tifxyz`.
+**All 278 of them have been censused** — the release covers the first 179,
+and [`docs/FULL-CORPUS.md`](docs/FULL-CORPUS.md) adds the remaining 99
+across seven samples that use a second published layout.
+
+That page also reports what the corpus says about size: self-intersection
+probability follows a one-parameter independent-cell model at
+**q = 7.2 × 10⁻⁶ per valid cell**, within about ten points across five
+orders of magnitude. A large surface is likely to fold through itself
+mostly because it is large.
+
 ## Auditing someone else's data
 
 The same census was run over the whole `verified_patches` dataset for
@@ -283,9 +296,11 @@ docs/CORPUS.md            per-segment corpus results
 docs/REPRODUCE.md         reproduction instructions
 docs/submission.md        the July 2026 audit record, as filed
 docs/PATCH-AUDIT.md       independent audit of 84,316 published patches
+docs/FULL-CORPUS.md       every published trace, and the size model
 docs/HISTORY.md           what is production, supporting, retired
 results/                  precomputed audit results, all 179 segments
 results/patches/          the patch audit summary and its five findings
+results/corpus/           the full-corpus census records
 ```
 
 `tifxyz.py` deliberately does not use the upstream `vesuvius` package: this tool

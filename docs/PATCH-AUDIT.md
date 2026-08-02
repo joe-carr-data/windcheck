@@ -172,6 +172,42 @@ than topology.
 
 Detail, including the ten pairs: `results/patches/pairs_summary.json`.
 
+## What we tested and dropped
+
+The audit above leaves one question open, and it is the one that matters
+most: our census cannot see a surface that leaves the correct sheet and
+never comes back, because such a surface need not self-intersect.
+
+We tried to close that gap with the patches. Where two of them overlap
+they disagree about where the sheet is, and that disagreement is
+measurable everywhere they overlap rather than only where they cross. The
+hypothesis was that it would predict self-intersection in published
+traces of the same region, and so serve as a quality signal exactly where
+the census is blind.
+
+It was pre-registered before any statistic met any label, with the gate
+written first: AUC above 0.75 to stand, at or below 0.65 to die.
+
+**It died.** Over 1,114 evaluable 256-voxel cubes (102 positive, 1,012
+negative), AUC was **0.475** — below chance, permutation p = 0.807. It
+also failed the confound check independently: baselines built from patch
+geometry alone reached 0.587, *above* the disagreement statistic itself.
+
+The instrument was sound, so this is a fact about the hypothesis rather
+than the method: the positive control recovered 0.00, 0.25 and 1.00 voxel
+displacements to zero error, coordinate frames were verified shared
+against 14.1M published points, and 27,689 pair measurements completed
+without failure.
+
+The likely reason, offered as interpretation and not as rescue: patches
+and published traces are reconstructions by different methods, and the
+patch set is about 100× cleaner. There was no reason disagreement among
+the better reconstructions should localise the failures of a worse one.
+
+No subgroup search, no threshold tuning, no cube-size sweep. The gap
+remains open and remains stated as a limitation. Record:
+`results/patches/disagreement_null.json`.
+
 ## Limits
 
 - **Self-intersection is a subset of tracing error.** A surface that

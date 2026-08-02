@@ -4,8 +4,8 @@
  "provenance": {
   "schema": "windcheck_provenance/v1",
   "code_version": "0.1.0",
-  "source_tree_digest": "63e65ca1cd17a19284ebbfdf179691b6ec3b4251f30f0fd56b909d00036c5553",
-  "source_tree_n_files": 81,
+  "source_tree_digest": "fe415fc1704cc76367a3fcee90c5c8f355d6a53d143b2b09180cc6f448697be7",
+  "source_tree_n_files": 84,
   "source_tree_globs": [
    "pyproject.toml",
    "uv.lock",
@@ -40,6 +40,11 @@
     "digest": "aae5d295b710a3349eef8ed8a243ed0e0a1211bd40db4753d0201593a91654c5",
     "files": 80,
     "reason": "superseded by the pair-composition test (bench/patch_pairs.py). No census, mesh, hash or retention figure in the pinned corpus changes."
+   },
+   {
+    "digest": "63e65ca1cd17a19284ebbfdf179691b6ec3b4251f30f0fd56b909d00036c5553",
+    "files": 81,
+    "reason": "superseded by the full-corpus expansion and the disagreement study. The released transverse-clean outputs and every retention figure are unchanged."
    }
   ]
  },

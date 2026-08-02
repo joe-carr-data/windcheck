@@ -1,0 +1,126 @@
+{
+ "schema": "windcheck_full_corpus/v1",
+ "what": "every published Herculaneum surface trace available as tifxyz, censused for non-adjacent transverse self-intersection under both canonical triangulations",
+ "coverage": {
+  "samples_published_in_bucket": 46,
+  "samples_with_tifxyz_traces": 12,
+  "samples_publishing_no_tifxyz": [
+   "PHerc1451",
+   "PHerc1203"
+  ],
+  "traces_total": 278,
+  "traces_previously_audited": 179,
+  "traces_added_here": 99,
+  "layouts": {
+   "direct": "<seg>/mesh/<name>-on-<volume>-<res>.tifxyz/",
+   "intermediate": "<seg>/mesh/intermediate/tifxyz_original/ -- traced geometry in volume space; tifxyz_normalized beside it is flattening output and is excluded"
+  }
+ },
+ "new_samples": {
+  "PHerc0009B": {
+   "traces": 18,
+   "self_intersecting": 0,
+   "clean": 18,
+   "layout": "intermediate",
+   "volume": null,
+   "median_valid_cells": 65965
+  },
+  "PHerc0332": {
+   "traces": 2,
+   "self_intersecting": 0,
+   "clean": 2,
+   "layout": "intermediate",
+   "volume": null,
+   "median_valid_cells": 133671
+  },
+  "PHerc0343P": {
+   "traces": 8,
+   "self_intersecting": 0,
+   "clean": 8,
+   "layout": "mixed",
+   "volume": "20250521134555",
+   "median_valid_cells": 13947
+  },
+  "PHerc0500P2": {
+   "traces": 39,
+   "self_intersecting": 19,
+   "clean": 20,
+   "layout": "mixed",
+   "volume": "20250528085330",
+   "median_valid_cells": 65010
+  },
+  "PHerc0800": {
+   "traces": 6,
+   "self_intersecting": 0,
+   "clean": 6,
+   "layout": "intermediate",
+   "volume": null,
+   "median_valid_cells": 5966
+  },
+  "PHerc1447": {
+   "traces": 15,
+   "self_intersecting": 1,
+   "clean": 14,
+   "layout": "intermediate",
+   "volume": null,
+   "median_valid_cells": 16316
+  },
+  "PHercMANBp": {
+   "traces": 11,
+   "self_intersecting": 10,
+   "clean": 1,
+   "layout": "intermediate",
+   "volume": null,
+   "median_valid_cells": 143817
+  }
+ },
+ "new_samples_total": {
+  "traces": 99,
+  "self_intersecting": 30,
+  "clean": 69,
+  "failures": 0
+ },
+ "size_model": {
+  "statement": "P(a trace self-intersects) is close to what an independent-per-cell null predicts: 1 - (1-q)^N for N valid cells. Fitted over all 278 traces carrying a size.",
+  "q_per_valid_cell": 7.2254223227106485e-06,
+  "bands": [
+   {
+    "band": "<5k",
+    "n": 4,
+    "observed": 0.0,
+    "independent_null": 0.011597545713858126
+   },
+   {
+    "band": "5-20k",
+    "n": 36,
+    "observed": 0.027777777777777776,
+    "independent_null": 0.0789442761827101
+   },
+   {
+    "band": "20-50k",
+    "n": 16,
+    "observed": 0.3125,
+    "independent_null": 0.22618308389792302
+   },
+   {
+    "band": "50-150k",
+    "n": 81,
+    "observed": 0.5925925925925926,
+    "independent_null": 0.5023698669142648
+   },
+   {
+    "band": "150-400k",
+    "n": 74,
+    "observed": 0.918918918918919,
+    "independent_null": 0.8084421268983988
+   },
+   {
+    "band": ">400k",
+    "n": 67,
+    "observed": 0.9253731343283582,
+    "independent_null": 0.9902426824124829
+   }
+  ],
+  "reading": "the observed rate sits within about ten points of the null across five orders of magnitude of surface size, so the size effect is largely arithmetic rather than a property of any one sample or tracer: a large surface has more opportunities to fold through itself. A small trace is clean substantially because it is small."
+ }
+}

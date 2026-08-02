@@ -28,6 +28,7 @@ import concurrent.futures as cf
 import hashlib
 import http.client
 import json
+import os
 import random
 import re
 import shutil
@@ -114,8 +115,24 @@ def sha256(p: Path) -> str:
     return h.hexdigest()
 
 
+def have_patch(d: Path) -> bool:
+    """A patch is cached only when EVERY file is present.
+
+    `d.is_dir()` is not this check. Under a thread pool one worker can
+    create the directory while another is still writing into it, and a
+    reader that trusts the directory gets a half-written patch. That race
+    killed a 40,000-pair run at 3,500.
+    """
+    return all((d / f).exists() for f in FILES)
+
+
 def download(name: str, dest: Path) -> dict[str, str] | None:
-    """Fetch one patch. Returns per-file hashes, or None if incomplete."""
+    """Fetch one patch. Returns per-file hashes, or None if incomplete.
+
+    Each file lands under a unique temporary name and is renamed into
+    place, so a concurrent reader sees either the finished file or no
+    file, never a partial one.
+    """
     d = dest / name
     d.mkdir(parents=True, exist_ok=True)
     hashes = {}
@@ -125,7 +142,9 @@ def download(name: str, dest: Path) -> dict[str, str] | None:
             body = get(f"{PREFIX}/{name}/{f}")
             if body is None:
                 return None
-            target.write_bytes(body)
+            tmp = d / f".{f}.{threading.get_ident():x}.part"
+            tmp.write_bytes(body)
+            os.replace(tmp, target)
         hashes[f] = sha256(target)
     return hashes
 

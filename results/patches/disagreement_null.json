@@ -1,0 +1,22 @@
+{
+ "cube_vx": 256,
+ "min_pairs": 3,
+ "evaluable_cubes": 1114,
+ "positives": 102,
+ "negatives": 1012,
+ "auc": 0.4749864372626521,
+ "permutation_p": 0.807,
+ "permutation_null_mean": 0.5003125145315044,
+ "geometry_only_auc": {
+  "n_pairs": 0.5596372936526389,
+  "mean_overlap": 0.5605576222583896,
+  "mean_points": 0.5868208943656514
+ },
+ "coverage_strata_auc": {
+  "low_coverage": 0.5138915501053841,
+  "high_coverage": 0.42452458370282786
+ },
+ "verdict": "DEAD",
+ "confounded": true,
+ "gate": "AUC>0.75 stands, 0.65-0.75 suggestive, <=0.65 dead"
+}

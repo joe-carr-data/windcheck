@@ -43,7 +43,8 @@ import tifffile  # noqa: E402
 from windcheck import pipeline, tifxyz  # noqa: E402
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from patch_audit import BASE, PREFIX, download, get, sha256  # noqa: E402
+from patch_audit import (BASE, PREFIX, download, get, have_patch,  # noqa: E402
+                         sha256)
 
 INDEX = Path("out/patches/index.txt")
 BOXES = Path("out/patches/bboxes.jsonl")
@@ -89,7 +90,8 @@ def stage_bboxes(names: list[str], jobs: int) -> None:
 
 # ------------------------------------------------------------------- pairs
 
-def stage_pairs(out: Path, min_overlap_vx: float) -> None:
+def stage_pairs(out: Path, min_overlap_vx: float,
+                max_pairs: int) -> None:
     recs = [json.loads(l) for l in BOXES.read_text().splitlines() if l.strip()]
     ok = [r for r in recs if r.get("status") == "ok"]
     print(f"boxes: {len(ok)} usable of {len(recs)}")
@@ -112,7 +114,14 @@ def stage_pairs(out: Path, min_overlap_vx: float) -> None:
                 for iz in range(a[2], b[2] + 1):
                     buckets[(ix, iy, iz)].append(i)
 
-    seen, pairs = set(), []
+    # Reservoir-sample DURING generation. The full enumeration is ~27.8M
+    # pairs and 5.4 GB on disk, and every consumer only ever draws a sample
+    # from it, so materialising all of it buys nothing and costs the disk
+    # headroom the download stages need. --max-pairs 0 keeps everything.
+    rng = random.Random(0)
+    seen: set = set()
+    kept: list = []
+    total = 0
     for idxs in buckets.values():
         for i, j in itertools.combinations(sorted(idxs), 2):
             if (i, j) in seen:
@@ -121,16 +130,25 @@ def stage_pairs(out: Path, min_overlap_vx: float) -> None:
             o_lo = np.maximum(lo[i], lo[j])
             o_hi = np.minimum(hi[i], hi[j])
             d = o_hi - o_lo
-            if np.all(d > 0):
-                vol = float(np.prod(d))
-                if vol >= min_overlap_vx:
-                    pairs.append({"a": names[i], "b": names[j],
-                                  "overlap_vx3": vol,
-                                  "overlap_extent": [float(x) for x in d]})
-    pairs.sort(key=lambda p: -p["overlap_vx3"])
-    out.write_text("\n".join(json.dumps(p) for p in pairs) + "\n")
-    print(f"overlapping pairs (bbox volume >= {min_overlap_vx:g}): {len(pairs)}")
-    print(f"wrote {out}")
+            if not np.all(d > 0):
+                continue
+            vol = float(np.prod(d))
+            if vol < min_overlap_vx:
+                continue
+            total += 1
+            rec = {"a": names[i], "b": names[j], "overlap_vx3": vol,
+                   "overlap_extent": [float(x) for x in d]}
+            if max_pairs <= 0 or len(kept) < max_pairs:
+                kept.append(rec)
+            else:
+                k = rng.randrange(total)
+                if k < max_pairs:
+                    kept[k] = rec
+    kept.sort(key=lambda p: -p["overlap_vx3"])
+    out.write_text("\n".join(json.dumps(p) for p in kept) + "\n")
+    print(f"overlapping pairs (bbox volume >= {min_overlap_vx:g}): {total}")
+    print(f"kept {len(kept)} -> {out} "
+          f"({out.stat().st_size/1e6:.0f} MB)")
 
 
 # ------------------------------------------------------------------ census
@@ -213,7 +231,9 @@ def stage_census(pairs_file: Path, out: Path, sample: int, seed: int,
     def one(p: dict, i: int) -> dict:
         rec = dict(p)
         for key in ("a", "b"):
-            if not (data / p[key]).is_dir() and download(p[key], data) is None:
+            # completeness, not directory existence: a concurrent worker
+            # may have created the directory and not yet filled it
+            if not have_patch(data / p[key]) and download(p[key], data) is None:
                 rec["status"] = "download_failed"
                 return rec
         try:
@@ -251,6 +271,8 @@ def main() -> int:
     ap.add_argument("--sample", type=int, default=300)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--min-overlap", type=float, default=1e6)
+    ap.add_argument("--max-pairs", type=int, default=300000,
+                    help="reservoir size; 0 keeps every pair")
     ap.add_argument("--pairs-file", default="out/patches/pairs.jsonl")
     ap.add_argument("--out", default="out/patches/pair_census.jsonl")
     ap.add_argument("--data", default="out/patches/pairdata")
@@ -261,7 +283,7 @@ def main() -> int:
     if a.stage == "bboxes":
         stage_bboxes(INDEX.read_text().split(), a.jobs)
     elif a.stage == "pairs":
-        stage_pairs(Path(a.pairs_file), a.min_overlap)
+        stage_pairs(Path(a.pairs_file), a.min_overlap, a.max_pairs)
     else:
         stage_census(Path(a.pairs_file), Path(a.out), a.sample, a.seed,
                      a.jobs, Path(a.data), Path(a.work))
