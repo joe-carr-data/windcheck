@@ -94,6 +94,22 @@ job.
 `transform` exits non-zero unless the *reloaded* output censuses clean, which
 makes it usable as a post-export regression test or a CI gate.
 
+### 3. Test candidate merge edges (report-only)
+
+```sh
+uv run windcheck check-pairs --root patches/ --edges edges.csv --out out/pairs
+```
+
+A per-surface verdict says nothing about assembly: two individually clean
+surfaces can still pass through each other, and any merge that keeps both in
+full then contains a self-intersection. `check-pairs` classifies each candidate
+edge as `transverse_conflict`, `no_transverse_conflict` (deliberately not
+"compatible") or `not_testable` — undecidable edges are reported, never
+dropped. One batched census answers a whole edge list: the 459-pair example in
+[`results/pairs/`](results/pairs) runs in ~20 s on a laptop.
+[`docs/CHECK-PAIRS.md`](docs/CHECK-PAIRS.md) has the verdict semantics, the
+reproducible example and the limits.
+
 ---
 
 ## Why both operators are necessary
@@ -233,7 +249,22 @@ of the same scroll self-intersect when cut to the same size.
 
 All five share one cause, and one cell of boundary erosion clears every one
 of them. [`docs/PATCH-AUDIT.md`](docs/PATCH-AUDIT.md) has the method, the
-baseline that makes the number mean something, and the limits.
+baseline that makes the number mean something, and the limits. The dataset's
+publisher reviewed the finding and removed the five flagged patches.
+
+## Upstream
+
+The single-surface census is proposed as a standalone volume-cartographer
+app, `vc_tifxyz_selfcross`
+([ScrollPrize/villa#1303](https://github.com/ScrollPrize/villa/pull/1303)),
+so a surface can be checked right after export with no external tooling —
+report-only, both triangulations, a byte-reproducible JSON report, crossing
+sites as a VC3D-loadable point collection, and an exit-code gate for
+scripts. It reproduces this repository's census exactly on the published
+trace it was verified against (contact identities, penetrations and
+angles, not just counts). windcheck is also listed among the
+[community projects](https://scrollprize.org/community_projects) on
+scrollprize.org.
 
 ## The audit record
 
@@ -296,6 +327,7 @@ docs/CORPUS.md            per-segment corpus results
 docs/REPRODUCE.md         reproduction instructions
 docs/submission.md        the July 2026 audit record, as filed
 docs/PATCH-AUDIT.md       independent audit of 84,316 published patches
+docs/CHECK-PAIRS.md       pairwise conflict test for candidate merge edges
 docs/FULL-CORPUS.md       every published trace, and the size model
 docs/HISTORY.md           what is production, supporting, retired
 results/                  precomputed audit results, all 179 segments

@@ -26,6 +26,7 @@ import shutil
 import subprocess
 import time
 from collections import Counter
+from collections.abc import Sequence
 from math import fsum
 from pathlib import Path
 
@@ -157,15 +158,45 @@ def _voxel_um(mesh: Path) -> float | None:
 def run_engine(mesh: Path, tag: str, work: Path, diag: int,
                params: dict | None = None) -> tuple[Path, dict]:
     """One engine pass over one triangulation. Returns (csv path, counts)."""
+    return run_engine_multi([mesh], tag, work, diag, params)
+
+
+def run_engine_multi(meshes: Sequence[Path], tag: str, work: Path, diag: int,
+                     params: dict | None = None,
+                     surfaces: Sequence | None = None) -> tuple[Path, dict]:
+    """One engine pass over SEVERAL surfaces held in a single atlas.
+
+    The engine loads every surface in the atlas, scopes adjacency exclusion
+    to within a surface, and tags each contact with the two surface ids. One
+    pass therefore answers, for a whole set of surfaces at once, both which
+    of them self-intersect and which pairs of them pass through each other.
+
+    With one mesh this is byte-for-byte the census that produced every
+    published figure: the extra id columns appear only when the atlas holds
+    more than one surface, and the surface id enters the engine's sort and
+    canonical-order keys behind the existing fields.
+
+    `surfaces`, when given, supplies already-read `tifxyz.Surface` objects in
+    the same order, so a caller that has them in hand does not pay to read
+    each grid off disk twice.
+    """
     p = dict(CENSUS, **(params or {}))
     work = Path(work)
     work.mkdir(parents=True, exist_ok=True)
+    if surfaces is not None and len(surfaces) != len(meshes):
+        raise ValueError(f"{len(surfaces)} surfaces for {len(meshes)} meshes")
+    entries = [_AtlasEntry(m, None if surfaces is None else surfaces[i])
+               for i, m in enumerate(meshes)]
     abin = work / f"{tag[:40]}_atlas.bin"
-    atlas.write_atlas([_AtlasEntry(mesh)], abin)
+    atlas.write_atlas(entries, abin)
     csv = work / f"{tag[:40]}_d{diag}.csv"
     r = subprocess.run(
         [str(ENGINE), str(abin), str(csv), str(int(p["threads"])),
-         str(p["cell"]), str(int(p["exclude"])), str(diag), str(p["maxedge"])],
+         str(p["cell"]), str(int(p["exclude"])), str(diag), str(p["maxedge"]),
+         # Passed explicitly. CENSUS has always carried a touch tolerance and
+         # the engine has always had the same default, so nothing measured
+         # changes -- but an override was being built and then dropped.
+         str(p["touch_tol"])],
         capture_output=True, text=True, check=True)
     counts = json.loads(r.stdout.strip().splitlines()[-1])
     return csv, {k: counts[k] for k in
@@ -174,8 +205,9 @@ def run_engine(mesh: Path, tag: str, work: Path, diag: int,
 
 
 class _AtlasEntry:
-    def __init__(self, path: Path):
+    def __init__(self, path: Path, surface=None):
         self.path, self.winding = Path(path), None
+        self.surface = surface
 
 
 def parse_census_csv(csv: Path, diag: int, nv: int, nu: int) -> dict:

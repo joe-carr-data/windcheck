@@ -102,6 +102,11 @@ struct Tri {
     int32_t v = 0, u = 0;      // grid origin of the owning quad
     int32_t t = 0;             // local triangle index within the quad (0/1),
                                // in the documented order for the diagonal
+    int32_t s = 0;             // which surface of the atlas this came from.
+                               // Zero for every single-surface census, so the
+                               // established path is unchanged; with several
+                               // surfaces loaded it is what makes a contact
+                               // attributable to a PAIR of them.
 };
 
 enum Verdict { NONE = 0, TRANSVERSE = 1, COPLANAR = 2, GRAZING = 3 };
@@ -303,7 +308,12 @@ struct Surface {
     }
 };
 
-bool read_atlas(const char* path, Surface& S) {
+bool read_atlas(const char* path, std::vector<Surface>& out) {
+    // The atlas has always carried a surface count; until now only the first
+    // was read. Reading all of them lets one census answer questions about
+    // several surfaces at once -- notably whether two of them pass through
+    // each other -- without writing a stitched mesh to disk and censusing
+    // that instead.
     std::ifstream f(path, std::ios::binary);
     if (!f) return false;
     char magic[4];
@@ -313,18 +323,28 @@ bool read_atlas(const char* path, Surface& S) {
     f.read((char*)&version, 4);
     f.read((char*)&count, 4);
     if (count < 1) return false;
-    int32_t winding = 0;
-    uint32_t rows = 0, cols = 0;
-    f.read((char*)&winding, 4);
-    f.read((char*)&rows, 4);
-    f.read((char*)&cols, 4);
-    if (rows == 0) { std::fprintf(stderr, "selfcross: OBJ soup not supported\n"); return false; }
-    S.rows = (int)rows; S.cols = (int)cols;
-    S.pts.resize((size_t)rows * cols * 3);
-    S.valid.resize((size_t)rows * cols);
-    f.read((char*)S.pts.data(), (std::streamsize)S.pts.size() * 4);
-    f.read((char*)S.valid.data(), (std::streamsize)S.valid.size());
-    return (bool)f;
+    out.clear();
+    out.reserve(count);
+    for (uint32_t k = 0; k < count; ++k) {
+        int32_t winding = 0;
+        uint32_t rows = 0, cols = 0;
+        f.read((char*)&winding, 4);
+        f.read((char*)&rows, 4);
+        f.read((char*)&cols, 4);
+        if (rows == 0) {
+            std::fprintf(stderr, "selfcross: OBJ soup not supported\n");
+            return false;
+        }
+        Surface S;
+        S.rows = (int)rows; S.cols = (int)cols;
+        S.pts.resize((size_t)rows * cols * 3);
+        S.valid.resize((size_t)rows * cols);
+        f.read((char*)S.pts.data(), (std::streamsize)S.pts.size() * 4);
+        f.read((char*)S.valid.data(), (std::streamsize)S.valid.size());
+        if (!f) return false;
+        out.push_back(std::move(S));
+    }
+    return true;
 }
 
 }  // namespace
@@ -350,13 +370,18 @@ int main(int argc, char** argv) {
     if (nthreads <= 0) nthreads = (int)std::thread::hardware_concurrency();
     if (nthreads <= 0) nthreads = 4;
 
-    Surface S;
-    if (!read_atlas(in, S)) { std::fprintf(stderr, "selfcross: bad atlas %s\n", in); return 1; }
+    std::vector<Surface> surfaces;
+    if (!read_atlas(in, surfaces)) { std::fprintf(stderr, "selfcross: bad atlas %s\n", in); return 1; }
+    const bool multi = surfaces.size() > 1;
 
     // ------------------------------------------------------ build triangles
     std::vector<Tri> tris;
     size_t dropped = 0;
-    tris.reserve((size_t)S.rows * S.cols);
+    size_t total_cells = 0;
+    for (const auto& S : surfaces) total_cells += (size_t)S.rows * S.cols;
+    tris.reserve(total_cells);
+    for (size_t si = 0; si < surfaces.size(); ++si) {
+    const Surface& S = surfaces[si];
     for (int v = 0; v + 1 < S.rows; ++v) {
         for (int u = 0; u + 1 < S.cols; ++u) {
             if (!S.ok(v, u) || !S.ok(v + 1, u) || !S.ok(v, u + 1) || !S.ok(v + 1, u + 1))
@@ -369,24 +394,50 @@ int main(int argc, char** argv) {
                                    std::max(norm(p11 - p00), norm(p10 - p01))));
                 if (e > maxedge) { ++dropped; continue; }
             }
+            const int32_t sid = (int32_t)si;
             if (diagonal == 0) {
-                tris.push_back({p00, p01, p11, v, u, 0});
-                tris.push_back({p00, p11, p10, v, u, 1});
+                tris.push_back({p00, p01, p11, v, u, 0, sid});
+                tris.push_back({p00, p11, p10, v, u, 1, sid});
             } else {
-                tris.push_back({p00, p01, p10, v, u, 0});
-                tris.push_back({p01, p11, p10, v, u, 1});
+                tris.push_back({p00, p01, p10, v, u, 0, sid});
+                tris.push_back({p01, p11, p10, v, u, 1, sid});
             }
         }
     }
-    std::fprintf(stderr, "selfcross: grid %dx%d, %zu triangles (%zu quads dropped "
-                 "for edge > %.0f), cell %.1f, exclude %d, diagonal %d, %d threads\n",
-                 S.rows, S.cols, tris.size(), dropped, maxedge, cell, exclude,
-                 diagonal, nthreads);
-    if (tris.empty()) { std::FILE* fp = std::fopen(out, "w");
-        if (fp) { std::fprintf(fp,
-            "v1,u1,v2,u2,verdict,penetration,angle_deg,tri1,tri2\n");
+    }
+    if (multi) {
+        std::fprintf(stderr, "selfcross: %zu surfaces, %zu triangles (%zu quads "
+                     "dropped for edge > %.0f), cell %.1f, exclude %d, "
+                     "diagonal %d, %d threads\n",
+                     surfaces.size(), tris.size(), dropped, maxedge, cell,
+                     exclude, diagonal, nthreads);
+    } else {
+        std::fprintf(stderr, "selfcross: grid %dx%d, %zu triangles (%zu quads "
+                     "dropped for edge > %.0f), cell %.1f, exclude %d, "
+                     "diagonal %d, %d threads\n",
+                     surfaces[0].rows, surfaces[0].cols, tris.size(), dropped,
+                     maxedge, cell, exclude, diagonal, nthreads);
+    }
+    if (tris.empty()) {
+        // A surface can be entirely valid and still yield no triangle: a
+        // checkerboard of valid cells has no complete quad, and a coarse one
+        // can have every quad dropped for edge length. The header must still
+        // match the atlas -- a reader that asked for several surfaces and got
+        // the single-surface header cannot tell an empty census from a schema
+        // mismatch -- and the JSON summary must still be printed, because
+        // exiting silently makes an empty census indistinguishable to the
+        // caller from a crash.
+        std::FILE* fp = std::fopen(out, "w");
+        if (fp) { std::fprintf(fp, multi
+            ? "v1,u1,v2,u2,verdict,penetration,angle_deg,tri1,tri2,surf1,surf2\n"
+            : "v1,u1,v2,u2,verdict,penetration,angle_deg,tri1,tri2\n");
             std::fclose(fp); }
-        std::fprintf(stderr, "selfcross: no triangles\n"); return 0; }
+        std::fprintf(stderr, "selfcross: no triangles\n");
+        std::printf("{\"triangles\":0,\"quads_dropped\":%zu,\"pairs_tested\":0,"
+                    "\"transverse\":0,\"coplanar\":0,\"grazing\":0,"
+                    "\"exclude\":%d,\"diagonal\":%d,\"maxedge\":%.1f}\n",
+                    dropped, exclude, diagonal, maxedge);
+        return 0; }
 
     // ------------------------------------------------------- uniform grid
     Vec3 lo{1e30, 1e30, 1e30}, hi{-1e30, -1e30, -1e30};
@@ -428,7 +479,7 @@ int main(int argc, char** argv) {
 
     // ---------------------------------------------------------- narrow phase
     struct Hit { int32_t v1, u1, v2, u2; int verdict; float pen, ang;
-                 int32_t t1, t2; };
+                 int32_t t1, t2; int32_t s1, s2; };
     std::vector<std::vector<Hit>> perThread(nthreads);
     std::atomic<size_t> next{0};
     std::atomic<size_t> tested{0};
@@ -474,7 +525,11 @@ int main(int argc, char** argv) {
                     // share at least one vertex, so exclude = 1 is exactly
                     // shared-vertex/shared-edge exclusion rather than an
                     // arbitrary window.
-                    if (std::abs(T1.v - T2.v) <= exclude
+                    // Adjacency is a statement about ONE surface's grid.
+                    // Triangles from different surfaces share no grid and so
+                    // are never neighbours, however close their indices look.
+                    if (T1.s == T2.s
+                        && std::abs(T1.v - T2.v) <= exclude
                         && std::abs(T1.u - T2.u) <= exclude) continue;
                     if (ownerCell(T1, T2) != key) continue;   // tested elsewhere
                     ++local;
@@ -483,13 +538,21 @@ int main(int argc, char** argv) {
                         // Canonical endpoint order in the ENGINE (round 19):
                         // the lexicographically smaller (v,u,t) is side 1, so
                         // every reader sees one identity per geometric pair.
-                        bool swap = std::make_tuple(T1.v, T1.u, T1.t)
-                                  > std::make_tuple(T2.v, T2.u, T2.t);
+                        // The surface id leads the key. With one surface every
+                        // id is zero and the order is exactly as before; with
+                        // several, (v,u,t) is no longer unique -- two surfaces
+                        // can hold the same grid index -- and leading with the
+                        // id makes `surf1 <= surf2` an invariant a reader can
+                        // rely on when grouping contacts by pair, instead of
+                        // leaving it to triangle insertion order.
+                        bool swap = std::make_tuple(T1.s, T1.v, T1.u, T1.t)
+                                  > std::make_tuple(T2.s, T2.v, T2.u, T2.t);
                         const Tri& A_ = swap ? T2 : T1;
                         const Tri& B_ = swap ? T1 : T2;
                         outv.push_back({A_.v, A_.u, B_.v, B_.u, (int)r.verdict,
                                         (float)r.penetration,
-                                        (float)r.angle_deg, A_.t, B_.t});
+                                        (float)r.angle_deg, A_.t, B_.t,
+                                        A_.s, B_.s});
                     }
                 }
             }
@@ -506,7 +569,12 @@ int main(int argc, char** argv) {
     // schema v2: +tri1,tri2 (local triangle index per side). Legacy readers
     // that index columns 0-6 are unaffected; strict transactional acceptance
     // requires these columns (round 19).
-    std::fprintf(fp, "v1,u1,v2,u2,verdict,penetration,angle_deg,tri1,tri2\n");
+    // Two extra columns ONLY when several surfaces were loaded, so the
+    // single-surface schema every published result was parsed with is
+    // unchanged byte for byte.
+    std::fprintf(fp, multi
+        ? "v1,u1,v2,u2,verdict,penetration,angle_deg,tri1,tri2,surf1,surf2\n"
+        : "v1,u1,v2,u2,verdict,penetration,angle_deg,tri1,tri2\n");
     // Rows were written in per-thread completion order, so identical meshes
     // produced identical row SETS in scheduling-dependent order -- and
     // different CSV bytes/hashes, and order-dependent downstream tie-breaks.
@@ -519,8 +587,12 @@ int main(int argc, char** argv) {
           allHits.insert(allHits.end(), vec.begin(), vec.end()); }
     std::sort(allHits.begin(), allHits.end(),
               [](const Hit& x, const Hit& y) {
-        return std::tie(x.v1, x.u1, x.t1, x.v2, x.u2, x.t2)
-             < std::tie(y.v1, y.u1, y.t1, y.v2, y.u2, y.t2);
+        // Surface ids are APPENDED, so single-surface order (all ids zero)
+        // is unchanged, while two hits from different surfaces sharing a
+        // (v,u,t) tuple still have a total order. Without this the emission
+        // order would depend on thread scheduling again.
+        return std::tie(x.v1, x.u1, x.t1, x.v2, x.u2, x.t2, x.s1, x.s2)
+             < std::tie(y.v1, y.u1, y.t1, y.v2, y.u2, y.t2, y.s1, y.s2);
     });
     for (const Hit& h : allHits) {
             const char* name = h.verdict == TRANSVERSE ? "transverse"
@@ -528,9 +600,14 @@ int main(int argc, char** argv) {
             if (h.verdict == TRANSVERSE) ++nT;
             else if (h.verdict == COPLANAR) ++nC;
             else ++nG;
-            std::fprintf(fp, "%d,%d,%d,%d,%s,%.6g,%.2f,%d,%d\n",
-                         h.v1, h.u1, h.v2, h.u2, name, h.pen, h.ang,
-                         h.t1, h.t2);
+            if (multi)
+                std::fprintf(fp, "%d,%d,%d,%d,%s,%.6g,%.2f,%d,%d,%d,%d\n",
+                             h.v1, h.u1, h.v2, h.u2, name, h.pen, h.ang,
+                             h.t1, h.t2, h.s1, h.s2);
+            else
+                std::fprintf(fp, "%d,%d,%d,%d,%s,%.6g,%.2f,%d,%d\n",
+                             h.v1, h.u1, h.v2, h.u2, name, h.pen, h.ang,
+                             h.t1, h.t2);
         }
     std::fclose(fp);
 

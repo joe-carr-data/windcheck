@@ -19,7 +19,7 @@ import numpy as np
 import pytest
 import tifffile
 
-from windcheck import cli, pipeline
+from windcheck import cli, pipeline, tifxyz
 
 ENGINE = pipeline.ENGINE
 needs_engine = pytest.mark.skipif(
@@ -343,3 +343,315 @@ def test_written_meta_carries_a_recomputed_bbox(tmp_path):
     m = json.loads((dst / "meta.json").read_text())
     assert m["bbox"] == [[1.0, 2.0, 3.0], [5.0, 6.0, 7.0]]
     assert m["scale"] == [2.0, 3.0] and m["uuid"] == "keep-me"
+
+
+# ------------------------------------------------------------- check-pairs
+
+@needs_engine
+def test_check_pairs_separates_conflicting_from_clean(tmp_path):
+    """Two surfaces that cross must be flagged; two that do not must not.
+
+    The pair is tested by writing both into one grid separated by invalid
+    rows, so the risk is that adjacency exclusion hides a real contact, or
+    that a surface's own self-intersection is blamed on the pair. Both are
+    checked here: the crossing fixture self-intersects on its own, and it
+    still comes back clean when paired with a distant plane.
+    """
+    import numpy as np
+    from windcheck import pairs
+
+    def plane(name, x0, z0):
+        v, u = np.meshgrid(np.arange(30), np.arange(40), indexing="ij")
+        P = np.stack([u * 4.0 + x0, v * 4.0, np.full_like(u, z0, float)], -1)
+        return write_tifxyz(tmp_path / name, P)
+
+    def vertical(name, x0):
+        v, u = np.meshgrid(np.arange(30), np.arange(40), indexing="ij")
+        # A sheet driven through where `plane` sits. It is deliberately
+        # TILTED and offset. An axis-aligned sheet at a whole multiple of
+        # the grid pitch meets the plane exactly along its mesh edges, and
+        # the engine calls that grazing rather than transverse -- correctly,
+        # since an exact edge-on meeting is a touch and not a penetration.
+        # Getting a real crossing out of a synthetic fixture means avoiding
+        # every such coincidence.
+        P = np.stack([x0 + 62.0 + (v - 15) * 0.7, v * 4.0,
+                      (u - 20) * 4.0 + 2.0], -1)
+        return write_tifxyz(tmp_path / name, P)
+
+    flat = plane("flat.tifxyz", 0.0, 0.0)
+    far = plane("far.tifxyz", 0.0, 5000.0)
+    thru = vertical("thru.tifxyz", 0.0)
+    work = tmp_path / "w"
+    work.mkdir()
+
+    apart = pairs.classify(flat, far, work, "apart")
+    assert apart.verdict in (pairs.NO_CONFLICT, pairs.NOT_TESTABLE)
+    assert apart.transverse_both == 0
+
+    crossed = pairs.classify(flat, thru, work, "crossed")
+    assert crossed.verdict == pairs.CONFLICT, crossed.reason
+    assert crossed.transverse_both > 0
+    # the contacts are BETWEEN the two, not either surface's own
+    assert crossed.self_a == 0
+
+    # a clean verdict must never read as a merge-safety guarantee
+    assert "not a statement that they are compatible" in \
+        pairs.VERDICT_NOTE[pairs.NO_CONFLICT]
+
+
+def _pair_fixtures(tmp_path):
+    """Four surfaces: a plane, the same plane far away, one driven through
+    it, and the lemniscate strip that passes through ITSELF. The last is
+    what makes the fixtures able to tell a surface's own contacts apart
+    from the pair's -- without it every self count is trivially zero."""
+    import numpy as np
+
+    def plane(name, z0):
+        v, u = np.meshgrid(np.arange(30), np.arange(40), indexing="ij")
+        P = np.stack([u * 4.0, v * 4.0, np.full_like(u, z0, float)], -1)
+        return write_tifxyz(tmp_path / name, P)
+
+    v, u = np.meshgrid(np.arange(30), np.arange(40), indexing="ij")
+    # Tilted and offset: see the note in the fixture above. An axis-aligned
+    # sheet at a whole multiple of the grid pitch only grazes.
+    thru = write_tifxyz(tmp_path / "thru.tifxyz", np.stack(
+        [62.0 + (v - 15) * 0.7, v * 4.0, (u - 20) * 4.0 + 2.0], -1))
+    return (plane("flat.tifxyz", 0.0), plane("far.tifxyz", 5000.0), thru,
+            crossing_mesh(tmp_path / "lem"))
+
+
+@needs_engine
+def test_check_pairs_batch_matches_stitch(tmp_path):
+    """The batched census and the stitched one must agree on every field.
+
+    These are two genuinely different ways of putting a pair in front of
+    the engine. `classify` lays both surfaces out in one grid separated by
+    invalid rows and never tells the engine there is more than one surface;
+    `classify_many` loads them as distinct surfaces from one atlas and
+    reads the pair off the contact's surface ids. If the surface-id
+    bookkeeping, the adjacency scoping or the batch's shared broad-phase
+    grid were wrong, the two would part company here.
+    """
+    from windcheck import pairs
+
+    flat, far, thru, lem = _pair_fixtures(tmp_path)
+    work = tmp_path / "w"
+    work.mkdir()
+    edges = [(flat, far), (flat, thru), (far, thru), (flat, lem)]
+
+    batched = pairs.classify_many(edges, work, tag="t")
+    single = [pairs.classify(a, b, work, f"s{i}")
+              for i, (a, b) in enumerate(edges)]
+
+    for got, want, (a, b) in zip(batched, single, edges):
+        assert got.as_dict() == want.as_dict(), f"{a.name} x {b.name}"
+
+    # the two planes are 5,000 voxels apart, so there is nothing to decide
+    assert batched[0].verdict == pairs.NOT_TESTABLE
+    assert batched[2].verdict == pairs.NOT_TESTABLE
+    # the tilted sheet really is driven through the plane
+    assert batched[1].verdict == pairs.CONFLICT
+    assert batched[1].transverse_both > 0 and batched[1].self_a == 0
+    # and the lemniscate's own crossing is charged to the lemniscate
+    assert batched[3].self_a == 0 and batched[3].self_b > 0
+
+
+@needs_engine
+def test_batch_census_recovers_each_surfaces_own_verdict(tmp_path):
+    """A surface's self-census must not depend on what shares its atlas.
+
+    This is what makes batching legitimate. The engine's broad phase owns
+    each triangle pair at the cell holding the minimum corner of their
+    overlapping boxes, so a pair is tested exactly once however the grid's
+    origin falls -- and the grid's origin does move, because a batch's
+    bounding box spans every surface in it.
+    """
+    from windcheck import pairs, pipeline
+
+    meshes = _pair_fixtures(tmp_path)
+    work = tmp_path / "w"
+    work.mkdir()
+
+    stats = pairs.census_batch(list(meshes), work, "own")
+    for i, mesh in enumerate(meshes):
+        alone = sum(pipeline.run_engine(mesh, f"a{i}", work, d)[1]["transverse"]
+                    for d in (0, 1))
+        assert stats.get((i, i), {}).get("total", 0) == alone, mesh.name
+    assert stats[(3, 3)]["total"] > 0     # the lemniscate is a real positive
+
+
+@needs_engine
+def test_check_pairs_verdicts_do_not_depend_on_batching(tmp_path):
+    """How the edge list is cut into batches must not change any answer.
+
+    Batching is a performance decision -- it bounds how much geometry the
+    engine holds at once -- and a performance decision that moved a verdict
+    would be a bug of the worst kind, since it would only show up on inputs
+    large enough to split. Forcing one edge per batch takes the shared
+    broad-phase grid away entirely.
+    """
+    from windcheck import pairs
+
+    flat, far, thru, lem = _pair_fixtures(tmp_path)
+    work = tmp_path / "w"
+    work.mkdir()
+    edges = [(flat, far), (flat, thru), (far, thru), (flat, lem), (thru, lem)]
+
+    whole = pairs.classify_many(edges, work, tag="whole")
+    split = pairs.classify_many(edges, work, tag="split", max_batch_surfaces=2)
+    tiny = pairs.classify_many(edges, work, tag="tiny",
+                               max_batch_triangles=1)
+    for a, b, c in zip(whole, split, tiny):
+        assert a.as_dict() == b.as_dict() == c.as_dict()
+
+
+@needs_engine
+def test_check_pairs_sees_through_an_aliased_surface(tmp_path):
+    """One surface named twice is one surface, not a pair.
+
+    Loaded as two atlas entries it would be its own perfect duplicate:
+    every contact between the copies is coplanar, never transverse, so the
+    edge would come back `no_transverse_conflict` -- a clean verdict for a
+    pair that was never tested. It has to be refused instead.
+    """
+    from windcheck import pairs
+
+    flat, _far, _thru, lem = _pair_fixtures(tmp_path)
+    alias = tmp_path / "lem_alias.tifxyz"
+    alias.symlink_to(lem, target_is_directory=True)
+    work = tmp_path / "w"
+    work.mkdir()
+
+    same, other = pairs.classify_many([(lem, alias), (flat, lem)], work,
+                                      tag="al")
+    assert same.verdict == pairs.NOT_TESTABLE
+    assert "same surface" in same.reason
+    assert same.transverse_both == 0
+    # and the aliased edge did not disturb the real one sharing its batch
+    assert other.as_dict() == pairs.classify(flat, lem, work, "ref").as_dict()
+
+
+def _grid4(tmp_path, name, P, valid=None):
+    import numpy as np
+    P = np.asarray(P, float).copy()
+    if valid is not None:
+        P[~valid] = -1.0
+    return write_tifxyz(tmp_path / name, P)
+
+
+@needs_engine
+def test_a_found_contact_outranks_the_overlap_gate(tmp_path):
+    """Two planes crossing through each other's interiors must be flagged.
+
+    `min_overlap_points` counts vertices inside the two surfaces' shared
+    bounding box. Orthogonal planes cross with that box degenerate in two
+    axes and no vertex of either inside it, so the count is zero -- while
+    the engine finds twelve transverse contacts. Applying the gate before
+    the census threw those away and returned `not_testable`, which is the
+    one failure this tool must not have: a real conflict reported as
+    something nobody needs to look at.
+    """
+    import numpy as np
+    from windcheck import pairs
+
+    g = np.array([0.0, 10.0, 20.0, 30.0])
+    X, Y = np.meshgrid(g, g, indexing="ij")
+    flat = _grid4(tmp_path, "h.tifxyz", np.stack([X, Y, np.zeros_like(X)], -1))
+    # crosses flat at x = 15, z = 0 -- between grid lines of both, so
+    # neither contributes a vertex to the shared box
+    Yv, Zv = np.meshgrid(g, np.array([-15.0, -5.0, 5.0, 15.0]), indexing="ij")
+    vert = _grid4(tmp_path, "v.tifxyz",
+                  np.stack([np.full_like(Yv, 15.0), Yv, Zv], -1))
+    work = tmp_path / "w"
+    work.mkdir()
+
+    batched = pairs.classify_many([(flat, vert)], work, tag="g")[0]
+    stitched = pairs.classify(flat, vert, work, "gs")
+    assert batched.overlap_points == 0        # the gate would have refused
+    assert batched.verdict == pairs.CONFLICT
+    assert batched.transverse_both > 0
+    assert stitched.as_dict() == batched.as_dict()
+
+
+@needs_engine
+def test_check_pairs_refuses_a_surface_with_no_triangles(tmp_path):
+    """A surface can be all-valid and still contribute nothing to a census.
+
+    A checkerboard of valid cells has no quad with four valid corners, so
+    it builds no triangle. Reporting such an edge as free of contact would
+    be a clean verdict on a surface that was never tested; and when every
+    surface in a batch is like that, the engine used to exit without its
+    summary and the caller raised IndexError on empty stdout.
+    """
+    import numpy as np
+    from windcheck import pairs
+
+    g = np.arange(4) * 10.0
+    X, Y = np.meshgrid(g, g, indexing="ij")
+    P = np.stack([X, Y, np.zeros_like(X)], -1)
+    board = (np.arange(4)[:, None] + np.arange(4)[None, :]) % 2 == 0
+    empty = _grid4(tmp_path, "e1.tifxyz", P, board)
+    empty2 = _grid4(tmp_path, "e2.tifxyz", P + np.array([1.0, 1.0, 0.0]), board)
+    solid = _grid4(tmp_path, "s.tifxyz", P)
+    work = tmp_path / "w"
+    work.mkdir()
+
+    assert pairs.n_triangles(tifxyz.read(empty)) == 0
+    assert pairs.n_triangles(tifxyz.read(solid)) > 0
+
+    both, one = pairs.classify_many([(empty, empty2), (empty, solid)], work,
+                                    tag="e")
+    for r in (both, one, pairs.classify(empty, solid, work, "es")):
+        assert r.verdict == pairs.NOT_TESTABLE
+        assert "no triangle" in r.reason
+
+
+@needs_engine
+def test_engine_reports_an_empty_census_rather_than_saying_nothing(tmp_path):
+    """Zero triangles is a result, not a failure to produce one."""
+    import numpy as np
+    from windcheck import pipeline
+
+    g = np.arange(4) * 10.0
+    X, Y = np.meshgrid(g, g, indexing="ij")
+    board = (np.arange(4)[:, None] + np.arange(4)[None, :]) % 2 == 0
+    empty = _grid4(tmp_path, "z.tifxyz",
+                   np.stack([X, Y, np.zeros_like(X)], -1), board)
+    csvp, counts = pipeline.run_engine(empty, "z", tmp_path / "w", 0)
+    assert counts["triangles"] == 0 and counts["transverse"] == 0
+    assert csvp.read_text().strip() == pipeline.SCHEMA_V2_HEADER
+
+
+@needs_engine
+def test_check_pairs_refuses_duplicate_geometry(tmp_path):
+    """One surface under two names is not a pair, however it is spelled.
+
+    Path resolution catches a symlink; two separately written but identical
+    directories it cannot. Censused as two atlas entries the copies agree
+    everywhere, so every contact between them is coplanar and never
+    counted, and the edge would come back clean without having been tested.
+    """
+    import numpy as np
+    from windcheck import pairs
+
+    g = np.arange(4) * 10.0
+    X, Y = np.meshgrid(g, g, indexing="ij")
+    P = np.stack([X, Y, np.zeros_like(X)], -1)
+    one = _grid4(tmp_path, "one.tifxyz", P)
+    copy = _grid4(tmp_path, "copy.tifxyz", P)   # same bytes, different path
+    work = tmp_path / "w"
+    work.mkdir()
+
+    for r in (pairs.classify_many([(one, copy)], work, tag="d")[0],
+              pairs.classify(one, copy, work, "ds")):
+        assert r.verdict == pairs.NOT_TESTABLE
+        assert "same geometry" in r.reason
+
+
+def test_check_pairs_is_report_only():
+    """Like `check`, there is no flag on `check-pairs` that writes geometry."""
+    actions = {a.dest for a in cli.build_parser()._subparsers._group_actions[0]
+               .choices["check-pairs"]._actions}
+    for forbidden in ("transform", "repair", "excise", "fix", "write_mesh",
+                      "in_place", "merge"):
+        assert forbidden not in actions

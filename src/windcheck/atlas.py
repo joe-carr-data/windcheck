@@ -69,7 +69,10 @@ def write_atlas(entries: list[Entry], path: Path) -> int:
         fh.write(MAGIC_ATLAS)
         fh.write(struct.pack("<II", VERSION, len(entries)))
         for e in entries:
-            s = tifxyz.read(e.path)
+            # An entry may carry an already-read surface. A batch census reads
+            # each surface once for its own extent test and would otherwise
+            # read every one of them a second time to serialise it.
+            s = getattr(e, "surface", None) or tifxyz.read(e.path)
             rows, cols = s.shape
             fh.write(struct.pack("<iII", e.winding if e.winding is not None else -1, rows, cols))
             fh.write(np.ascontiguousarray(s.points, dtype="<f4").tobytes())
