@@ -79,10 +79,11 @@ extrapolate it.
 
 ## Relation to the upstream tool
 
-The same census (single-surface form) is proposed upstream as a standalone
-volume-cartographer app, `vc_tifxyz_selfcross`
-([ScrollPrize/villa#1303](https://github.com/ScrollPrize/villa/pull/1303)),
-so a surface can be checked right after export with no external tooling.
+The same census (single-surface form) is part of volume-cartographer as
+the standalone app `vc_tifxyz_selfcross`
+([ScrollPrize/villa#1303](https://github.com/ScrollPrize/villa/pull/1303),
+merged 4 August 2026), so a surface can be checked right after export with
+no external tooling.
 One difference is disclosed there and here: upstream loads a surface with
 `z <= 0` cells invalidated before the mask, and windcheck's published
 counts treat them as valid. Measured across the pinned corpus the gap is

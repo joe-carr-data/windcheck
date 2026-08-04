@@ -254,10 +254,11 @@ publisher reviewed the finding and removed the five flagged patches.
 
 ## Upstream
 
-The single-surface census is proposed as a standalone volume-cartographer
-app, `vc_tifxyz_selfcross`
-([ScrollPrize/villa#1303](https://github.com/ScrollPrize/villa/pull/1303)),
-so a surface can be checked right after export with no external tooling —
+The single-surface census is now part of volume-cartographer as the
+standalone app `vc_tifxyz_selfcross`
+([ScrollPrize/villa#1303](https://github.com/ScrollPrize/villa/pull/1303),
+merged 4 August 2026), so a surface can be checked right after export with
+no external tooling —
 report-only, both triangulations, a byte-reproducible JSON report, crossing
 sites as a VC3D-loadable point collection, and an exit-code gate for
 scripts. It reproduces this repository's census exactly on the published
