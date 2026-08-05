@@ -4,8 +4,8 @@
  "provenance": {
   "schema": "windcheck_provenance/v1",
   "code_version": "0.1.0",
-  "source_tree_digest": "8ad074376458327bb6b9b7e13243c62988e75531feef3100b94b124b1abab3e7",
-  "source_tree_n_files": 85,
+  "source_tree_digest": "fb13b59ed33f792a9e0963afc81a5a795ba589598c9b01bf4da80e6baea3cf61",
+  "source_tree_n_files": 87,
   "source_tree_globs": [
    "pyproject.toml",
    "uv.lock",
@@ -50,6 +50,11 @@
     "digest": "fe415fc1704cc76367a3fcee90c5c8f355d6a53d143b2b09180cc6f448697be7",
     "files": 84,
     "reason": "superseded by the publication of check-pairs: the pairwise merge-edge conflict test (src/windcheck/pairs.py), the multi-surface census engine it runs on, and the 459-pair reproducible example in results/pairs/. The released transverse-clean outputs and every retention figure are unchanged."
+   },
+   {
+    "digest": "8ad074376458327bb6b9b7e13243c62988e75531feef3100b94b124b1abab3e7",
+    "files": 85,
+    "reason": "superseded by the expansion-corpus release: bench/expand_bases.py and bench/build_expansion_index.py added, bench/excise_shadow.py extended to resolve segments entirely from a base manifest (voxel scale may be null; physical-unit fields follow it). Pinned-corpus certificates and meshes are unaffected."
    }
   ]
  },

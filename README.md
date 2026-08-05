@@ -222,6 +222,17 @@ in [`docs/CORPUS.md`](docs/CORPUS.md), with the machine-readable index at
 `out/release/index.json`. The six non-censusable inputs are listed there
 explicitly, by name and by reason.
 
+The **expansion corpus** extends the same treatment to the 99 further
+traces the full census found across seven more samples: every trace
+dispositioned under the identical frozen policy, every transformed output
+independently re-censused clean under both triangulations, and the four
+census refusals decline-confirmed. Records in
+[`docs/CORPUS-EXPANSION.md`](docs/CORPUS-EXPANSION.md), machine-readable
+index at `out/release/expansion_index.json`, meshes and certificates in
+the `v0.2.0` release archives. Combined over both inventories — 274
+censusable of 284 indexed artifacts — the area-weighted retained fraction
+is **0.994566**, recomputed from per-segment areas.
+
 ---
 
 ## Reproducing
@@ -231,7 +242,12 @@ explicitly, by name and by reason.
 Twelve samples in the open-data bucket publish surface traces as `tifxyz`.
 **All 278 of them have been censused** — the release covers the first 179,
 and [`docs/FULL-CORPUS.md`](docs/FULL-CORPUS.md) adds the remaining 99
-across seven samples that use a second published layout.
+across seven samples that use a second published layout. As of the
+`v0.2.0` release those 99 are no longer census-only: each has a terminal
+disposition, and every censusable one has a verified transverse-clean
+output — see [`docs/CORPUS-EXPANSION.md`](docs/CORPUS-EXPANSION.md),
+including the exact reconciliation of the 278-census and 284-index
+denominators.
 
 That page also reports what the corpus says about size: self-intersection
 probability follows a one-parameter independent-cell model at

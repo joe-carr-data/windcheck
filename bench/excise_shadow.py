@@ -439,17 +439,19 @@ def main(argv: list[str] | None = None) -> int:
     timers = Timers()
     out_root = Path(args.out_root)
     out_root.mkdir(parents=True, exist_ok=True)
-    corpus, seg, volume = resolve_segment(args.segment)
-    original = sorted(seg.glob(f"mesh/*{volume}*.tifxyz"))[0]
-    m = RES_UM.search(original.name)
-    voxel_um = float(m.group(1)) if m else 7.91
     base = None
     if args.base_manifest is not None:
-        base = manifest_entry(args.base_manifest, seg.name)
-        if base.get("original_mesh"):
-            original = Path(base["original_mesh"])
-        if base.get("voxel_um") is not None:
-            voxel_um = float(base["voxel_um"])
+        # The manifest pins EVERYTHING -- mesh, corpus, volume, voxel
+        # scale. Nothing is rediscovered by globbing, which also makes
+        # segments outside the pinned corpora roots (the expansion
+        # manifest) runnable. Lookup is by exact segment name.
+        base = manifest_entry(args.base_manifest, args.segment)
+        seg_name = base["segment"]
+        corpus = base.get("corpus")
+        volume = base.get("volume")
+        original = Path(base.get("original_mesh") or base["base_mesh"])
+        voxel_um = (float(base["voxel_um"])
+                    if base.get("voxel_um") is not None else None)
         chosen = {"path": Path(base["base_mesh"]),
                   "source": base.get("base_kind"),
                   "note": ("pinned by the round-28 base manifest "
@@ -457,17 +459,22 @@ def main(argv: list[str] | None = None) -> int:
                            f"(sha256 {base['base_manifest_sha256'][:12]}), "
                            "not rediscovered")}
     else:
-        chosen = pick_input_mesh(seg.name, original)
+        corpus, seg, volume = resolve_segment(args.segment)
+        seg_name = seg.name
+        original = sorted(seg.glob(f"mesh/*{volume}*.tifxyz"))[0]
+        m = RES_UM.search(original.name)
+        voxel_um = float(m.group(1)) if m else 7.91
+        chosen = pick_input_mesh(seg_name, original)
     mesh = chosen["path"]
     kind = "certificate" if args.certificate else "shadow"
     keep_mesh = bool(args.keep_mesh or args.certificate)
-    tag = hashlib.sha256((seg.name + kind).encode()).hexdigest()[:12]
+    tag = hashlib.sha256((seg_name + kind).encode()).hexdigest()[:12]
     wdir = out_root / f"work_{tag}"
     wdir.mkdir(parents=True, exist_ok=True)
-    rec_path = out_root / (f"{seg.name}_excision_certificate.json"
-                           if args.certificate else f"{seg.name}_shadow.json")
-    mesh_out = out_root / (f"{seg.name}_excised.tifxyz" if args.certificate
-                           else f"{seg.name}_shadow.tifxyz")
+    rec_path = out_root / (f"{seg_name}_excision_certificate.json"
+                           if args.certificate else f"{seg_name}_shadow.json")
+    mesh_out = out_root / (f"{seg_name}_excised.tifxyz" if args.certificate
+                           else f"{seg_name}_shadow.tifxyz")
     prov = code_provenance()
 
     R: dict = {
@@ -475,7 +482,7 @@ def main(argv: list[str] | None = None) -> int:
                         else SHADOW_RECORD_KIND),
         "purpose": ("round-26 Q2: measure what one segment-wide certified "
                     "excision costs, before promising a corpus"),
-        "segment": seg.name, "corpus": corpus, "volume": volume,
+        "segment": seg_name, "corpus": corpus, "volume": volume,
         "operation_label": args.label,
         "voxel_um": voxel_um,
         "input_mesh": str(mesh), "input_mesh_source": chosen["source"],
@@ -533,8 +540,9 @@ def main(argv: list[str] | None = None) -> int:
     def log(msg):
         print(msg, flush=True)
 
-    log(f"{corpus} {seg.name}")
-    log(f"  input {mesh}  ({chosen['source']})  voxel {voxel_um} um")
+    log(f"{corpus} {seg_name}")
+    log(f"  input {mesh}  ({chosen['source']})  voxel "
+        f"{voxel_um if voxel_um is not None else 'unknown'} um")
     snap()
 
     try:
@@ -818,7 +826,8 @@ def main(argv: list[str] | None = None) -> int:
             "n_retained_quads": int(kept.sum()),
             "cut_boundary_edges": n_edges,
             "cut_boundary_length_vx": blen_vx,
-            "cut_boundary_length_um": blen_vx * voxel_um}
+            "cut_boundary_length_um": (blen_vx * voxel_um
+                                       if voxel_um is not None else None)}
         snap(stage="emit", area=area, headline_area=headline,
              excision=excision, component_recovery=rec_comp)
         log(f"  headline retained "
