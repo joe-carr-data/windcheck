@@ -1,0 +1,46 @@
+{
+ "export": "<scrollfiesta>/output/unroll_du2/tifxyz_run",
+ "tag": "du2",
+ "prereg": "notes/PREREG-UNROLL-GATE.md",
+ "census": {
+  "grid": [
+   257,
+   45120
+  ],
+  "valid_cells": 1599975,
+  "params": {
+   "exclude": 1,
+   "cell": 40.0,
+   "maxedge": 60.0,
+   "touch_tol": 0.001
+  },
+  "d0": {
+   "triangles": 3128728,
+   "quads_dropped": 4431,
+   "pairs_tested": 2493153335,
+   "transverse": 11309,
+   "coplanar": 13,
+   "grazing": 28184
+  },
+  "d1": {
+   "triangles": 3128728,
+   "quads_dropped": 4431,
+   "pairs_tested": 2484512415,
+   "transverse": 10937,
+   "coplanar": 8,
+   "grazing": 28450
+  }
+ },
+ "facemap_provenance_consistent": true,
+ "n_transverse_rows": 22246,
+ "classes": {
+  "d0_same_source": 3287,
+  "same_source": 6416,
+  "d0_cross_source": 8022,
+  "cross_source": 15830,
+  "d1_same_source": 3129,
+  "d1_cross_source": 7808
+ },
+ "events_full": "in the release archive: unroll_du2.json",
+ "n_event_rows_in_full_file": 22246
+}

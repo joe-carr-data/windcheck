@@ -1,0 +1,46 @@
+{
+ "export": "<scrollfiesta>/output/unroll_proof_tap/tifxyz_run",
+ "tag": "s0",
+ "prereg": "notes/PREREG-UNROLL-GATE.md",
+ "census": {
+  "grid": [
+   513,
+   90240
+  ],
+  "valid_cells": 6345354,
+  "params": {
+   "exclude": 1,
+   "cell": 40.0,
+   "maxedge": 60.0,
+   "touch_tol": 0.001
+  },
+  "d0": {
+   "triangles": 12491364,
+   "quads_dropped": 7376,
+   "pairs_tested": 36051660847,
+   "transverse": 11232,
+   "coplanar": 20,
+   "grazing": 56267
+  },
+  "d1": {
+   "triangles": 12491364,
+   "quads_dropped": 7376,
+   "pairs_tested": 36014266537,
+   "transverse": 10646,
+   "coplanar": 31,
+   "grazing": 45772
+  }
+ },
+ "facemap_provenance_consistent": true,
+ "n_transverse_rows": 21878,
+ "classes": {
+  "d0_cross_source": 10631,
+  "cross_source": 20644,
+  "d0_same_source": 601,
+  "same_source": 1234,
+  "d1_cross_source": 10013,
+  "d1_same_source": 633
+ },
+ "events_full": "in the release archive: unroll_s0.json",
+ "n_event_rows_in_full_file": 21878
+}

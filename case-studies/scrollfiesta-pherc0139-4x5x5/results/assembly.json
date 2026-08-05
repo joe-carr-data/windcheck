@@ -1,0 +1,15 @@
+{
+ "what": "assembly census: every (cube,gid) submesh a soup surface; cross-surface transverse only. Within-(cube,gid) contacts are UNTESTED by construction (soups carry no adjacency) -- disclosed limitation",
+ "engine_args": {
+  "cell": "40.0",
+  "exclude": "1",
+  "diagonal": "0",
+  "maxedge": "60.0"
+ },
+ "n_surfaces": 753,
+ "n_transverse_rows": 0,
+ "n_pairs_with_transverse": 0,
+ "n_same_cube_rows": 0,
+ "n_cross_cube_rows": 0,
+ "rows": []
+}

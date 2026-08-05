@@ -1,0 +1,50 @@
+{
+ "schema": "fiesta_adapter_transaction/v1",
+ "generated_utc": "2026-08-05T12:55:12Z",
+ "input": "<scrollfiesta>/output/ho_unroll/tifxyz_run",
+ "operator": "bench/excise_shadow.py --certificate (frozen round-28 policy, unchanged)",
+ "input_grid": [
+  513,
+  76015
+ ],
+ "input_valid_px": 5212978,
+ "mask_only_invalid_px_baked_to_sentinel": 0,
+ "certificate": "out/fiesta/adapter_ho/transform/fiesta_heldout_excision_certificate.json",
+ "certificate_sha256": "e675b4c4524dae0d1011b411b5c37f1a5ac9d569da804a8d72f9bdc098335b5f",
+ "terminal_disposition": "transformed",
+ "retained_fraction": 0.9968509406261502,
+ "excised_px": 1424,
+ "sidecars_preserved_and_invalidated": [
+  "provenance.tif",
+  "run_facemap.i32"
+ ],
+ "output_census": {
+  "d0": {
+   "triangles": 10276984,
+   "quads_dropped": 6040,
+   "pairs_tested": 29211687096,
+   "transverse": 0,
+   "coplanar": 77,
+   "grazing": 277935
+  },
+  "d1": {
+   "triangles": 10276984,
+   "quads_dropped": 6040,
+   "pairs_tested": 29140772290,
+   "transverse": 0,
+   "coplanar": 60,
+   "grazing": 280627
+  }
+ },
+ "file_sha256": {
+  "mask.tif": "fda2310cbd00fd7b39759cd4206064707500321271ff03b3b8e3b3edf57c407b",
+  "meta.json": "8c18639c79ef21f0a7279e8a3359789abd195c7e8fa734bcf9880c560cdba0d7",
+  "provenance.tif": "738c86fceb4d47b60c0ac7b36c8b76e3fede6e13c79dbcacf490503312d9baf8",
+  "run_facemap.i32": "02f11d33bc3d43f6596738572ce77a09722c13cb0dd972aa1869916a2734a4b0",
+  "x.tif": "e0defde4976d0b0859fb3fcf23118e1c1b30c5e8ae0b41df9056c95461380c33",
+  "y.tif": "a979c6b9a184a02a18bb3129fcf987bf244ee2cc248463c7dded597f90721c5c",
+  "z.tif": "6220e675e30f7afac5aa6c2b2f7dc66fb91246d53d9a3a26a9d6735261598490"
+ },
+ "problems": [],
+ "handed_over": true
+}

@@ -1,0 +1,1014 @@
+{
+ "what": "PREREG-OWNAPPLY-CONTROL.md run B: census of every atlas segment (frozen params; events per crossing_analyse rule)",
+ "n_segments": 47,
+ "n_below_floor": 11,
+ "below_floor": [
+  "run_w002_z04343",
+  "run_w013_z04343",
+  "run_w017_z04343",
+  "run_w018_z04343",
+  "run_w020_z04343",
+  "run_w039_z04343",
+  "run_w052_z04343",
+  "run_w053_z04343",
+  "run_w059_z04343",
+  "run_w060_z04343",
+  "run_w063_z04343"
+ ],
+ "n_segments_with_transverse": 18,
+ "dirty_segments": [
+  "run_w010_z04343",
+  "run_w011_z04343",
+  "run_w019_z04343",
+  "run_w025_z04343",
+  "run_w026_z04343",
+  "run_w030_z04343",
+  "run_w031_z04343",
+  "run_w032_z04343",
+  "run_w033_z04343",
+  "run_w034_z04343",
+  "run_w037_z04343",
+  "run_w038_z04343",
+  "run_w042_z04343",
+  "run_w043_z04343",
+  "run_w046_z04343",
+  "run_w047_z04343",
+  "run_w048_z04343",
+  "run_w049_z04343"
+ ],
+ "total_rows_d0": 9171,
+ "total_rows_d1": 8886,
+ "total_events_d0": 187,
+ "total_events_d1": 179,
+ "segments": {
+  "run_w002_z04343": {
+   "below_floor": true
+  },
+  "run_w007_z04343": {
+   "grid": [
+    135,
+    93
+   ],
+   "d0": {
+    "triangles": 13544,
+    "quads_dropped": 0,
+    "pairs_tested": 13926058,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 13544,
+    "quads_dropped": 0,
+    "pairs_tested": 13872210,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w008_z04343": {
+   "grid": [
+    159,
+    103
+   ],
+   "d0": {
+    "triangles": 16564,
+    "quads_dropped": 0,
+    "pairs_tested": 18895095,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 16564,
+    "quads_dropped": 0,
+    "pairs_tested": 18861087,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w010_z04343": {
+   "grid": [
+    450,
+    180
+   ],
+   "d0": {
+    "triangles": 97106,
+    "quads_dropped": 311,
+    "pairs_tested": 109126199,
+    "transverse": 110,
+    "coplanar": 0,
+    "grazing": 1030
+   },
+   "d1": {
+    "triangles": 97106,
+    "quads_dropped": 311,
+    "pairs_tested": 109182443,
+    "transverse": 101,
+    "coplanar": 0,
+    "grazing": 1169
+   },
+   "events": {
+    "d0": 8,
+    "d1": 8
+   }
+  },
+  "run_w011_z04343": {
+   "grid": [
+    518,
+    312
+   ],
+   "d0": {
+    "triangles": 209172,
+    "quads_dropped": 0,
+    "pairs_tested": 294167008,
+    "transverse": 31,
+    "coplanar": 0,
+    "grazing": 1060
+   },
+   "d1": {
+    "triangles": 209172,
+    "quads_dropped": 0,
+    "pairs_tested": 293501368,
+    "transverse": 30,
+    "coplanar": 0,
+    "grazing": 898
+   },
+   "events": {
+    "d0": 7,
+    "d1": 7
+   }
+  },
+  "run_w012_z04343": {
+   "grid": [
+    393,
+    302
+   ],
+   "d0": {
+    "triangles": 131674,
+    "quads_dropped": 0,
+    "pairs_tested": 183780302,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 472
+   },
+   "d1": {
+    "triangles": 131674,
+    "quads_dropped": 0,
+    "pairs_tested": 183539302,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 618
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w013_z04343": {
+   "below_floor": true
+  },
+  "run_w017_z04343": {
+   "below_floor": true
+  },
+  "run_w018_z04343": {
+   "below_floor": true
+  },
+  "run_w019_z04343": {
+   "grid": [
+    523,
+    792
+   ],
+   "d0": {
+    "triangles": 629218,
+    "quads_dropped": 33,
+    "pairs_tested": 1089001620,
+    "transverse": 58,
+    "coplanar": 0,
+    "grazing": 7856
+   },
+   "d1": {
+    "triangles": 629218,
+    "quads_dropped": 33,
+    "pairs_tested": 1087969812,
+    "transverse": 38,
+    "coplanar": 0,
+    "grazing": 8019
+   },
+   "events": {
+    "d0": 8,
+    "d1": 7
+   }
+  },
+  "run_w020_z04343": {
+   "below_floor": true
+  },
+  "run_w024_z04343": {
+   "grid": [
+    134,
+    175
+   ],
+   "d0": {
+    "triangles": 29214,
+    "quads_dropped": 0,
+    "pairs_tested": 47283395,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 29214,
+    "quads_dropped": 0,
+    "pairs_tested": 47310665,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w025_z04343": {
+   "grid": [
+    522,
+    156
+   ],
+   "d0": {
+    "triangles": 112786,
+    "quads_dropped": 101,
+    "pairs_tested": 149948273,
+    "transverse": 17,
+    "coplanar": 0,
+    "grazing": 4352
+   },
+   "d1": {
+    "triangles": 112786,
+    "quads_dropped": 101,
+    "pairs_tested": 149957834,
+    "transverse": 20,
+    "coplanar": 0,
+    "grazing": 4517
+   },
+   "events": {
+    "d0": 1,
+    "d1": 1
+   }
+  },
+  "run_w026_z04343": {
+   "grid": [
+    530,
+    1279
+   ],
+   "d0": {
+    "triangles": 1226190,
+    "quads_dropped": 3206,
+    "pairs_tested": 1965554884,
+    "transverse": 7181,
+    "coplanar": 72,
+    "grazing": 91443
+   },
+   "d1": {
+    "triangles": 1226190,
+    "quads_dropped": 3206,
+    "pairs_tested": 1962397707,
+    "transverse": 7136,
+    "coplanar": 92,
+    "grazing": 86242
+   },
+   "events": {
+    "d0": 86,
+    "d1": 80
+   }
+  },
+  "run_w027_z04343": {
+   "grid": [
+    523,
+    900
+   ],
+   "d0": {
+    "triangles": 125008,
+    "quads_dropped": 433,
+    "pairs_tested": 175333471,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 751
+   },
+   "d1": {
+    "triangles": 125008,
+    "quads_dropped": 433,
+    "pairs_tested": 174972073,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 876
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w028_z04343": {
+   "grid": [
+    522,
+    347
+   ],
+   "d0": {
+    "triangles": 233040,
+    "quads_dropped": 0,
+    "pairs_tested": 347364768,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 1689
+   },
+   "d1": {
+    "triangles": 233040,
+    "quads_dropped": 0,
+    "pairs_tested": 347108932,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 1968
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w029_z04343": {
+   "grid": [
+    138,
+    156
+   ],
+   "d0": {
+    "triangles": 37206,
+    "quads_dropped": 0,
+    "pairs_tested": 53325746,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 37206,
+    "quads_dropped": 0,
+    "pairs_tested": 53284801,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w030_z04343": {
+   "grid": [
+    524,
+    1193
+   ],
+   "d0": {
+    "triangles": 1055600,
+    "quads_dropped": 0,
+    "pairs_tested": 1629339754,
+    "transverse": 646,
+    "coplanar": 0,
+    "grazing": 12024
+   },
+   "d1": {
+    "triangles": 1055600,
+    "quads_dropped": 0,
+    "pairs_tested": 1628096862,
+    "transverse": 501,
+    "coplanar": 1,
+    "grazing": 12014
+   },
+   "events": {
+    "d0": 22,
+    "d1": 23
+   }
+  },
+  "run_w031_z04343": {
+   "grid": [
+    519,
+    1353
+   ],
+   "d0": {
+    "triangles": 337166,
+    "quads_dropped": 0,
+    "pairs_tested": 529792275,
+    "transverse": 10,
+    "coplanar": 25,
+    "grazing": 3276
+   },
+   "d1": {
+    "triangles": 337166,
+    "quads_dropped": 0,
+    "pairs_tested": 529245995,
+    "transverse": 7,
+    "coplanar": 19,
+    "grazing": 3323
+   },
+   "events": {
+    "d0": 2,
+    "d1": 1
+   }
+  },
+  "run_w032_z04343": {
+   "grid": [
+    521,
+    1485
+   ],
+   "d0": {
+    "triangles": 676014,
+    "quads_dropped": 0,
+    "pairs_tested": 979850597,
+    "transverse": 121,
+    "coplanar": 0,
+    "grazing": 6484
+   },
+   "d1": {
+    "triangles": 676014,
+    "quads_dropped": 0,
+    "pairs_tested": 978609945,
+    "transverse": 30,
+    "coplanar": 0,
+    "grazing": 6849
+   },
+   "events": {
+    "d0": 6,
+    "d1": 7
+   }
+  },
+  "run_w033_z04343": {
+   "grid": [
+    523,
+    1499
+   ],
+   "d0": {
+    "triangles": 385214,
+    "quads_dropped": 0,
+    "pairs_tested": 519709969,
+    "transverse": 81,
+    "coplanar": 0,
+    "grazing": 3461
+   },
+   "d1": {
+    "triangles": 385214,
+    "quads_dropped": 0,
+    "pairs_tested": 519780180,
+    "transverse": 71,
+    "coplanar": 0,
+    "grazing": 3598
+   },
+   "events": {
+    "d0": 2,
+    "d1": 3
+   }
+  },
+  "run_w034_z04343": {
+   "grid": [
+    532,
+    1455
+   ],
+   "d0": {
+    "triangles": 1085748,
+    "quads_dropped": 0,
+    "pairs_tested": 1713194181,
+    "transverse": 228,
+    "coplanar": 6,
+    "grazing": 11257
+   },
+   "d1": {
+    "triangles": 1085748,
+    "quads_dropped": 0,
+    "pairs_tested": 1710640422,
+    "transverse": 222,
+    "coplanar": 13,
+    "grazing": 11828
+   },
+   "events": {
+    "d0": 14,
+    "d1": 14
+   }
+  },
+  "run_w037_z04343": {
+   "grid": [
+    522,
+    404
+   ],
+   "d0": {
+    "triangles": 327526,
+    "quads_dropped": 0,
+    "pairs_tested": 489183064,
+    "transverse": 47,
+    "coplanar": 0,
+    "grazing": 2004
+   },
+   "d1": {
+    "triangles": 327526,
+    "quads_dropped": 0,
+    "pairs_tested": 489017594,
+    "transverse": 18,
+    "coplanar": 0,
+    "grazing": 2461
+   },
+   "events": {
+    "d0": 1,
+    "d1": 1
+   }
+  },
+  "run_w038_z04343": {
+   "grid": [
+    525,
+    1245
+   ],
+   "d0": {
+    "triangles": 1221458,
+    "quads_dropped": 1873,
+    "pairs_tested": 1859624600,
+    "transverse": 30,
+    "coplanar": 1,
+    "grazing": 28825
+   },
+   "d1": {
+    "triangles": 1221458,
+    "quads_dropped": 1873,
+    "pairs_tested": 1856906788,
+    "transverse": 36,
+    "coplanar": 0,
+    "grazing": 29309
+   },
+   "events": {
+    "d0": 4,
+    "d1": 5
+   }
+  },
+  "run_w039_z04343": {
+   "below_floor": true
+  },
+  "run_w040_z04343": {
+   "grid": [
+    391,
+    306
+   ],
+   "d0": {
+    "triangles": 216132,
+    "quads_dropped": 0,
+    "pairs_tested": 327948415,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 53
+   },
+   "d1": {
+    "triangles": 216132,
+    "quads_dropped": 0,
+    "pairs_tested": 327404066,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 100
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w041_z04343": {
+   "grid": [
+    540,
+    1350
+   ],
+   "d0": {
+    "triangles": 923680,
+    "quads_dropped": 0,
+    "pairs_tested": 1460447729,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 4333
+   },
+   "d1": {
+    "triangles": 923680,
+    "quads_dropped": 0,
+    "pairs_tested": 1459276674,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 5065
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w042_z04343": {
+   "grid": [
+    526,
+    1339
+   ],
+   "d0": {
+    "triangles": 1212818,
+    "quads_dropped": 4026,
+    "pairs_tested": 1829334791,
+    "transverse": 42,
+    "coplanar": 0,
+    "grazing": 9931
+   },
+   "d1": {
+    "triangles": 1212818,
+    "quads_dropped": 4026,
+    "pairs_tested": 1826159610,
+    "transverse": 35,
+    "coplanar": 0,
+    "grazing": 11285
+   },
+   "events": {
+    "d0": 5,
+    "d1": 6
+   }
+  },
+  "run_w043_z04343": {
+   "grid": [
+    397,
+    393
+   ],
+   "d0": {
+    "triangles": 221624,
+    "quads_dropped": 0,
+    "pairs_tested": 334783429,
+    "transverse": 141,
+    "coplanar": 0,
+    "grazing": 2068
+   },
+   "d1": {
+    "triangles": 221624,
+    "quads_dropped": 0,
+    "pairs_tested": 334773730,
+    "transverse": 155,
+    "coplanar": 0,
+    "grazing": 1880
+   },
+   "events": {
+    "d0": 4,
+    "d1": 1
+   }
+  },
+  "run_w044_z04343": {
+   "grid": [
+    522,
+    1306
+   ],
+   "d0": {
+    "triangles": 223074,
+    "quads_dropped": 0,
+    "pairs_tested": 328412044,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 2
+   },
+   "d1": {
+    "triangles": 223074,
+    "quads_dropped": 0,
+    "pairs_tested": 328332306,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 9
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w045_z04343": {
+   "grid": [
+    135,
+    375
+   ],
+   "d0": {
+    "triangles": 81256,
+    "quads_dropped": 0,
+    "pairs_tested": 125598080,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 81256,
+    "quads_dropped": 0,
+    "pairs_tested": 125501818,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w046_z04343": {
+   "grid": [
+    521,
+    1348
+   ],
+   "d0": {
+    "triangles": 277076,
+    "quads_dropped": 0,
+    "pairs_tested": 420051208,
+    "transverse": 37,
+    "coplanar": 0,
+    "grazing": 619
+   },
+   "d1": {
+    "triangles": 277076,
+    "quads_dropped": 0,
+    "pairs_tested": 419622679,
+    "transverse": 33,
+    "coplanar": 0,
+    "grazing": 805
+   },
+   "events": {
+    "d0": 4,
+    "d1": 3
+   }
+  },
+  "run_w047_z04343": {
+   "grid": [
+    524,
+    581
+   ],
+   "d0": {
+    "triangles": 378954,
+    "quads_dropped": 0,
+    "pairs_tested": 576888987,
+    "transverse": 361,
+    "coplanar": 2,
+    "grazing": 13137
+   },
+   "d1": {
+    "triangles": 378954,
+    "quads_dropped": 0,
+    "pairs_tested": 575852197,
+    "transverse": 398,
+    "coplanar": 2,
+    "grazing": 13647
+   },
+   "events": {
+    "d0": 9,
+    "d1": 10
+   }
+  },
+  "run_w048_z04343": {
+   "grid": [
+    528,
+    1960
+   ],
+   "d0": {
+    "triangles": 521236,
+    "quads_dropped": 0,
+    "pairs_tested": 794007649,
+    "transverse": 2,
+    "coplanar": 0,
+    "grazing": 4529
+   },
+   "d1": {
+    "triangles": 521236,
+    "quads_dropped": 0,
+    "pairs_tested": 793360454,
+    "transverse": 9,
+    "coplanar": 0,
+    "grazing": 5065
+   },
+   "events": {
+    "d0": 2,
+    "d1": 1
+   }
+  },
+  "run_w049_z04343": {
+   "grid": [
+    393,
+    921
+   ],
+   "d0": {
+    "triangles": 78884,
+    "quads_dropped": 0,
+    "pairs_tested": 114943295,
+    "transverse": 28,
+    "coplanar": 4,
+    "grazing": 755
+   },
+   "d1": {
+    "triangles": 78884,
+    "quads_dropped": 0,
+    "pairs_tested": 114508946,
+    "transverse": 46,
+    "coplanar": 4,
+    "grazing": 903
+   },
+   "events": {
+    "d0": 2,
+    "d1": 1
+   }
+  },
+  "run_w050_z04343": {
+   "grid": [
+    144,
+    1699
+   ],
+   "d0": {
+    "triangles": 38762,
+    "quads_dropped": 0,
+    "pairs_tested": 54576749,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 38762,
+    "quads_dropped": 0,
+    "pairs_tested": 54528765,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w051_z04343": {
+   "grid": [
+    508,
+    1353
+   ],
+   "d0": {
+    "triangles": 239492,
+    "quads_dropped": 0,
+    "pairs_tested": 350414179,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 808
+   },
+   "d1": {
+    "triangles": 239492,
+    "quads_dropped": 0,
+    "pairs_tested": 350218506,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 828
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w052_z04343": {
+   "below_floor": true
+  },
+  "run_w053_z04343": {
+   "below_floor": true
+  },
+  "run_w054_z04343": {
+   "grid": [
+    527,
+    2018
+   ],
+   "d0": {
+    "triangles": 116788,
+    "quads_dropped": 0,
+    "pairs_tested": 174060027,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 276
+   },
+   "d1": {
+    "triangles": 116788,
+    "quads_dropped": 0,
+    "pairs_tested": 173976907,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 411
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w055_z04343": {
+   "grid": [
+    528,
+    1956
+   ],
+   "d0": {
+    "triangles": 131226,
+    "quads_dropped": 0,
+    "pairs_tested": 194303992,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 188
+   },
+   "d1": {
+    "triangles": 131226,
+    "quads_dropped": 0,
+    "pairs_tested": 194248783,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 121
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w056_z04343": {
+   "grid": [
+    530,
+    1968
+   ],
+   "d0": {
+    "triangles": 25640,
+    "quads_dropped": 0,
+    "pairs_tested": 31915870,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 25640,
+    "quads_dropped": 0,
+    "pairs_tested": 31986938,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w057_z04343": {
+   "grid": [
+    529,
+    1354
+   ],
+   "d0": {
+    "triangles": 47338,
+    "quads_dropped": 0,
+    "pairs_tested": 68102452,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 47338,
+    "quads_dropped": 0,
+    "pairs_tested": 68140402,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w059_z04343": {
+   "below_floor": true
+  },
+  "run_w060_z04343": {
+   "below_floor": true
+  },
+  "run_w062_z04343": {
+   "grid": [
+    260,
+    92
+   ],
+   "d0": {
+    "triangles": 19788,
+    "quads_dropped": 0,
+    "pairs_tested": 26208778,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "d1": {
+    "triangles": 19788,
+    "quads_dropped": 0,
+    "pairs_tested": 26163884,
+    "transverse": 0,
+    "coplanar": 0,
+    "grazing": 0
+   },
+   "events": {
+    "d0": 0,
+    "d1": 0
+   }
+  },
+  "run_w063_z04343": {
+   "below_floor": true
+  }
+ }
+}

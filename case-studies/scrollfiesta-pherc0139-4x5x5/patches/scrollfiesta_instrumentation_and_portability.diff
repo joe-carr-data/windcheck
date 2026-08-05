@@ -1,0 +1,156 @@
+diff --git a/src/api/scrollfiesta_api.c b/src/api/scrollfiesta_api.c
+index 4242d6e..9460b53 100644
+--- a/src/api/scrollfiesta_api.c
++++ b/src/api/scrollfiesta_api.c
+@@ -33,6 +33,7 @@
+ #include "../topology/seam_cut.h"
+ 
+ #include <math.h>
++#include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+ 
+diff --git a/src/api/sf_pipeline.c b/src/api/sf_pipeline.c
+index 51ab3a1..ec8e95e 100644
+--- a/src/api/sf_pipeline.c
++++ b/src/api/sf_pipeline.c
+@@ -15,6 +15,7 @@
+ #include "../remesh/seam_weld.h"
+ #include "../remesh/weld_cleanup.h"
+ 
++#include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
+ 
+diff --git a/src/tools/scroll_whole.c b/src/tools/scroll_whole.c
+index a8dbfee..55e6651 100644
+--- a/src/tools/scroll_whole.c
++++ b/src/tools/scroll_whole.c
+@@ -1409,6 +1409,49 @@ static int run_reregister(const WholeCfg *cfg_in)
+               gg.n_comp, gg.energy, gg.n_frustrated, gg.moves_applied,
+               ves_clock_sec() - t0);
+ 
++    /* ---- optional diagnostic dump of the solved constraint graph.
++     * SF_GG_DUMP=<path> writes every node and every admitted edge of the
++     * transparent GroupGraph struct (the same array GroupGraph_build
++     * produced; solve only annotates it) as TSV. Pure read-only tap at the
++     * tool level: nothing in build/solve/finalize is touched, and with the
++     * env var unset this block is a single getenv. ---- */
++    {
++        const char *ggp = getenv("SF_GG_DUMP");
++        if (ggp != NULL && ggp[0] != '\0') {
++            FILE *gf = fopen(ggp, "w");
++            if (gf == NULL) {
++                logf_both("[reregister] gg dump: cannot open %s\n", ggp);
++            } else {
++                size_t di;
++                fprintf(gf, "# gg_dump v1\n");
++                fprintf(gf, "# node\tid\tcube_idx\tcube_id\tgid\tk\tdu\t"
++                            "prior\tn_prior\tcomp\n");
++                for (di = 0; di < gg.n_nodes; di++) {
++                    const GGNode *nd = &gg.nodes[di];
++                    fprintf(gf, "node\t%zu\t%d\t%s\t%d\t%d\t%.17g\t%.17g\t"
++                                "%d\t%d\n",
++                            di, nd->cube, nodes[nd->cube].id, nd->gid,
++                            nd->k, nd->du, nd->prior, nd->n_prior, nd->comp);
++                }
++                fprintf(gf, "# edge\ta\tb\tcube_a\tgid_a\tcube_b\tgid_b\t"
++                            "obs\tdu\tconf\tmad\tn\tin_tree\n");
++                for (di = 0; di < gg.n_edges; di++) {
++                    const GGEdge *ed = &gg.edges[di];
++                    const GGNode *na = &gg.nodes[ed->a];
++                    const GGNode *nb = &gg.nodes[ed->b];
++                    fprintf(gf, "edge\t%d\t%d\t%s\t%d\t%s\t%d\t%d\t%.17g\t"
++                                "%.17g\t%.17g\t%d\t%d\n",
++                            ed->a, ed->b, nodes[na->cube].id, na->gid,
++                            nodes[nb->cube].id, nb->gid, ed->obs, ed->du,
++                            ed->conf, ed->mad, ed->n, (int)ed->in_tree);
++                }
++                fclose(gf);
++                logf_both("[reregister] gg dump: %zu nodes, %zu edges -> "
++                          "%s\n", gg.n_nodes, gg.n_edges, ggp);
++            }
++        }
++    }
++
+     /* ---- per-cube regs from the graph ---- */
+     PlacedReg *regs = (PlacedReg *)ARENA_CALLOC(arena, n, sizeof(PlacedReg));
+     for (size_t i = 0; i < n; i++)
+diff --git a/src/unroll/tifxyz_export.c b/src/unroll/tifxyz_export.c
+index cb38809..b45adb7 100644
+--- a/src/unroll/tifxyz_export.c
++++ b/src/unroll/tifxyz_export.c
+@@ -86,6 +86,10 @@ typedef struct {
+     float *px, *py, *pz;      /* [W*H] world x/y/z planes, -1 = invalid */
+     float *pw;                /* [W*H] winding (phi/2pi), NULL = off */
+     uint8_t *state;           /* [W*H] TXZ_* cover state */
++    int32_t *pface;           /* [W*H] SF_TXZ_FACEMAP diagnostic: first-cover
++                                 face index, -1 = empty; NULL = off. Written
++                                 to NEW sidecar files only -- standard
++                                 outputs are untouched by this tap. */
+ } TxzCanvas;
+ 
+ /* uv (vox) -> canvas px coords, flips applied. */
+@@ -144,6 +148,7 @@ static void txz_splat_face(TxzCanvas *cv, size_t f)
+                         + l1 * (double)ps->verts[b * 3 + 0]
+                         + l2 * (double)ps->verts[c * 3 + 0];
+             if (cv->state[pi] == TXZ_EMPTY) {
++                if (cv->pface != NULL) cv->pface[pi] = (int32_t)f;
+                 cv->px[pi] = (float)wx;
+                 cv->py[pi] = (float)wy;
+                 cv->pz[pi] = (float)wz;
+@@ -293,6 +298,18 @@ int TifxyzExport_run(Arena_T arena, const PieceSet *ps, const char *seg_dir,
+     cv.pz = pz;
+     cv.pw = pw;
+     cv.state = state;
++    /* SF_TXZ_FACEMAP=<prefix>: per-px first-cover face provenance, NEW
++     * sidecar files only. Env unset => a single getenv, no allocation. */
++    const char *fmp = getenv("SF_TXZ_FACEMAP");
++    cv.pface = NULL;
++    if (fmp != NULL && fmp[0] != '\0') {
++        cv.pface = (int32_t *)malloc(npx * sizeof(int32_t));
++        if (cv.pface != NULL)
++            for (size_t i = 0; i < npx; i++) cv.pface[i] = -1;
++        else
++            fprintf(stderr, "tifxyz_export: facemap alloc failed; "
++                    "tap disabled\n");
++    }
+ 
+     /* ascending face order => first-cover-wins is deterministic */
+     for (size_t f = 0; f < ps->nf; f++) {
+@@ -300,6 +317,35 @@ int TifxyzExport_run(Arena_T arena, const PieceSet *ps, const char *seg_dir,
+         txz_splat_face(&cv, f);
+     }
+ 
++    if (cv.pface != NULL) {
++        char fpath[1024];
++        snprintf(fpath, sizeof(fpath), "%s_facemap.i32", fmp);
++        FILE *ff = fopen(fpath, "wb");
++        if (ff != NULL) {
++            fwrite(cv.pface, sizeof(int32_t), npx, ff);
++            fclose(ff);
++        }
++        snprintf(fpath, sizeof(fpath), "%s_faces.tsv", fmp);
++        ff = fopen(fpath, "w");
++        if (ff != NULL) {
++            fprintf(ff, "# facemap v1 W=%zu H=%zu nf=%zu\n", W, H, ps->nf);
++            fprintf(ff, "# face\tcube_id\tgid\n");
++            for (size_t f = 0; f < ps->nf; f++) {
++                int32_t g = -2;
++                if (ps->gid != NULL) {
++                    int32_t ga = ps->gid[(size_t)ps->faces[f * 3 + 0]];
++                    int32_t gb = ps->gid[(size_t)ps->faces[f * 3 + 1]];
++                    int32_t gc = ps->gid[(size_t)ps->faces[f * 3 + 2]];
++                    if (ga == gb && ga == gc && ga >= 0) g = ga;
++                }
++                fprintf(ff, "%zu\t%s\t%d\n", f,
++                        ps->ids[ps->face_cube[f]], g);
++            }
++            fclose(ff);
++        }
++        free(cv.pface);
++    }
++
+     /* stats + world bbox (x,y,z order) over covered px */
+     double lo[3] = { 1e300, 1e300, 1e300 };
+     double hi[3] = { -1e300, -1e300, -1e300 };

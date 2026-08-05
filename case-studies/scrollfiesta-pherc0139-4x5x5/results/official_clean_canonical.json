@@ -1,0 +1,41 @@
+{
+    "census": [
+        {
+            "coplanar": 96,
+            "diagonal": 0,
+            "grazing": 464,
+            "pairs_tested": 36385715238,
+            "quads_dropped_for_edge_length": 9211,
+            "transverse": 0,
+            "transverse_contacts": [],
+            "triangles": 12614854
+        },
+        {
+            "coplanar": 110,
+            "diagonal": 1,
+            "grazing": 417,
+            "pairs_tested": 36317918965,
+            "quads_dropped_for_edge_length": 9211,
+            "transverse": 0,
+            "transverse_contacts": [],
+            "triangles": 12614854
+        }
+    ],
+    "clean_of_transverse_self_intersection": true,
+    "grid_cols": 90240,
+    "grid_rows": 513,
+    "note": "'clean' means zero non-adjacent transverse contacts under both quad triangulations, on the surface as loaded here (z <= 0 invalid, mask applied). Coplanar and grazing contacts are reported but are not crossings: two sheets pressed flat against each other are coplanar.",
+    "parameters": {
+        "cell": 40.0,
+        "diagonals": [
+            0,
+            1
+        ],
+        "exclude": 1,
+        "maxedge": 60.0,
+        "touch_tolerance": 0.001
+    },
+    "report_only": true,
+    "surface": "/adapter/tifxyz_run_clean",
+    "tool": "vc_tifxyz_selfcross"
+}

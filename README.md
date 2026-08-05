@@ -255,6 +255,16 @@ probability follows a one-parameter independent-cell model at
 orders of magnitude. A large surface is likely to fold through itself
 mostly because it is large.
 
+## Case studies
+
+[`case-studies/scrollfiesta-pherc0139-4x5x5`](case-studies/scrollfiesta-pherc0139-4x5x5)
+— a pre-registered, replicated measurement of transverse
+self-intersection in ScrollFiesta's tifxyz strip export (July 2026 Best
+of Month), with a certified opt-in cleanup transaction verified by
+volume-cartographer's own merged validator: 327 clustered events on the
+canonical fixture, 273–278 on a held-out disjoint window, removed at
+99.44% / 99.69% surface retention.
+
 ## Auditing someone else's data
 
 The same census was run over the whole `verified_patches` dataset for

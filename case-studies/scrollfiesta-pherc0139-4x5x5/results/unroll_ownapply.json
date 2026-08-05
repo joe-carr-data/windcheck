@@ -1,0 +1,46 @@
+{
+ "export": "<scrollfiesta>/output/unroll_ownapply/tifxyz_run",
+ "tag": "ownapply",
+ "prereg": "notes/PREREG-UNROLL-GATE.md",
+ "census": {
+  "grid": [
+   513,
+   90240
+  ],
+  "valid_cells": 6390861,
+  "params": {
+   "exclude": 1,
+   "cell": 40.0,
+   "maxedge": 60.0,
+   "touch_tol": 0.001
+  },
+  "d0": {
+   "triangles": 12628960,
+   "quads_dropped": 10601,
+   "pairs_tested": 36507221977,
+   "transverse": 36932,
+   "coplanar": 142,
+   "grazing": 238978
+  },
+  "d1": {
+   "triangles": 12628960,
+   "quads_dropped": 10601,
+   "pairs_tested": 36439462425,
+   "transverse": 35859,
+   "coplanar": 147,
+   "grazing": 238858
+  }
+ },
+ "facemap_provenance_consistent": true,
+ "n_transverse_rows": 72791,
+ "classes": {
+  "d0_same_source": 14145,
+  "same_source": 27824,
+  "d0_cross_source": 22787,
+  "cross_source": 44967,
+  "d1_same_source": 13679,
+  "d1_cross_source": 22180
+ },
+ "events_full": "in the release archive: unroll_ownapply.json",
+ "n_event_rows_in_full_file": 72791
+}

@@ -1,0 +1,46 @@
+{
+ "export": "<scrollfiesta>/output/unroll_s123/tifxyz_run",
+ "tag": "s123",
+ "prereg": "notes/PREREG-UNROLL-GATE.md",
+ "census": {
+  "grid": [
+   513,
+   90240
+  ],
+  "valid_cells": 6385979,
+  "params": {
+   "exclude": 1,
+   "cell": 40.0,
+   "maxedge": 60.0,
+   "touch_tol": 0.001
+  },
+  "d0": {
+   "triangles": 12625344,
+   "quads_dropped": 8872,
+   "pairs_tested": 36390485622,
+   "transverse": 21651,
+   "coplanar": 756,
+   "grazing": 220188
+  },
+  "d1": {
+   "triangles": 12625344,
+   "quads_dropped": 8872,
+   "pairs_tested": 36320775186,
+   "transverse": 20947,
+   "coplanar": 581,
+   "grazing": 221979
+  }
+ },
+ "facemap_provenance_consistent": true,
+ "n_transverse_rows": 42598,
+ "classes": {
+  "d0_cross_source": 16115,
+  "cross_source": 31569,
+  "d0_same_source": 5536,
+  "same_source": 11029,
+  "d1_cross_source": 15454,
+  "d1_same_source": 5493
+ },
+ "events_full": "in the release archive: unroll_s123.json",
+ "n_event_rows_in_full_file": 42598
+}

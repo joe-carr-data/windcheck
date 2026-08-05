@@ -1,0 +1,46 @@
+{
+ "export": "<scrollfiesta>/output/ho_unroll/tifxyz_run",
+ "tag": "heldout",
+ "prereg": "notes/PREREG-UNROLL-GATE.md",
+ "census": {
+  "grid": [
+   513,
+   76015
+  ],
+  "valid_cells": 5212978,
+  "params": {
+   "exclude": 1,
+   "cell": 40.0,
+   "maxedge": 60.0,
+   "touch_tol": 0.001
+  },
+  "d0": {
+   "triangles": 10286434,
+   "quads_dropped": 6056,
+   "pairs_tested": 29271381893,
+   "transverse": 11585,
+   "coplanar": 125,
+   "grazing": 295904
+  },
+  "d1": {
+   "triangles": 10286434,
+   "quads_dropped": 6056,
+   "pairs_tested": 29200356403,
+   "transverse": 10421,
+   "coplanar": 84,
+   "grazing": 297951
+  }
+ },
+ "facemap_provenance_consistent": true,
+ "n_transverse_rows": 22006,
+ "classes": {
+  "d0_cross_source": 4738,
+  "cross_source": 9114,
+  "d0_same_source": 6847,
+  "same_source": 12892,
+  "d1_cross_source": 4376,
+  "d1_same_source": 6045
+ },
+ "events_full": "in the release archive: unroll_heldout.json",
+ "n_event_rows_in_full_file": 22006
+}
