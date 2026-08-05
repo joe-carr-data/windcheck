@@ -1,5 +1,15 @@
 # Pre-registration: the unroll-export gate on Scroll Fiesta's final tifxyz
 
+> **Post-run terminology correction:** In the frozen text below,
+> "event" was sometimes used for one reported triangle-pair contact.
+> Public results reserve "contact" or "row" for that unit and
+> "region-pair event" for the subsequent clustering. Accordingly,
+> 17,832/17,470 are label-disjoint raw contacts, not clustered events.
+> Label-disjoint provenance does not by itself establish a causal
+> assembly error, a faulty registration edge, or physical
+> incorrectness. The preregistered positive/null outcome is unchanged.
+
+
 Written 2026-08-05, BEFORE any export was produced or censused, per house
 rule. Follows the Fiesta placed-frame experiment (PREREG-FIESTA-GATE.md),
 which concluded in a pre-registered NULL with a structural explanation:

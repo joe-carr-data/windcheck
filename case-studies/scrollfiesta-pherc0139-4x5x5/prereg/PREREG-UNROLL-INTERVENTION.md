@@ -1,5 +1,15 @@
 # Pre-registration: post-export transaction on Fiesta's final tifxyz
 
+> **Post-run terminology correction:** In the frozen text below,
+> "event" was sometimes used for one reported triangle-pair contact.
+> Public results reserve "contact" or "row" for that unit and
+> "region-pair event" for the subsequent clustering. Accordingly,
+> 17,832/17,470 are label-disjoint raw contacts, not clustered events.
+> Label-disjoint provenance does not by itself establish a causal
+> assembly error, a faulty registration edge, or physical
+> incorrectness. The preregistered positive/null outcome is unchanged.
+
+
 Written 2026-08-05, AFTER the unroll-export gate returned POSITIVE
 (PREREG-UNROLL-GATE.md; 17,832/17,470 cross-source transverse events
 d0/d1 in the final export) and BEFORE any intervention ran. This is

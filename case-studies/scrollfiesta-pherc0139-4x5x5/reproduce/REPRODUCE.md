@@ -100,7 +100,7 @@ output censuses clean under both triangulations.
 
 Build `vc_tifxyz_selfcross` from volume-cartographer
 (merged: ScrollPrize/villa#1303) and run it on both the original export
-(expected: clean flag `false`, counts matching step 4 exactly) and the
+(expected: clean flag `false`, transverse counts matching step 4 exactly) and the
 adapter output (expected: 0/0, clean flag `true`):
 
 ```sh

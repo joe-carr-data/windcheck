@@ -1,5 +1,13 @@
 # Pre-registration: Fiesta's own controls on the unroll-export finding
 
+> **Post-run source correction:** The frozen text below described
+> `--export-atlas` as the collision-safe terminal. Subsequent source
+> review established that ScrollFiesta documents `atlas_ribbon_fit` as
+> its terminal stage. That stage was not tested. Public results
+> therefore describe this control only as the per-wrap x slab atlas
+> export.
+
+
 Written 2026-08-05, BEFORE any control run, per house rule. the external review
 rank-1 outstanding control on the POSITIVE unroll-export result
 (PREREG-UNROLL-GATE.md: 25,939/25,072 transverse rows, 327/327
