@@ -273,8 +273,12 @@ sidecars are refused, never guessed. `--official-validator` additionally
 requires volume-cartographer's merged `vc_tifxyz_selfcross` to certify
 the staged result (a bare name resolves through PATH once; the resolved
 binary is invoked and hashed). Stable exit codes make it a CI gate.
-Run it from a source checkout: the command drives analysis scripts under
-`bench/` that are not part of the installed package.
+Run it from a source checkout or the container image: the command
+drives the frozen operator scripts under `bench/`, which every published
+certificate cites by path, so they are deliberately not repackaged.
+`reproduce/clean_checkout_smoke.sh` proves the whole path end to end
+from a pristine copy of the repository, and `docker build -t windcheck .`
+gives a lockfile-frozen image whose entrypoint is the CLI.
 
 ## Case studies
 

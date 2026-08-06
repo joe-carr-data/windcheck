@@ -4,7 +4,7 @@
  "provenance": {
   "schema": "windcheck_provenance/v1",
   "code_version": "0.1.0",
-  "source_tree_digest": "e29581a3fe4d123fab9f89865d9aa96326406b69fd5665c95da72a5c16181b26",
+  "source_tree_digest": "e85c2f0df3b9a27d43e4ed62d0c324bfd58c524c1bd292b3ca045d6cf84d4abf",
   "source_tree_n_files": 91,
   "source_tree_globs": [
    "pyproject.toml",
@@ -65,6 +65,11 @@
     "digest": "b2d1331b2f8251fcd636199e59208a9d145b82c852cfd788c989d791bf000bb0",
     "files": 91,
     "reason": "superseded by the transaction hotfix: the authoritative transaction report is committed inside the output before promotion and --report becomes a post-commit copy; the official validator resolves through PATH once and the resolved binary is invoked and hashed; a transform report claiming handover no longer outranks a nonzero adapter exit. No census, mesh, hash or retention figure changes."
+   },
+   {
+    "digest": "e29581a3fe4d123fab9f89865d9aa96326406b69fd5665c95da72a5c16181b26",
+    "files": 91,
+    "reason": "superseded by the deployability release: the transaction refuses plainly outside a source checkout instead of failing downstream, and the repository gains a clean-checkout end-to-end smoke (reproduce/clean_checkout_smoke.sh) and a pinned container image (Dockerfile), both verified by running a full transaction. The frozen operator scripts under bench/ are deliberately not repackaged. No census, mesh, hash or retention figure changes."
    }
   ]
  },

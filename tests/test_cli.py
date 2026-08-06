@@ -841,3 +841,18 @@ def test_transaction_adapter_exit_disagreement_is_internal(tmp_path,
     assert not (tmp_path / "out").exists()
     rep = _json.loads((tmp_path / "r.json").read_text())
     assert "disagreement" in rep["note"]
+
+def test_transaction_refuses_outside_a_source_checkout(tmp_path,
+                                                       monkeypatch):
+    """Installed without the repo (no bench/), the transaction refuses
+    with a clear message instead of failing somewhere downstream."""
+    import json as _json
+    from windcheck import transaction as tx
+    d = _clean_seg(tmp_path)
+    monkeypatch.setattr(tx, "REPO_ROOT", tmp_path / "not_a_checkout")
+    rc = cli.main(["transaction", str(d), "--out", str(tmp_path / "out"),
+                   "--report", str(tmp_path / "r.json")])
+    assert rc == 2
+    rep = _json.loads((tmp_path / "r.json").read_text())
+    assert "source checkout" in rep["note"]
+    assert not (tmp_path / "out").exists()

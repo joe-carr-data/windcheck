@@ -1,0 +1,12 @@
+.git
+.venv
+data
+out
+**/__pycache__
+.pytest_cache
+.ruff_cache
+dist
+build
+engines/selfcross
+engines/geodesic
+engines/atlas_query

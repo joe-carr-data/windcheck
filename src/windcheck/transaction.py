@@ -104,6 +104,16 @@ def run(argv_ns) -> int:
         return code
 
     try:
+        # The transform stage is the frozen operator under bench/, which
+        # every published certificate cites by path. It is deliberately
+        # NOT bundled into the installed package: refuse plainly rather
+        # than reimplement frozen policy code for install ergonomics.
+        adapter_script = REPO_ROOT / "bench" / "fiesta_adapter.py"
+        if not adapter_script.is_file():
+            raise Refusal(2, "transaction requires a windcheck source "
+                             "checkout (bench/fiesta_adapter.py not found "
+                             f"under {REPO_ROOT}); run from a source "
+                             "checkout or a container built from one")
         if not src.is_dir():
             raise Refusal(2, "input is not a tifxyz directory")
         srcr = src.resolve()
