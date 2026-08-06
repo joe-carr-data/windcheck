@@ -269,6 +269,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="exit nonzero when any edge conflicts, for CI")
     cp.set_defaults(func=cmd_check_pairs)
 
+    from . import transaction as _transaction
+    _transaction.add_parser(sub)
+
     s = sub.add_parser("status", help="summarise a sample's segmentation corpus")
     s.add_argument("--sample", default="PHerc0172")
     s.add_argument("-v", "--verbose", action="store_true")

@@ -255,6 +255,22 @@ probability follows a one-parameter independent-cell model at
 orders of magnitude. A large surface is likely to fold through itself
 mostly because it is large.
 
+## The topology transaction
+
+```sh
+uv run windcheck transaction candidate.tifxyz --out final.tifxyz
+```
+
+One command stages a supported `tifxyz`, transforms it only if it is
+not already transverse-clean (frozen policy, unchanged), verifies the
+result including a from-disk reload census under both triangulations,
+and commits atomically -- the input is never touched, and nothing is
+promoted on any failure. `--adapter scrollfiesta` preserves that
+pipeline's sidecars; unknown sidecars are refused, never guessed.
+`--official-validator` additionally requires volume-cartographer's
+merged `vc_tifxyz_selfcross` to certify the staged result. Stable exit
+codes make it a CI gate.
+
 ## Case studies
 
 [`case-studies/scrollfiesta-pherc0139-4x5x5`](case-studies/scrollfiesta-pherc0139-4x5x5)

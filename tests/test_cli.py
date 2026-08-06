@@ -655,3 +655,87 @@ def test_check_pairs_is_report_only():
     for forbidden in ("transform", "repair", "excise", "fix", "write_mesh",
                       "in_place", "merge"):
         assert forbidden not in actions
+
+
+def test_transaction_refuses_unknown_sidecars(tmp_path):
+    """The transaction never guesses sidecar semantics (exit 2)."""
+    d = tmp_path / "seg"
+    d.mkdir()
+    for n in ("x.tif", "y.tif", "z.tif"):
+        (d / n).write_bytes(b"")
+    (d / "meta.json").write_text("{}")
+    (d / "mystery.bin").write_bytes(b"x")
+    rc = cli.main(["transaction", str(d), "--out", str(tmp_path / "out"),
+                   "--report", str(tmp_path / "r.json")])
+    assert rc == 2
+    import json
+    assert "mystery.bin" in json.loads((tmp_path / "r.json").read_text())["note"]
+
+
+def test_transaction_refuses_existing_out(tmp_path):
+    d = tmp_path / "seg"
+    d.mkdir()
+    for n in ("x.tif", "y.tif", "z.tif"):
+        (d / n).write_bytes(b"")
+    out = tmp_path / "out"
+    out.mkdir()
+    rc = cli.main(["transaction", str(d), "--out", str(out)])
+    assert rc == 2
+
+
+def test_transaction_r45_contract(tmp_path):
+    """R45 contract: meta.json required (2); report inside input refused
+    (2); nonexistent out parent works; certificate preserved in output."""
+    import json as _json
+    import numpy as np
+    import tifffile
+    d = tmp_path / "seg"
+    d.mkdir()
+    H, W = 80, 80
+    x, yv = np.meshgrid(np.arange(W, dtype=np.float32),
+                        np.arange(H, dtype=np.float32))
+    z = np.full((H, W), 5.0, np.float32)
+    tifffile.imwrite(d / "x.tif", x)
+    tifffile.imwrite(d / "y.tif", yv)
+    tifffile.imwrite(d / "z.tif", z)
+    # missing meta.json -> 2
+    assert cli.main(["transaction", str(d),
+                     "--out", str(tmp_path / "o1")]) == 2
+    (d / "meta.json").write_text(_json.dumps(
+        {"scale": [1.0, 1.0], "uuid": "t", "type": "seg",
+         "format": "tifxyz"}))
+    # report inside input -> 2
+    assert cli.main(["transaction", str(d), "--out", str(tmp_path / "o2"),
+                     "--report", str(d / "r.json")]) == 2
+    # nonexistent out parent + certificate preserved
+    out = tmp_path / "deep" / "nested" / "final"
+    rc = cli.main(["transaction", str(d), "--out", str(out)])
+    assert rc == 0
+    assert (out / "windcheck_transaction" / "certificate.json").exists()
+
+
+def test_transaction_ignores_sibling_facemap(tmp_path):
+    """A facemap next to (not inside) the input is never consumed."""
+    import json as _json
+    import numpy as np
+    import tifffile
+    d = tmp_path / "seg"
+    d.mkdir()
+    H, W = 80, 80
+    x, yv = np.meshgrid(np.arange(W, dtype=np.float32),
+                        np.arange(H, dtype=np.float32))
+    tifffile.imwrite(d / "x.tif", x)
+    tifffile.imwrite(d / "y.tif", yv)
+    tifffile.imwrite(d / "z.tif", np.full((H, W), 5.0, np.float32))
+    (d / "meta.json").write_text(_json.dumps(
+        {"scale": [1.0, 1.0], "uuid": "t", "type": "seg",
+         "format": "tifxyz"}))
+    (tmp_path / "unrelated_facemap.i32").write_bytes(b"\x00" * 16)
+    out = tmp_path / "out"
+    rc = cli.main(["transaction", str(d), "--out", str(out),
+                   "--adapter", "scrollfiesta",
+                   "--report", str(tmp_path / "r.json")])
+    assert rc == 0
+    rep = _json.loads((tmp_path / "r.json").read_text())
+    assert "unrelated_facemap.i32" not in rep["output_files_sha256"]
+    assert not (out / "unrelated_facemap.i32").exists()

@@ -4,8 +4,8 @@
  "provenance": {
   "schema": "windcheck_provenance/v1",
   "code_version": "0.1.0",
-  "source_tree_digest": "fb13b59ed33f792a9e0963afc81a5a795ba589598c9b01bf4da80e6baea3cf61",
-  "source_tree_n_files": 87,
+  "source_tree_digest": "b2d1331b2f8251fcd636199e59208a9d145b82c852cfd788c989d791bf000bb0",
+  "source_tree_n_files": 91,
   "source_tree_globs": [
    "pyproject.toml",
    "uv.lock",
@@ -55,6 +55,11 @@
     "digest": "8ad074376458327bb6b9b7e13243c62988e75531feef3100b94b124b1abab3e7",
     "files": 85,
     "reason": "superseded by the expansion-corpus release: bench/expand_bases.py and bench/build_expansion_index.py added, bench/excise_shadow.py extended to resolve segments entirely from a base manifest (voxel scale may be null; physical-unit fields follow it). Pinned-corpus certificates and meshes are unaffected."
+   },
+   {
+    "digest": "fb13b59ed33f792a9e0963afc81a5a795ba589598c9b01bf4da80e6baea3cf61",
+    "files": 87,
+    "reason": "superseded by the topology-transaction release: src/windcheck/transaction.py (staged atomic transaction CLI), the case-study analysis drivers (bench/fiesta_adapter.py, bench/fiesta_gate.py, bench/cover_applicability.py) and the cover-applicability negative. Prior certificates unaffected."
    }
   ]
  },

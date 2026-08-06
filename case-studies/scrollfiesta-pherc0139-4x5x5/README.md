@@ -168,3 +168,41 @@ byte-neutral per-pixel first-cover face map in `tifxyz_export.c`, plus
 a read-only registration-graph dump in `scroll_whole.c`) ships as a
 patch against their MIT-licensed source in [`patches/`](patches),
 with two small portability fixes included.
+
+## Follow-up: can re-selecting the discarded covers fix it? (negative)
+
+A pre-registered applicability experiment
+([`prereg/PREREG-COVER-APPLICABILITY.md`](prereg/PREREG-COVER-APPLICABILITY.md),
+with its addenda) asked whether choosing among the pipeline's own
+discarded candidate covers could remove the crossings. Of 327 events
+per triangulation, 314 (96.0%) on d0 and 311 (95.1%) on d1 touched a
+corner pixel for which the pipeline generated at least two distinct
+float32 XYZ candidates but retained only one. Under the preregistered
+monotone single-pixel search, with no increase in any contact class
+and no loss of retained quads, 5 d0 events (1.5%) and 7 d1 events
+(2.1%) were resolved; one event per triangulation was censored, giving
+upper bounds of 1.8% and 2.4% against the frozen 30% gate. This
+rejects that selector; it does not rule out coordinated regional cover
+optimization. A labelled sensitivity permitting new grazing contacts
+also failed, with an upper bound of 2.1% under both triangulations.
+Events were solved independently; d0 and d1 solutions are not
+necessarily mutually compatible; G1 establishes spatial coincidence
+between alternatives and event corners, not rasterization causation.
+
+## The production remedy: `windcheck transaction`
+
+The transaction demonstrated above is now one command:
+
+```sh
+uv run windcheck transaction candidate.tifxyz --out final.tifxyz \
+    [--adapter scrollfiesta] [--official-validator vc_tifxyz_selfcross] \
+    [--report report.json]
+```
+
+It stages the input, transforms only if needed under the unchanged
+frozen policy, verifies (retained pixels byte-identical, sidecars
+preserved/invalidated, reload census clean under both triangulations,
+optionally the official validator), writes a hash-bound report, and
+promotes atomically. Unknown sidecars are refused, never guessed.
+Stable exit codes: 0 already-clean committed, 10 transformed-and-clean
+committed, 3 refused, 2 invalid input, 1 internal.
