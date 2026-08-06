@@ -712,6 +712,10 @@ def test_transaction_r45_contract(tmp_path):
     rc = cli.main(["transaction", str(d), "--out", str(out)])
     assert rc == 0
     assert (out / "windcheck_transaction" / "certificate.json").exists()
+    # R46: the authoritative report is committed inside the output
+    rep = _json.loads((out / "windcheck_transaction" /
+                       "transaction_report.json").read_text())
+    assert rep["committed"] is True and rep["exit_code"] == 0
 
 
 def test_transaction_ignores_sibling_facemap(tmp_path):
@@ -739,3 +743,101 @@ def test_transaction_ignores_sibling_facemap(tmp_path):
     rep = _json.loads((tmp_path / "r.json").read_text())
     assert "unrelated_facemap.i32" not in rep["output_files_sha256"]
     assert not (out / "unrelated_facemap.i32").exists()
+
+
+def _clean_seg(tmp_path, name="seg"):
+    """A minimal transverse-clean tifxyz input (exit-0 path)."""
+    import json as _json
+    import numpy as np
+    import tifffile
+    d = tmp_path / name
+    d.mkdir()
+    H, W = 80, 80
+    x, yv = np.meshgrid(np.arange(W, dtype=np.float32),
+                        np.arange(H, dtype=np.float32))
+    tifffile.imwrite(d / "x.tif", x)
+    tifffile.imwrite(d / "y.tif", yv)
+    tifffile.imwrite(d / "z.tif", np.full((H, W), 5.0, np.float32))
+    (d / "meta.json").write_text(_json.dumps(
+        {"scale": [1.0, 1.0], "uuid": "t", "type": "seg",
+         "format": "tifxyz"}))
+    return d
+
+
+def test_transaction_report_copy_failure_never_reverses_commit(tmp_path):
+    """R46: --report is a post-commit copy; its failure warns but the
+    committed exit code stands and the promoted output survives."""
+    d = _clean_seg(tmp_path)
+    blocker = tmp_path / "not_a_dir"
+    blocker.write_bytes(b"")          # report parent is a FILE
+    out = tmp_path / "out"
+    rc = cli.main(["transaction", str(d), "--out", str(out),
+                   "--report", str(blocker / "r.json")])
+    assert rc == 0
+    assert out.is_dir()
+    assert (out / "windcheck_transaction" /
+            "transaction_report.json").exists()
+
+
+def test_transaction_resolves_validator_through_path(tmp_path, monkeypatch):
+    """R46: a bare validator name resolves via PATH once; the resolved
+    binary is what gets invoked and hashed."""
+    import hashlib
+    import json as _json
+    d = _clean_seg(tmp_path)
+    bindir = tmp_path / "bin"
+    bindir.mkdir()
+    fake = bindir / "fakecross"
+    fake.write_text(
+        "#!/bin/sh\n"
+        "# args: <surface> -o <report>\n"
+        'printf \'{"clean_of_transverse_self_intersection": true,'
+        ' "census": []}\' > "$3"\n')
+    fake.chmod(0o755)
+    monkeypatch.setenv("PATH",
+                       f"{bindir}:{__import__('os').environ['PATH']}")
+    out = tmp_path / "out"
+    rc = cli.main(["transaction", str(d), "--out", str(out),
+                   "--official-validator", "fakecross",
+                   "--report", str(tmp_path / "r.json")])
+    assert rc == 0
+    rep = _json.loads((tmp_path / "r.json").read_text())
+    assert rep["official_validator_path"] == str(fake.resolve())
+    want = hashlib.sha256(fake.read_bytes()).hexdigest()
+    assert rep["official_validator"]["binary_sha256"] == want
+
+
+def test_transaction_refuses_unresolvable_validator(tmp_path):
+    d = _clean_seg(tmp_path)
+    rc = cli.main(["transaction", str(d), "--out", str(tmp_path / "out"),
+                   "--official-validator", "no_such_validator_xyz"])
+    assert rc == 2
+    assert not (tmp_path / "out").exists()
+
+
+def test_transaction_adapter_exit_disagreement_is_internal(tmp_path,
+                                                           monkeypatch):
+    """R46: a transform report claiming handover cannot outrank a nonzero
+    adapter exit; the disagreement is exit 1 and nothing is promoted."""
+    import json as _json
+    import types
+    from windcheck import transaction as tx
+    d = _clean_seg(tmp_path)
+
+    def fake_run(cmd, **kw):
+        rp = Path(cmd[cmd.index("--report") + 1])
+        rp.parent.mkdir(parents=True, exist_ok=True)
+        cert = rp.parent / "cert.json"
+        cert.write_text("{}")
+        rp.write_text(_json.dumps(
+            {"handed_over": True, "terminal_disposition": "already_clean",
+             "certificate": str(cert)}))
+        return types.SimpleNamespace(returncode=1, stdout="", stderr="boom")
+
+    monkeypatch.setattr(tx.subprocess, "run", fake_run)
+    rc = cli.main(["transaction", str(d), "--out", str(tmp_path / "out"),
+                   "--report", str(tmp_path / "r.json")])
+    assert rc == 1
+    assert not (tmp_path / "out").exists()
+    rep = _json.loads((tmp_path / "r.json").read_text())
+    assert "disagreement" in rep["note"]

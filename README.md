@@ -265,11 +265,16 @@ One command stages a supported `tifxyz`, transforms it only if it is
 not already transverse-clean (frozen policy, unchanged), verifies the
 result including a from-disk reload census under both triangulations,
 and commits atomically -- the input is never touched, and nothing is
-promoted on any failure. `--adapter scrollfiesta` preserves that
-pipeline's sidecars; unknown sidecars are refused, never guessed.
-`--official-validator` additionally requires volume-cartographer's
-merged `vc_tifxyz_selfcross` to certify the staged result. Stable exit
-codes make it a CI gate.
+promoted unless every transformation and verification gate succeeds.
+The authoritative transaction report is committed inside the output
+(`windcheck_transaction/`); `--report` writes a post-commit copy.
+`--adapter scrollfiesta` preserves that pipeline's sidecars; unknown
+sidecars are refused, never guessed. `--official-validator` additionally
+requires volume-cartographer's merged `vc_tifxyz_selfcross` to certify
+the staged result (a bare name resolves through PATH once; the resolved
+binary is invoked and hashed). Stable exit codes make it a CI gate.
+Run it from a source checkout: the command drives analysis scripts under
+`bench/` that are not part of the installed package.
 
 ## Case studies
 

@@ -4,7 +4,7 @@
  "provenance": {
   "schema": "windcheck_provenance/v1",
   "code_version": "0.1.0",
-  "source_tree_digest": "b2d1331b2f8251fcd636199e59208a9d145b82c852cfd788c989d791bf000bb0",
+  "source_tree_digest": "e29581a3fe4d123fab9f89865d9aa96326406b69fd5665c95da72a5c16181b26",
   "source_tree_n_files": 91,
   "source_tree_globs": [
    "pyproject.toml",
@@ -60,6 +60,11 @@
     "digest": "fb13b59ed33f792a9e0963afc81a5a795ba589598c9b01bf4da80e6baea3cf61",
     "files": 87,
     "reason": "superseded by the topology-transaction release: src/windcheck/transaction.py (staged atomic transaction CLI), the case-study analysis drivers (bench/fiesta_adapter.py, bench/fiesta_gate.py, bench/cover_applicability.py) and the cover-applicability negative. Prior certificates unaffected."
+   },
+   {
+    "digest": "b2d1331b2f8251fcd636199e59208a9d145b82c852cfd788c989d791bf000bb0",
+    "files": 91,
+    "reason": "superseded by the transaction hotfix: the authoritative transaction report is committed inside the output before promotion and --report becomes a post-commit copy; the official validator resolves through PATH once and the resolved binary is invoked and hashed; a transform report claiming handover no longer outranks a nonzero adapter exit. No census, mesh, hash or retention figure changes."
    }
   ]
  },

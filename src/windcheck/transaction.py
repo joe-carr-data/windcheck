@@ -6,8 +6,15 @@ result the hard way (retained pixels byte-identical, sidecars preserved
 at retained pixels and invalidated at excised ones, reload census 0/0
 under both triangulations, optionally the official volume-cartographer
 validator), writes a hash-bound certificate, and atomically promotes
-the result to the output path. On ANY failure the input is untouched
-and nothing is promoted.
+the result to the output path. The input is never modified, and nothing
+is promoted unless every transformation and verification gate succeeds.
+
+The authoritative transaction report is committed INSIDE the output
+(windcheck_transaction/transaction_report.json), written before
+promotion so it exists iff the output does. `--report` is a post-commit
+copy: if that copy fails, a warning is printed and the exit code of the
+committed transaction stands -- a promoted output is never rolled back
+over a report-copy failure.
 
 Exit codes (stable, for CI):
     0   committed: input was already transverse-clean; no
@@ -84,8 +91,15 @@ def run(argv_ns) -> int:
         rep["exit_code"] = code
         rep["note"] = note
         if report_p:
-            report_p.parent.mkdir(parents=True, exist_ok=True)
-            report_p.write_text(json.dumps(rep, indent=1))
+            # Never let the report copy change the outcome: on a refusal
+            # it would mask the refusal code, and after promotion it would
+            # contradict an output that already exists.
+            try:
+                report_p.parent.mkdir(parents=True, exist_ok=True)
+                report_p.write_text(json.dumps(rep, indent=1))
+            except OSError as e:
+                print(f"transaction: WARNING: report copy failed: {e}",
+                      file=sys.stderr)
         print(f"transaction: {note} (exit {code})")
         return code
 
@@ -108,6 +122,18 @@ def run(argv_ns) -> int:
             raise Refusal(2, f"output path exists: {out}")
         if out.resolve().is_relative_to(srcr):
             raise Refusal(2, "output path lies inside the input")
+        ov_exe = None
+        if argv_ns.official_validator:
+            # Resolve ONCE (PATH lookup included) and use the resolved
+            # absolute path for both invocation and hashing -- hashing the
+            # unresolved argument while PATH decides what actually runs
+            # would bind the certificate to the wrong binary.
+            which = shutil.which(argv_ns.official_validator)
+            if not which:
+                raise Refusal(2, "official validator not found or not "
+                                 f"executable: {argv_ns.official_validator}")
+            ov_exe = str(Path(which).resolve())
+            rep["official_validator_path"] = ov_exe
         subdirs = [p.name for p in src.iterdir() if p.is_dir()]
         if subdirs:
             raise Refusal(2, f"unknown subdirectories in input: {subdirs}")
@@ -152,9 +178,17 @@ def run(argv_ns) -> int:
                                  "handed_over", "output_census",
                                  "certificate_sha256",
                                  "sidecars_preserved_and_invalidated")}
+            rep["transform"]["adapter_returncode"] = r.returncode
             if not arep.get("handed_over"):
                 raise Refusal(3, "transform refused handover: "
                                  f"{arep.get('problems')}")
+            if r.returncode != 0:
+                # The report claims success but the process died after (or
+                # while) writing it. Trusting either side of a disagreement
+                # is guessing; refuse as an internal failure.
+                raise Refusal(1, "transform report claims handover but the "
+                                 f"adapter exited {r.returncode}; refusing "
+                                 "the disagreement")
             staged = work / "staged"
             # preserve the certificate inside the output (inert metadata)
             meta_dir = staged / "windcheck_transaction"
@@ -167,9 +201,9 @@ def run(argv_ns) -> int:
             else:
                 raise Refusal(1, "transform certificate not found on disk")
 
-            if argv_ns.official_validator:
+            if ov_exe:
                 ov = subprocess.run(
-                    [argv_ns.official_validator, str(staged),
+                    [ov_exe, str(staged),
                      "-o", str(work / "official.json")],
                     capture_output=True, text=True)
                 try:
@@ -184,8 +218,7 @@ def run(argv_ns) -> int:
                                 ("diagonal", "transverse")}
                                for c in oj.get("census", [])]}
                 rep["official_validator"]["returncode"] = ov.returncode
-                rep["official_validator"]["binary_sha256"] = sha(
-                    Path(argv_ns.official_validator))
+                rep["official_validator"]["binary_sha256"] = sha(Path(ov_exe))
                 if ov.returncode != 0:
                     raise Refusal(3, "official validator nonzero exit "
                                      f"({ov.returncode})")
@@ -201,17 +234,27 @@ def run(argv_ns) -> int:
             rep["output_files_sha256"].update({
                 f"windcheck_transaction/{p.name}": sha(p)
                 for p in sorted(meta_dir.iterdir())})
+            disp = arep.get("terminal_disposition")
+            if disp == "already_clean":
+                code, note = 0, "committed: input already clean"
+            else:
+                code, note = 10, ("committed: transformed, retained "
+                                  f"{arep.get('retained_fraction'):.6f}, "
+                                  "verified clean")
+            # The authoritative report rides inside the output, written
+            # BEFORE promotion: it exists iff the output does, and a failed
+            # write here refuses the whole transaction while nothing is
+            # promoted yet. It cannot list its own hash, so it is excluded
+            # from output_files_sha256 by construction.
+            final_rep = dict(rep, committed=True, exit_code=code, note=note)
+            (meta_dir / "transaction_report.json").write_text(
+                json.dumps(final_rep, indent=1))
             # atomic promotion (recheck immediately before)
             if out.exists():
                 raise Refusal(2, f"output path appeared: {out}")
             os.replace(staged, out)
             rep["committed"] = True
-            disp = arep.get("terminal_disposition")
-            if disp == "already_clean":
-                return finish(0, "committed: input already clean")
-            return finish(10, "committed: transformed, retained "
-                              f"{arep.get('retained_fraction'):.6f}, "
-                              "verified clean")
+            return finish(code, note)
     except Refusal as e:
         return finish(e.code, str(e))
     except Exception as e:  # noqa: BLE001
