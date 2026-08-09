@@ -226,6 +226,21 @@ def main() -> int:
                "REFUSED: the binding is for another surface's bytes", r,
                bool(r.get("refused")))
 
+    # 6b. POSITIVE CONTROL, not a mutation: the reference scored through a
+    # RELATIVE candidate path must succeed. The published v0.3.0 evaluator
+    # passed the path to the validator verbatim, so a container launcher
+    # resolved it against its own working directory and every relative
+    # invocation failed with "cannot open meta.json" -- which reads as a
+    # broken surface, not a broken call. Cold-running the published
+    # package found it; this keeps it found.
+    import os as _os
+    rel_in = _os.path.relpath(inp, _os.getcwd())
+    rel_ref = _os.path.relpath(ref, _os.getcwd())
+    r = evaluate(Path(rel_in), Path(rel_ref), [a.validator], provenance=prov)
+    record("relative_paths",
+           "POSITIVE CONTROL: a relative candidate path must still census",
+           r, bool(r.get("clean")) and bool(r.get("scored")))
+
     # 7. unbound census: no binding supplied at all
     r = evaluate(inp, ref, [], census_report=base_rep, provenance=prov)
     record("unbound_census", "REFUSED: a census we did not run needs a "

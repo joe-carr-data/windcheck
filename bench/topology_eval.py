@@ -214,9 +214,16 @@ def census(surface: Path, runner: list[str]) -> dict:
     # launcher mounts, and on macOS $TMPDIR is not one of them: the
     # census then succeeds while the report lands nowhere the caller can
     # read, which reads as "could not be censused".
+    # ABSOLUTE paths, always. The validator is frequently a container
+    # launcher whose working directory is not the caller's, so a relative
+    # path it is handed resolves to nothing and the census fails with
+    # "cannot open meta.json" -- which reads as a broken surface rather
+    # than a broken invocation. Found by cold-running the published
+    # package from a fresh extraction.
+    surface = surface.resolve()
     with tempfile.TemporaryDirectory(prefix=".topoeval-",
                                      dir=surface.parent) as td:
-        rep = Path(td) / "r.json"
+        rep = Path(td).resolve() / "r.json"
         cmd = runner + [str(surface), "-o", str(rep)]
         proc = subprocess.run(cmd, capture_output=True, text=True)
         if proc.returncode != 0 or not rep.is_file():
