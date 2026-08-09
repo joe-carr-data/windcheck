@@ -1,5 +1,13 @@
 # Every published trace
 
+> **Historical document — the 278-trace discovery census.** It preserves
+> the census and size model as they stood at that time. It is NOT the
+> current inventory: the release inventory is **284 indexed / 274
+> censusable**, with transverse-clean references for all 274. See
+> [`CORPUS-EXPANSION.md`](CORPUS-EXPANSION.md) for the reconciliation
+> between this census and the current release, and the repository README
+> for current status.
+
 The open-data bucket publishes 46 samples. Twelve of them carry surface
 traces as `tifxyz`; two more publish segment directories with no `tifxyz`
 in them at all. **All 278 traces in those twelve samples have now been
