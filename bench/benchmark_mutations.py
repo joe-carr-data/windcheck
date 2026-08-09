@@ -19,6 +19,19 @@ The suite fails if any mutation is accepted.
 
 `wrong_input` and `swapped_census` are the two that matter most: they are
 how a sceptical entrant would obtain a pass without doing the work.
+
+One case, `relative_paths`, is a POSITIVE control and not a mutation: it
+requires the evaluator to SUCCEED. Reporting the suite as "8/8 caught"
+therefore misdescribes it -- seven things must be rejected and one must be
+accepted, and a reader counting rejections gets the wrong number. Each
+case records its own `polarity`, and the summary counts the two
+populations separately rather than leaving a consumer to infer them from
+the prose in `must`.
+
+Every case is also DECLARED before the run. A case whose census fails is
+otherwise skipped silently and the suite prints "5/5 caught -- PASS": a
+missing control reads exactly like a passing one. The declared list is
+reconciled at the end and any absence is a FAIL.
 """
 from __future__ import annotations
 
@@ -112,10 +125,38 @@ def main() -> int:
         return 2
     bind(base_rep, ref, work / "ref.binding.json")
 
+    # Declared before anything runs. A case that never executes -- because
+    # its census failed, or because an edit dropped it -- must not simply
+    # vanish from the denominator.
+    DECLARED = {"dirty": "negative", "empty": "negative", "moved": "negative",
+                "added": "negative", "wrong_input": "negative",
+                "swapped_census": "negative", "relative_paths": "positive",
+                "unbound_census": "negative"}
+
+    def refused_because(res, *needles) -> bool:
+        """The control must be caught for ITS OWN reason.
+
+        Accepting any refusal at all means a globally broken evaluator --
+        one that refuses everything it is handed -- passes four of the
+        seven negative controls, and the suite reports PASS while proving
+        nothing about the specific defence each case exists to test.
+        """
+        r = res.get("refused")
+        if not isinstance(r, str):
+            return False
+        low = r.lower()
+        return any(n.lower() in low for n in needles)
+
     cases: list[dict] = []
 
     def record(name, must, res, ok):
-        cases.append({"case": name, "must": must, "caught": bool(ok),
+        polarity = DECLARED.get(name)
+        if polarity is None:
+            raise SystemExit(f"REFUSING: case {name!r} was not declared, so "
+                             "the suite cannot say whether it is a mutation "
+                             "to reject or a control to accept")
+        cases.append({"case": name, "polarity": polarity,
+                      "must": must, "caught": bool(ok),
                       "refused": res.get("refused"),
                       "clean": res.get("clean"),
                       "scored": res.get("scored"),
@@ -147,7 +188,7 @@ def main() -> int:
                      census_binding=work / "empty.binding.json",
                      provenance=prov)
         record("empty", "REFUSED as a census over zero triangles", r,
-               bool(r.get("refused")))
+               refused_because(r, "zero triangles", "vacuous"))
 
     # 3. moved: a retained coordinate is perturbed
     moved = copy_surface(ref, work / "moved.tifxyz")
@@ -189,11 +230,17 @@ def main() -> int:
         # Re-adding the excised cells restores the crossings, so this is
         # caught as not-clean. What must NEVER happen is a scored result
         # whose retention exceeds 1.
+        # Every condition, not the weakest one. The old predicate was
+        # satisfied by `retained_fraction <= 1`, which is true of a clean
+        # SCORED result at 0.9 -- so the control passed without the
+        # crossings having come back at all.
         record("added",
-               "not clean (the crossings come back), never retention > 1",
+               "not clean (the crossings come back), and NOT scored, so no "
+               "retention is reported at all",
                r,
-               (r.get("clean") is False and not r.get("scored"))
-               or (r.get("retained_fraction") or 0) <= 1.0 + 1e-12)
+               r.get("clean") is False
+               and r.get("scored") is not True
+               and r.get("retained_fraction") is None)
 
     # 5. wrong input: a same-grid input that is NOT this trace's
     wrong = copy_surface(inp, work / "wrong_input.tifxyz")
@@ -203,7 +250,7 @@ def main() -> int:
     r = evaluate(wrong, ref, [], census_report=base_rep,
                  census_binding=work / "ref.binding.json", provenance=prov)
     record("wrong_input", "REFUSED: the input is not this trace's, by hash",
-           r, bool(r.get("refused")))
+           r, refused_because(r, "not the benchmark's input", "differ by hash"))
 
     # 6. swapped census: a clean report belonging to another surface of
     # the same shape. The decoy is a copy of the reference with one
@@ -224,7 +271,7 @@ def main() -> int:
                      provenance=prov)
         record("swapped_census",
                "REFUSED: the binding is for another surface's bytes", r,
-               bool(r.get("refused")))
+               refused_because(r, "census binding rejected"))
 
     # 6b. POSITIVE CONTROL, not a mutation: the reference scored through a
     # RELATIVE candidate path must succeed. The published v0.3.0 evaluator
@@ -244,21 +291,53 @@ def main() -> int:
     # 7. unbound census: no binding supplied at all
     r = evaluate(inp, ref, [], census_report=base_rep, provenance=prov)
     record("unbound_census", "REFUSED: a census we did not run needs a "
-           "binding", r, bool(r.get("refused")))
+           "binding", r, refused_because(r, "--census-binding"))
 
     missed = [c for c in cases if not c["caught"]]
-    out = {"test": "evaluator negative controls",
+    # Every declared case must appear EXACTLY once. Set difference alone
+    # catches an absent case but not a duplicated one, and a case recorded
+    # twice would let one pass cover one failure.
+    from collections import Counter
+    seen = Counter(c["case"] for c in cases)
+    absent = sorted(k for k in DECLARED if seen[k] == 0)
+    repeated = sorted(k for k, n in seen.items() if n > 1)
+    neg = [c for c in cases if c["polarity"] == "negative"]
+    pos = [c for c in cases if c["polarity"] == "positive"]
+    out = {"test": "evaluator controls",
            "victim": seg, "other_same_grid": oseg,
-           "n_cases": len(cases), "n_caught": len(cases) - len(missed),
-           "n_missed": len(missed), "cases": cases,
-           "verdict": "PASS" if not missed else "FAIL"}
+           "n_declared": len(DECLARED),
+           "n_cases": len(cases),
+           # Deliberately NOT "n_caught"/"n_missed": one of the eight is a
+           # positive control that must be ACCEPTED, so a combined count
+           # of things "caught" misdescribes the suite in the raw record
+           # even when the console and card are right.
+           "n_cases_satisfying_expected_outcome": len(cases) - len(missed),
+           "n_cases_failing_expected_outcome": len(missed),
+           "cases_not_run": absent,
+           "cases_recorded_more_than_once": repeated,
+           # Counted by polarity because they are not the same claim: seven
+           # mutations must be REJECTED and one control must be ACCEPTED.
+           # A combined "8/8 caught" reads as eight rejections.
+           "n_negative": len(neg),
+           "n_negative_rejected": sum(1 for c in neg if c["caught"]),
+           "n_positive": len(pos),
+           "n_positive_accepted": sum(1 for c in pos if c["caught"]),
+           "cases": cases,
+           "verdict": ("PASS" if not missed and not absent and not repeated
+                       else "FAIL")}
     if a.out:
         Path(a.out).write_text(json.dumps(out, indent=1) + "\n")
-    print(f"\n{out['n_caught']}/{out['n_cases']} mutations caught -- "
-          f"{out['verdict']}")
+    print(f"\n{out['n_negative_rejected']}/{out['n_negative']} mutations "
+          f"rejected; {out['n_positive_accepted']}/{out['n_positive']} "
+          f"positive control accepted -- {out['verdict']}")
     for c in missed:
-        print(f"  MISSED {c['case']}: {c['must']}")
-    return 0 if not missed else 1
+        print(f"  {'MISSED' if c['polarity'] == 'negative' else 'FAILED'} "
+              f"{c['case']}: {c['must']}")
+    for name in absent:
+        print(f"  NEVER RAN {name}: declared but produced no record")
+    for name in repeated:
+        print(f"  DUPLICATED {name}: recorded {seen[name]} times")
+    return 0 if out["verdict"] == "PASS" else 1
 
 
 if __name__ == "__main__":
