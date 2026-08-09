@@ -393,11 +393,12 @@ scrollprize.org.
 
 ## The audit record
 
-Before any mesh was transformed, this tool audited the published corpus and
-reported what it found. That record is preserved as filed, in
-[`docs/submission.md`](docs/submission.md), with the precomputed per-segment
-certificates and viewer overlays in [`results/`](results). It measures the
-**published** meshes; everything above measures the meshes this tool emits.
+Before any mesh was transformed, this tool audited the 185-trace pinned
+corpus and reported what it found. That record is preserved as filed in
+`docs/submission.md`, with the precomputed per-segment certificates and
+viewer overlays in `results/`. The preserved audit measures published
+input meshes; the later corpus and benchmark records distinguish
+published inputs from emitted reference derivatives.
 
 [`docs/REPRODUCE.md`](docs/REPRODUCE.md) gives a one-command spot reproduction of
 a single segment, the corpus verification command, expected outputs and

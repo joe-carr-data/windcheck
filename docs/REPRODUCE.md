@@ -211,7 +211,9 @@ uv run python bench/verify_corpus.py --limit 3
 
 ## 6. Verifying provenance without a repository
 
-Nothing published cites a commit sha, because a reader of a release cannot
+Published corpus certificates and indices do not rely on a repository
+commit as provenance. A commit SHA alone is not evidence to someone
+holding only a release, because a reader of a release cannot
 resolve one. Certificates and `out/release/index.json` instead record the code
 version, the frozen policy version and hash, and a source-tree digest over
 every published file that can change a result. Recompute it from the release:
