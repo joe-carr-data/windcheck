@@ -1,30 +1,91 @@
 # Windcheck
 
-**Certified topology auditing and transverse-clean `tifxyz` outputs for a
-five-scroll corpus.**
+### Self-intersection checks for Herculaneum surface traces
 
-Of 185 pinned trace artifacts, 179 were censusable. All 179 now have
-reload-verified `tifxyz` outputs with zero non-adjacent transverse contacts
-under both canonical triangulations: 154 were transformed and 25 required no
-change. Six triangle-empty or invalid inputs have explicit terminal records.
+**A surface trace can pass through itself without the file saying so.
+Windcheck detects that hidden defect in one command and has terminally
+dispositioned all 284 traces in the audited published snapshot, with
+transverse-clean reference derivatives for all 274 censusable cases.**
 
-Two figures qualify that outcome, and they are stated separately because they
-measure different things:
+A tifxyz surface trace can cross itself: non-adjacent parts of the traced
+sheet pass through one another, so the representation is not an embedded
+single-sheet surface. Any downstream stage that consumes a dirty trace receives the same
+inconsistent embedding. Whether removing it improves ink, texturing,
+merging or tracing **has not been measured**. **Unless the census is run,
+the surface metadata itself does not disclose it.**
 
-- **Represented surface retained.** Unique-geometry-weighted retention of
-  original represented surface area is **99.505%** across the 185 priced
-  segments. The lowest per-segment retained fraction is **94.678%**
-  (`20251001060526-auto_grown_20251001060526760`).
-- **Fragmentation.** Five outputs do not meet the connectivity gate: every
-  component of the input 99.9%-area core was required to keep at least 90% of
-  its area in one descendant, and in five `auto_grown` segments it does not.
-  The lowest core value is 0.034. This is material, and it is not a bookkeeping
-  artifact.
+## What is here
 
-Every emitted artifact was independently re-censused in a fresh working
-directory: 154/154 transformed meshes re-hashed clean, 179/179 re-censused at
-0/0 non-adjacent transverse contacts under both canonical triangulations, with
-zero disagreements against the recorded census.
+| | |
+|---|---|
+| traces indexed, with terminal dispositions | **284** |
+| censusable, supplied with transverse-clean references | **274** |
+| of which transformed / already clean | **184 / 90** |
+| combined area-weighted retention | **0.994566** |
+| median area cost, over the 184 transformed | **0.083%** |
+| transformed references retaining ≥ 99% | **161 of 184 (88%)** |
+| below the 5,000-cell census validity floor, excluded | **10** |
+| census coverage | **315 segments across 14 scrolls** |
+
+**Verified with the official tool, not only our own.** All 274 reference
+surfaces censused with `vc_tifxyz_selfcross`: 274/274 clean under both
+canonical triangulations, none vacuous, across **456,475,808 triangles**.
+
+**Six of the 274 are transverse-clean but fail the preregistered
+99.9%-area core fragmentation gate.** Worst is
+`20251217234605-w2_20251217234605189` at 0.827 retained, min core
+`R_main` 0.000; the other five are `auto_grown` traces retaining 0.947 to
+0.989. Named so the aggregate does not hide them.
+
+The 284 / 274 / 184 / 90 population counts and the six core-gate
+failures are derived by `bench/reconcile.py` from one row per segment,
+which refuses to build when two source records disagree. Official
+cleanliness and the triangle total come from `B7-acceptance.json`; the
+315-segment census coverage comes from the frozen corpus census records.
+
+## Where this is useful
+
+| you are | you can |
+|---|---|
+| running a tracing/fitting pipeline | census sampled outputs before they go downstream |
+| maintaining an unroll/flatten stage | check a compatible export — demonstrated on Fiesta |
+| holding a finished dirty export | run a supported dirty export through the certified transaction |
+| publishing a corpus | adopt this as release QA |
+| building a repair method | be measured on the same 274 hash-bound cases |
+| consuming tifxyz today | download format-compatible clean reference derivatives |
+| using volume-cartographer | run the merged validator |
+
+Two boundaries. The merged validator makes checking **available**; it
+does not enforce anything automatically. And **no independent external
+method has yet been measured on the benchmark** — the infrastructure
+exists, the third-party result does not.
+
+## The benchmark — measure a different method on the same problem
+
+**[v0.3.2](https://github.com/joe-carr-data/windcheck/releases/tag/v0.3.2)**
+packages the 274 censusable cases as an evaluation set: the
+self-intersection witness for every input (**5,241,478 contacts**, each
+naming the participating quads and triangle indices), per-cell masks of
+every transformation, full provenance, an evaluator, and controls.
+
+```sh
+tar xzf windcheck-v0.3.2-topology-benchmark.tar.gz
+cd windcheck-v0.3.2-topology-benchmark
+./tools/quickstart.sh
+```
+
+That scores one small published trace as a candidate and shows it
+**rejected** because it self-intersects, rebuilds the reference from the
+shipped mask and shows it **scored**, then tells you where to substitute
+your own. Both demonstrations are gated: an unreachable validator, a
+census over an empty surface, or a reconstruction that is not the
+packaged reference makes the script fail rather than print a passing
+demo.
+
+The evaluator reports a **vector, never a single number** — a candidate
+that still self-intersects is not scored on cost at all, retention is
+priced on the input so invented geometry cannot inflate it, and the
+reference is **one admissible answer, not the target**.
 
 Targets [Open Problems](https://scrollprize.org/2026_open_problems) §2 and §3 —
 sheet switches and mesh topology repair — on
@@ -86,7 +147,8 @@ uv run windcheck transform data/scroll1_tifxyz/20231005123336 \
     --out out/transform/20231005123336
 ```
 
-Both finish in under three seconds on a laptop. Across the whole corpus the
+Both finish in under three seconds on a laptop. Across the 185-trace pinned
+inventory the
 median segment takes 36.8 s, the 90th percentile 140 s and the slowest 211 s,
 against a 600 s policy limit — a full-corpus pass is an afternoon, not a cluster
 job.
@@ -112,7 +174,7 @@ reproducible example and the limits.
 
 ---
 
-## Why both operators are necessary
+## Why both operators are necessary — pinned inventory
 
 The obvious repair is to nudge the mesh: move vertices until the surface stops
 touching itself. That works, and it is tried first, because it removes no
@@ -121,7 +183,9 @@ material. But it is not universal.
 Across the corpus, **1,477 crossing events carry certificates of rigid
 infeasibility with explicit witnesses** — no bounded displacement under the
 stated search and budget separates those contacts. For that population the only
-certified route to a clean surface is excision. Excision finds a feasible
+certified route to a clean surface is excision. Within the declared
+two-operator pipeline, excision is the remaining certified route for that
+population. Excision finds a feasible
 low-area mask. Minimum area is claimed only where the certificate records
 proven optimality.
 
@@ -204,9 +268,12 @@ this repository's history.
 
 ---
 
-## The corpus
+## The corpus — the pinned half
 
-185 pinned trace artifacts across five scrolls:
+The 284-trace inventory has two halves. This section describes the
+**185 pinned** artifacts across five scrolls; the other 99 are the
+expansion inventory, and the combined figures are at the top of this
+file.
 
 | corpus | artifacts |
 |---|---|
@@ -240,12 +307,12 @@ is **0.994566**, recomputed from per-segment areas.
 ## Every published trace
 
 Twelve samples in the open-data bucket publish surface traces as `tifxyz`.
-**All 278 of them have been censused** — the release covers the first 179,
-and [`docs/FULL-CORPUS.md`](docs/FULL-CORPUS.md) adds the remaining 99
-across seven samples that use a second published layout. As of the
-`v0.2.0` release those 99 are no longer census-only: each has a terminal
-disposition, and every censusable one has a verified transverse-clean
-output — see [`docs/CORPUS-EXPANSION.md`](docs/CORPUS-EXPANSION.md),
+**All 284 carry terminal census dispositions; 274 were censusable**, and the
+releases supply transverse-clean references for all 274.
+[`docs/FULL-CORPUS.md`](docs/FULL-CORPUS.md) documents the complete
+inventory and the denominator reconciliation;
+[`docs/CORPUS-EXPANSION.md`](docs/CORPUS-EXPANSION.md) documents the
+99-trace expansion,
 including the exact reconciliation of the 278-census and 284-index
 denominators.
 
@@ -347,15 +414,21 @@ died.
   certifies non-adjacent *transverse* contacts under two canonical
   triangulations. Coplanar overlap and grazing contact lie outside what is
   certified.
-- **Material fragmentation in five `auto_grown` outputs.** See the figure at the
-  top. The search targets area, not connectivity, so this is a real
-  property of those outputs and not a reporting choice.
-- **Six inputs were never audited.** They are triangle-empty or otherwise
-  invalid, and carry explicit terminal records rather than a verdict.
+- **Material fragmentation in six references.** Five pinned `auto_grown`
+  outputs plus the named expansion reference
+  `20251217234605-w2_20251217234605189` fail the 99.9%-area core gate. The
+  search targets area, not connectivity, so this is a real property of
+  those outputs and not a reporting choice.
 - **"Represented surface retained" is a geometric measure**, not a statement
   about how much papyrus or text survives.
-- The corpus is 185 pinned artifacts. It is not the whole open dataset, and
-  nothing is claimed outside it.
+- The corpus is **284 indexed traces** — 185 pinned plus 99 expansion —
+  of which 274 are censusable. It is a dated snapshot of what was
+  published at capture time, not the whole open dataset and not a live
+  mirror, and nothing is claimed outside it.
+- **Ten traces are below the census floor.** They carry terminal
+  dispositions, not clean verdicts, and are not part of the 274.
+- The repair establishes **geometric cleanliness only** — not improved
+  downstream ink, texture, merge or tracing quality.
 
 ---
 
@@ -382,7 +455,8 @@ docs/PATCH-AUDIT.md       independent audit of 84,316 published patches
 docs/CHECK-PAIRS.md       pairwise conflict test for candidate merge edges
 docs/FULL-CORPUS.md       every published trace, and the size model
 docs/HISTORY.md           what is production, supporting, retired
-results/                  precomputed audit results, all 179 segments
+results/                  precomputed pinned-audit results, all 179
+                          censusable pinned segments
 results/patches/          the patch audit summary and its five findings
 results/corpus/           the full-corpus census records
 ```
